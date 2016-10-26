@@ -1,3 +1,6 @@
+package src;
+
+//push test
 
 
 import java.io.File;
@@ -59,7 +62,6 @@ public class LoginGUI extends Application {
 		studentBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	//System.out.println("student login request");
             	user="Student";
             	StudentCalendar wlc = new StudentCalendar();
             	wlc.setVisible(true);
@@ -71,7 +73,6 @@ public class LoginGUI extends Application {
 		teacherBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	//System.out.println("teacher login request");
             	user="Teacher";
             	InstructorCalendar ic = new InstructorCalendar();
             	ic.showInstructorCalendar();

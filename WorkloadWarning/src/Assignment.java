@@ -1,5 +1,7 @@
 //workload warning project, SE300 Elisa Hawley
 
+package src;
+
 /**
  * Assignment class for Canvas-like assignment calendar
  * the Assignment object will store the data of an assignment including name, type, date, and course
