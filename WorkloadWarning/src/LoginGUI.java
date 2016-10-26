@@ -70,7 +70,6 @@ public class LoginGUI extends Application {
 		teacherBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	//SYstem.out.print"test");
             	user="Teacher";
             	InstructorCalendar ic = new InstructorCalendar();
             	ic.showInstructorCalendar();
