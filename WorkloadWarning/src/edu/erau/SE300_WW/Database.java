@@ -1,4 +1,4 @@
-package src;
+package edu.erau.SE300_WW;
 
 import java.io.File;
 import java.io.FileInputStream;

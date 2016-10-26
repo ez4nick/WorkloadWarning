@@ -1,4 +1,4 @@
-package src;
+package edu.erau.SE300_WW;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
