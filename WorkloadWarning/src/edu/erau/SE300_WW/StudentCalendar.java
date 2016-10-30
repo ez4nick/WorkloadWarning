@@ -36,7 +36,25 @@ public class StudentCalendar extends JFrame{
     this.setSize(900, 250);
     this.setLocationRelativeTo(null);
    
- 
+    JMenuBar menuBar = new JMenuBar();
+    JMenu item1 = new JMenu("File");
+    JMenu item2 = new JMenu("Help");
+    JMenuItem helpItem1 = new JMenuItem("Using the Calendar");
+    item2.add(helpItem1);
+    menuBar.add(item1);
+    menuBar.add(item2);
+    setJMenuBar(menuBar);
+    
+    helpItem1.addActionListener(new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			Help h = new Help("calendar","usingCal");
+		}
+    	
+    });
+    
+    
     label = new JLabel();
     label.setHorizontalAlignment(SwingConstants.CENTER);
  

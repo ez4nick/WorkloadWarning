@@ -51,18 +51,7 @@ public class LoginGUI extends Application {
 		help1.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent arg0) {
-				Stage newStage = new Stage();
-				newStage.setTitle("Getting Started");
-				VBox comp = new VBox();
-				comp.setPadding(new Insets(10, 10, 10, 10));
-				Label text = new Label("The Workload Warning application is designed to make scheduling assignments"
-						+ " easier for both students and faculty members. \n\nThe first step to using the application is logging in."
-						+ " Your system administrator will provide you with a user ID and password which you must use to login."); 
-				text.setWrapText(true);
-				comp.getChildren().add(text);
-				Scene stageScene = new Scene(comp, 300, 300);
-				newStage.setScene(stageScene);
-				newStage.show();
+				Help h = new Help("login","gettingStarted");		
 			}
 			
 		});
@@ -70,21 +59,7 @@ public class LoginGUI extends Application {
 		help2.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent arg0) {
-				Stage newStage = new Stage();
-				newStage.setTitle("About");
-				VBox comp = new VBox();
-				comp.setPadding(new Insets(10, 10, 10, 10));
-				
-				
-				Label text = new Label("The Workload Warning application was created in partial fulfillment of the requirements of"
-						+ " the course SE 300 at Embry-Riddle Aeronautical University in the Fall of 2016. The following group members"
-						+ " assisted with the development and testing of this application:\n\nNicholas Krawczyk\nElisa Hawley\nChianti Ghalson\nAlexandra Dipre\nThomas Ellis"); 
-				text.setWrapText(true);
-				text.setTextAlignment(TextAlignment.JUSTIFY);
-				comp.getChildren().add(text);
-				Scene stageScene = new Scene(comp, 350, 250);
-				newStage.setScene(stageScene);
-				newStage.show();
+				Help h = new Help("login","about");
 			}
 			
 		});

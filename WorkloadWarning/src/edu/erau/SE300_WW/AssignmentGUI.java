@@ -14,6 +14,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -23,9 +26,16 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
 
 /**
@@ -55,11 +65,14 @@ public class AssignmentGUI{
 	
 	InstructorCalendar ic;
 	
+	Stage newStage;
+	
 	/** Simple constructor used to initialize the assignment GUI
 	 * @param dd A database object is required to access the courses as well as add the new assignments to the database.
 	 */
 	public AssignmentGUI(Database dd){
 		d=dd; //Database object
+		
 	}
 	
 	/**
@@ -77,9 +90,27 @@ public class AssignmentGUI{
 	public void openAssignmentGUI(){
 		
 		
+		
 		String[] courseList = d.getListofCourses(); //List of courses to be displayed
 		frame = new JFrame("Assignment Creator"); //Frame for everything 
 		
+		JMenuBar menuBar = new JMenuBar();
+	    JMenu item1 = new JMenu("File");
+	    JMenu item2 = new JMenu("Help");
+	    JMenuItem helpItem1 = new JMenuItem("Adding an Assignment");
+	    item2.add(helpItem1);
+	    menuBar.add(item1);
+	    menuBar.add(item2);
+	    frame.setJMenuBar(menuBar);
+	    
+	    helpItem1.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Help h = new Help("assignmentCreator","addAssign");
+			}
+	    	
+	    });
 		
 		//3 Panels
 		JPanel panel1 = new JPanel();
@@ -134,7 +165,7 @@ public class AssignmentGUI{
 		
 		
 		frame.pack();
-		frame.setSize(400,215);
+		frame.setSize(400,235);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
@@ -247,6 +278,7 @@ public class AssignmentGUI{
 		typeSelection.setSelectedIndex(0);
 		model.setSelected(false);
 	}
+
 	
 }
 

@@ -39,6 +39,24 @@ public class InstructorCalendar extends JFrame{
     this.setLocationRelativeTo(null);
    
  
+    JMenuBar menuBar = new JMenuBar();
+    JMenu item1 = new JMenu("File");
+    JMenu item2 = new JMenu("Help");
+    JMenuItem helpItem1 = new JMenuItem("Using the Calendar");
+    item2.add(helpItem1);
+    menuBar.add(item1);
+    menuBar.add(item2);
+    setJMenuBar(menuBar);
+    
+    helpItem1.addActionListener(new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			Help h = new Help("calendar","usingCal");
+		}
+    	
+    });
+    
     label = new JLabel();
     label.setHorizontalAlignment(SwingConstants.CENTER);
  
@@ -70,10 +88,12 @@ public class InstructorCalendar extends JFrame{
     b3.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent ae) {
           //launch Assignment GUI
-          
+        	
+        	
         	Database d = new Database(new File("C:/WorkloadWarning/CanvasDatabase.xlsx"));
     		AssignmentGUI g = new AssignmentGUI(d,InstructorCalendar.this);
     		g.openAssignmentGUI();
+    		
         }
       });
     
