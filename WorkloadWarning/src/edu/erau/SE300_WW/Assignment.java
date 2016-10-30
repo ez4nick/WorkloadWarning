@@ -1,6 +1,6 @@
 //workload warning project, SE300 Elisa Hawley
 
-package src.edu.erau.SE300_WW;
+package edu.erau.SE300_WW;
 
 /**
  * Assignment class for Canvas-like assignment calendar

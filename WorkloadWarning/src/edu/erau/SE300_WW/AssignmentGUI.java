@@ -1,4 +1,4 @@
-package src.edu.erau.SE300_WW;
+package edu.erau.SE300_WW;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Properties;
 
@@ -21,6 +22,10 @@ import javax.swing.border.EmptyBorder;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.scene.control.DatePicker;
 
 
 /**
@@ -46,6 +51,7 @@ public class AssignmentGUI{
 	Boolean noTitle;
 	Boolean noType;
 	Boolean noDate;
+	DatePicker datePicker;
 	
 	InstructorCalendar ic;
 	
@@ -73,7 +79,6 @@ public class AssignmentGUI{
 		
 		String[] courseList = d.getListofCourses(); //List of courses to be displayed
 		frame = new JFrame("Assignment Creator"); //Frame for everything 
-		
 		
 		
 		//3 Panels
