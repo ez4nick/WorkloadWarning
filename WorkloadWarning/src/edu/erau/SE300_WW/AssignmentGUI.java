@@ -44,7 +44,7 @@ import javafx.stage.Stage;
  * will depend on whether a student or teacher is logged in. For a teacher, as long as the assignment
  * is not already existing in the database then it is immediately added. For a student, a teacher
  * must confirm their assignment before it is added into the database.
- * @author Nick 
+ * @author Nicholas Krawczyk
  *
  */
 public class AssignmentGUI{
