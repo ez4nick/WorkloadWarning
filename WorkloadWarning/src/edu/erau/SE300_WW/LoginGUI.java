@@ -6,9 +6,11 @@ import java.awt.event.WindowEvent;
 
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -17,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -28,11 +31,13 @@ import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class LoginGUI extends Application {
-	public static String user;
+	public static String user; //Currently logged in user
+	public static String dataseFilePath; //Path to the database file
 	@Override
 	public void start(Stage loginStage) throws Exception {
 		
@@ -65,14 +70,48 @@ public class LoginGUI extends Application {
 		});
 		
 		
-		//First check if the databse file exists
+		//First check if the database file exists
 		File f = new File("C:/WorkloadWarning/CanvasDatabase.xlsx");
 		if(!f.exists()){
-			Alert alert = new Alert(AlertType.WARNING);
+			
+			ButtonType locateButton = new ButtonType("Locate");
+			ButtonType quitButton = new ButtonType("Quit");
+			//Show warning alert
+			Alert alert = new Alert(AlertType.WARNING,"",locateButton,quitButton);
 			alert.setTitle("Warning!");
 			alert.setHeaderText("Databse Not Found");
-			alert.setContentText("Databse file was not found. The databse file must be named 'CanvasDatabase.xlsx' and be located in 'C:/WorkloadWarning'.");
+			alert.setContentText("Databse file was not found. The databse file must now be located.");
 			alert.showAndWait();
+			
+			if(alert.getResult().getText().equals("Locate")){
+				//Locate button was pressed, Show file chooser to pick the correct file
+				
+				
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.getExtensionFilters().addAll(
+		                new FileChooser.ExtensionFilter("XLSX", "*.xlsx")
+		            );
+				fileChooser.setTitle("Open Database File");
+				
+				File selectedFile =fileChooser.showOpenDialog(loginStage);
+				if(selectedFile.exists()){
+					dataseFilePath=selectedFile.getAbsolutePath();
+				}
+				
+			
+			}
+			else{
+				//Quit was pressed, quit the application
+				Platform.exit();
+			    System.exit(0);
+			}
+			System.out.println();
+			
+			
+		}
+		else{
+			//File was found in default location
+			dataseFilePath="C:/WorkloadWarning/CanvasDatabase.xlsx";
 		}
 		
 		//create the window
