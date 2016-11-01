@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 
@@ -91,7 +92,12 @@ public class AssignmentGUI{
 		
 		
 		
-		String[] courseList = d.getListofCourses(); //List of courses to be displayed
+		ArrayList<String> tempCourseList = d.searchSCourses(LoginGUI.currentUserName); //List of courses to be displayed
+		String courseList[]= new String[tempCourseList.size()];
+		for(int x=0; x<tempCourseList.size();x++){
+			courseList[x]=tempCourseList.get(x);
+		}
+		
 		frame = new JFrame("Assignment Creator"); //Frame for everything 
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -237,7 +243,7 @@ public class AssignmentGUI{
 				}
 				else{
 					//All values are OK!
-					if(LoginGUI.user.equals("Teacher")){
+					if(LoginGUI.userType.equals("Teacher")){
 						ProfessorWarning p = new ProfessorWarning(AssignmentGUI.this);
 						
 					}
@@ -264,7 +270,7 @@ public class AssignmentGUI{
 	 * the assignment was successfully created.
 	 */
 	public void showSuccessDialog(){
-		if(LoginGUI.user.equals("Teacher")){
+		if(LoginGUI.userType.equals("Teacher")){
 			System.out.println(selectedDate.toString().substring(4,7));
 			ic.addAssignment(Integer.parseInt(selectedDate.toString().substring(8,10)), inputText.getText(), courseSelection.getSelectedItem().toString(),selectedDate.toString().substring(4,7));
 			JOptionPane.showMessageDialog(frame, "Assignment Sucessfully Created\nTitle: "+inputText.getText()+"\nDate: "+selectedDate.toString().substring(0,10)+

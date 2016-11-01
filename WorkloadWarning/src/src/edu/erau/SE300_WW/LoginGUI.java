@@ -36,8 +36,10 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class LoginGUI extends Application {
-	public static String user; //Currently logged in user
+	public static String userType; //Currently logged in user (teacher or student)
+	public static String currentUserName; //User name of the currently logged in user
 	public static String dataseFilePath; //Path to the database file
+	
 	@Override
 	public void start(Stage loginStage) throws Exception {
 		
@@ -148,7 +150,8 @@ public class LoginGUI extends Application {
 		studentBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	user="Student";
+            	userType="Student";
+            	currentUserName="Elisa";
             	StudentCalendar wlc = new StudentCalendar();
             	wlc.setVisible(true);
             	loginStage.close();
@@ -159,7 +162,8 @@ public class LoginGUI extends Application {
 		teacherBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	user="Teacher";
+            	userType="Teacher";
+            	currentUserName="Professor A";
             	InstructorCalendar ic = new InstructorCalendar();
             	ic.showInstructorCalendar();
             	loginStage.close();
