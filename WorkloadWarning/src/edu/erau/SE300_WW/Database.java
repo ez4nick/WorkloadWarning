@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -100,7 +101,8 @@ public class Database {
 			loop = true;
 			CellReference a1, t2, d3, c4;
 			Cell assignmentLoc, typeLoc, dateLoc, courseLoc;
-			String name = "", type = "", date = "", course = "";
+			String name = "", type = "", course = "";
+			Date date;
 			while (loop == true){
 				a1 = new CellReference ("A"+i);
 				assignmentLoc = sheet.getRow(a1.getRow()).getCell(a1.getCol());
@@ -115,8 +117,7 @@ public class Database {
 					name = data.trim();
 					data = typeLoc.getStringCellValue();
 					type = data.trim();
-					data = dateLoc.getStringCellValue();
-					date = data.trim();
+					date = dateLoc.getDateCellValue();
 					data = courseLoc.getStringCellValue();
 					course = data.trim();
 				} catch (NullPointerException exception){
@@ -159,8 +160,7 @@ public class Database {
 					name = data.trim();
 					data = typeLoc.getStringCellValue();
 					type = data.trim();
-					data = dateLoc.getStringCellValue();
-					date = data.trim();
+					date = dateLoc.getDateCellValue();
 					data = courseLoc.getStringCellValue();
 					course = data.trim();
 					data = toLoc.getStringCellValue();

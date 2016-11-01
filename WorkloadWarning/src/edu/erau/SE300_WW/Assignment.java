@@ -2,6 +2,8 @@
 
 package src.edu.erau.SE300_WW;
 
+import java.util.Date;
+
 /**
  * Assignment class for Canvas-like assignment calendar
  * the Assignment object will store the data of an assignment including name, type, date, and course
@@ -11,7 +13,7 @@ public class Assignment {
 
 	public String courseName;
 	public String assignmentName;
-	public String assignmentDate;
+	public Date assignmentDate;
 	public String assignmentType;
 	
 	/**
@@ -22,7 +24,7 @@ public class Assignment {
 	 * @param course: string entry of course assignment is due in
 	 * @author Elisa
 	 */
-	public Assignment(String assignment, String type, String date, String course){
+	public Assignment(String assignment, String type, Date date, String course){
 		assignmentName = assignment;
 		assignmentType = type;
 		assignmentDate = date;

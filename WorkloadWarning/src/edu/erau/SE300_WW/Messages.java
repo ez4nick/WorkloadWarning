@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,7 +21,7 @@ public class Messages {
 
 	public String assignment;
 	public String type;
-	public String date;
+	public Date date;
 	public String course;
 	public String recipient;
 	public String sender;
@@ -38,7 +39,7 @@ public class Messages {
 	 * @author Elisa
 	 */
 	public Messages (String assignmentName, String assignmentType, 
-			String dueDate, String assignmentCourse, String to, String from, String messageStatus){
+			Date dueDate, String assignmentCourse, String to, String from, String messageStatus){
 		assignment = assignmentName;
 		type = assignmentType;
 		date = dueDate;
