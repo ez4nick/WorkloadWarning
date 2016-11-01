@@ -126,6 +126,7 @@ public class Database {
 					loop = false;
 				} else {
 					assignmentAL.add(new Assignment(name, type, date, course));
+					System.out.println("New assignment");
 				}
 			}
 			
@@ -175,6 +176,7 @@ public class Database {
 					loop = false;
 				} else {
 					messageAL.add(new Messages(name, type, date, course, to, from, status));
+					System.out.println("New Message");
 				}
 			}
 				
