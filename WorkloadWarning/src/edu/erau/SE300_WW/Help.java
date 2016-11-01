@@ -1,6 +1,6 @@
 package src.edu.erau.SE300_WW;
 
-//git problems
+//git problems test
 
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
@@ -29,7 +29,7 @@ public class Help{
 	 * @param item Which item within the help menu was clicked
 	 */
 	public Help(String location, String item){
-		System.out.println("Git problems");
+		System.out.println("Git problems test");
 		
 		if(location.equals("login") && item.equals("gettingStarted")){
 			stageDimx=300;
