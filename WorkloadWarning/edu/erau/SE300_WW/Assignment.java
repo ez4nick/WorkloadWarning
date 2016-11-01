@@ -15,16 +15,18 @@ public class Assignment {
 	public String assignmentType;
 	
 	/**
-	 * the constructor will save all data of the assignment
-	 * @param data: String formatted as name.type.date(mm/dd/yy).course
+	 * Assignment constructor stores the assignment as 1 object
+	 * @param assignment: string entry of assignment name
+	 * @param type: string entry of assignment type - Hw, Quiz, Exam
+	 * @param date: string entry of assignment date
+	 * @param course: string entry of course assignment is due in
 	 * @author Elisa
 	 */
-	public Assignment (String data) {
-		String [] work = data.split("\\.");
-		assignmentName = work [0].toLowerCase();
-		assignmentType = work [1].toLowerCase();
-		assignmentDate = work [2];
-		courseName = work [3].toUpperCase();
-		//System.out.println(assignmentName + assignmentType + assignmentDate + courseName);
+	public Assignment(String assignment, String type, String date, String course){
+		assignmentName = assignment;
+		assignmentType = type;
+		assignmentDate = date;
+		courseName = course;
 	}
+
 }

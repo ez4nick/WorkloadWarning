@@ -24,7 +24,7 @@ public class Database {
 	
 	private ArrayList <Assignment> assignmentAL;
 	private String [][] studentArray;
-	private ArrayList <Assignment> messageAL;
+	private ArrayList <Messages> messageAL;
 	private File theExcel;
 	
 	
@@ -47,10 +47,10 @@ public class Database {
 			//students by course
 			Sheet sheet = workbook.getSheetAt(0);
 			//size of schedule
-			CellReference ref = new CellReference("H1");
+			CellReference ref = new CellReference("I1");
 			Cell loc = sheet.getRow(ref.getRow()).getCell(ref.getCol());
 			int rownum = (int)loc.getNumericCellValue();
-			ref = new CellReference("F1");
+			ref = new CellReference("G1");
 			loc = sheet.getRow(ref.getRow()).getCell(ref.getCol());
 			int colnum = (int)loc.getNumericCellValue();
 			studentArray = new String [rownum][colnum];
@@ -95,50 +95,87 @@ public class Database {
 			//assignments
 			assignmentAL = new ArrayList<Assignment> (0);
 			sheet = workbook.getSheetAt(1);
-			int i = 0;
+			int i = 2;
+			data = "";
 			loop = true;
+			CellReference a1, t2, d3, c4;
+			Cell assignmentLoc, typeLoc, dateLoc, courseLoc;
+			String name = "", type = "", date = "", course = "";
 			while (loop == true){
-				ref = new CellReference ("A" + (i+2));
+				a1 = new CellReference ("A"+i);
+				assignmentLoc = sheet.getRow(a1.getRow()).getCell(a1.getCol());
+				t2 = new CellReference ("B" +i);
+				typeLoc = sheet.getRow(t2.getRow()).getCell(t2.getCol());
+				d3 = new CellReference ("C" +i);
+				dateLoc = sheet.getRow(d3.getRow()).getCell(d3.getCol());
+				c4 = new CellReference ("D" +i);
+				courseLoc = sheet.getRow(c4.getRow()).getCell(c4.getCol());
 				try {
-					loc = sheet.getRow(ref.getRow()).getCell(ref.getCol());
-					data = loc.getStringCellValue();
-					data = data.trim();
+					data = assignmentLoc.getStringCellValue();
+					name = data.trim();
+					data = typeLoc.getStringCellValue();
+					type = data.trim();
+					data = dateLoc.getStringCellValue();
+					date = data.trim();
+					data = courseLoc.getStringCellValue();
+					course = data.trim();
 				} catch (NullPointerException exception){
 					data = "";
 				}
 				if (data.isEmpty()){
 					loop = false;
 				} else {
-					//System.out.println(data);
-					assignmentAL.add(new Assignment(data));
-					i++;
+					assignmentAL.add(new Assignment(name, type, date, course));
 				}
-				
-				
 			}
 			
 			//messages
-			messageAL = new ArrayList<Assignment> (0);
+			messageAL = new ArrayList<Messages> (0);
 			sheet = workbook.getSheetAt(2);
-			i = 0;
+			i = 2;
+			data = "";
 			loop = true;
+			CellReference t5, f6, s7;
+			Cell toLoc, fromLoc, statusLoc;
+			String to = "", from = "", status = "";
 			while (loop == true){
-				ref = new CellReference ("A" + (i+2));
+				a1 = new CellReference ("A"+i);
+				assignmentLoc = sheet.getRow(a1.getRow()).getCell(a1.getCol());
+				t2 = new CellReference ("B" +i);
+				typeLoc = sheet.getRow(t2.getRow()).getCell(t2.getCol());
+				d3 = new CellReference ("C" +i);
+				dateLoc = sheet.getRow(d3.getRow()).getCell(d3.getCol());
+				c4 = new CellReference ("D" +i);
+				courseLoc = sheet.getRow(c4.getRow()).getCell(c4.getCol());
+				t5 = new CellReference("E" +i);
+				toLoc = sheet.getRow(t5.getRow()).getCell(t5.getCol());
+				f6 = new CellReference("F" +i);
+				fromLoc = sheet.getRow(f6.getRow()).getCell(f6.getCol());
+				s7 = new CellReference("G" +i);
+				statusLoc = sheet.getRow(s7.getRow()).getCell(s7.getCol());
 				try {
-					loc = sheet.getRow(ref.getRow()).getCell(ref.getCol());
-					data = loc.getStringCellValue();
-					data = data.trim();
+					data = assignmentLoc.getStringCellValue();
+					name = data.trim();
+					data = typeLoc.getStringCellValue();
+					type = data.trim();
+					data = dateLoc.getStringCellValue();
+					date = data.trim();
+					data = courseLoc.getStringCellValue();
+					course = data.trim();
+					data = toLoc.getStringCellValue();
+					to = data.trim();
+					data = fromLoc.getStringCellValue();
+					from = data.trim();
+					data = statusLoc.getStringCellValue();
+					status = data.trim();
 				} catch (NullPointerException exception){
 					data = "";
 				}
 				if (data.isEmpty()){
 					loop = false;
 				} else {
-					//System.out.println(data);
-					messageAL.add(new Assignment(data));
-					i++;
+					messageAL.add(new Messages(name, type, date, course, to, from, status));
 				}
-				
 			}
 				
 			workbook.close();
@@ -150,70 +187,113 @@ public class Database {
 	
 	
 	/**
-	 * getAssignments() allows for reading the assignments stored in the database
+	 * getAllAssignments() allows for reading the assignments stored in the database
 	 * @return an ArrayList of Assignment objects
 	 * @author Elisa
 	 */
-	public ArrayList <Assignment> getAssignments () {
+	public ArrayList <Assignment> getAllAssignments () {
 		return assignmentAL;
 	}
 	
 	
 	/**
-	 * getStudents() allows for reading the students stored in the database
+	 * getAllStudents() allows for reading the students stored in the database
 	 * @return a 2D array of Strings, formatted [i][0] is the course and [i][n>0] is a student enrolled in that course
 	 * @author Elisa 
 	 */
-	public String [][] getStudents () {
+	public String [][] getAllStudents () {
 		return studentArray;
 	}
 	
 	
 	/**
-	 * getMessages() allows for reading the assignments left in messages to the teacher
+	 * getMessages(String recipient) allows for reading the assignments left in messages to the teacher
 	 * @return an ArrayList of Assignment
 	 * @author Elisa
 	 */
-	public ArrayList<Assignment> getMessages () {
-		return messageAL;
-	}
-	
-	
-	/**
-	 * getListofCources() allows for reading of the courses students are enrolled in
-	 * @return a String array
-	 * @author Nick
-	 */
-	public String[] getListofCourses(){
-		String[] temp = new String[studentArray.length];
-		temp[0]="Select a Course";
-		for(int x=0; x<studentArray.length-1;x++){
-			temp[x+1]=studentArray[x][0];
+	public ArrayList<Messages> getMessages (String recipient) {
+		ArrayList <Messages> checkMail = new ArrayList <Messages> (0);
+		for (Messages temp: messageAL){
+			if (temp.recipient.equals(recipient)){
+				checkMail.add(temp);
+			}
 		}
-		return temp;
+		return checkMail;
 	}
 	
-	//TODO: searchCourse
+	
 	/**
-	 * searchCourses(string) allows for a course list to be generated for a given student
+	 * searchTCourses (String Teacher) allows for a course list to be generated for a given teacher
+	 * @param teacher: string of teacher's name
+	 * @return an ArrayList of Strings containing the courses the teacher teaches 
+	 * @author Elisa
+	 */
+	public ArrayList<String> searchTCourses (String Teacher){
+		ArrayList<String> courseList = new ArrayList<String>(0);
+		int i = 0;
+		for (i = 0; i<studentArray.length; i++){
+			if (studentArray[i][1].equals(Teacher)){
+				courseList.add(studentArray[i][2]);
+			}
+		}
+		return courseList;
+	}
+	
+	/**
+	 * searchSCourses(string) allows for a course list to be generated for a given student
 	 * @param student: string of student's first name
 	 * @return an ArrayList of Strings containing the courses the student is enrolled in
 	 * @author Elisa
 	 */
-	public ArrayList <String> searchCourses (String student) {
+	public ArrayList <String> searchSCourses (String student) {
 		ArrayList <String> courses = new ArrayList <String> (0);
+		int j = 0;
+		int k = 0;
+		for (j = 0; j < studentArray.length; j++){
+			for (k = 0; k < studentArray[j].length; k++){
+				if (studentArray[j][k].equals(student)){
+					courses.add(studentArray[j][2]);
+				}
+			}
+		}
 		return courses;
 	}
 	
-	//TODO: searchAssignment
 	/**
-	 * searchAssignment(String) allows for an assignments list to be generated for a given student
+	 * searchSAssignment(String) allows for an assignments list to be generated for a given student
 	 * @param student: string of student's first name
 	 * @return an ArrayList of Assignment containing the assignments for the courses the student is enrolled in
 	 * @author Elisa
 	 */
-	public Assignment [] searchAssignment (String student){
-		Assignment [] work = {};
+	public ArrayList<Assignment> searchSAssignment (String student){
+		ArrayList<Assignment> work = new ArrayList<Assignment>(0);
+		ArrayList<String> courses = searchSCourses(student);
+		for (Assignment temp: assignmentAL){
+			for (String courseTemp: courses){
+				if (temp.courseName.equals(courseTemp)){
+					work.add(temp);
+				}
+			}
+		}
+		return work;
+	}
+	
+	/**
+	 * searchTAssignment(String) allows for an assignments list to be generated for a given Teacher
+	 * @param Teacher: string of Teacher's name
+	 * @return an ArrayList of Assignment containing the assignments for the courses the Teacher teaches
+	 * @author Elisa
+	 */
+	public ArrayList<Assignment> searchTAssignment (String teacher){
+		ArrayList<Assignment> work = new ArrayList<Assignment>(0);
+		ArrayList<String> courses = searchTCourses(teacher);
+		for (Assignment temp: assignmentAL){
+			for (String courseTemp: courses){
+				if (temp.courseName.equals(courseTemp)){
+					work.add(temp);
+				}
+			}
+		}
 		return work;
 	}
 	

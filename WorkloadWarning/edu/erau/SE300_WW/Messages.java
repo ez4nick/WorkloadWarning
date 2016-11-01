@@ -18,10 +18,39 @@ import javax.swing.SwingUtilities;
  */
 public class Messages {
 
-	public Messages(){
-		
-	}
+	public String assignment;
+	public String type;
+	public String date;
+	public String course;
+	public String recipient;
+	public String sender;
+	public String status;
 	
+	/**
+	 * Messages constructor populates the fields of a message from a given series of strings
+	 * @param assignmentName: string containing the name of the assignment
+	 * @param assignmentType: string containing the type of the assignment - Hw, Quiz, Exam
+	 * @param dueDate: string containing the date the assignment is due
+	 * @param assignmentCourse: string containing the course the assingment is due in
+	 * @param to: string containing the name of the recipient of the message
+	 * @param from: string containing the sender of the message
+	 * @param messageStatus: string containing the status of the message - request, approved, denied
+	 * @author Elisa
+	 */
+	public Messages (String assignmentName, String assignmentType, 
+			String dueDate, String assignmentCourse, String to, String from, String messageStatus){
+		assignment = assignmentName;
+		type = assignmentType;
+		date = dueDate;
+		course = assignmentCourse;
+		recipient = to;
+		sender = from;
+		status = messageStatus;
+	}
+	//TODO: javadoc
+	/**
+	 * @author Nick
+	 */
 	public void openMessagesDisplay(){
         JFrame f = new JFrame();
         f.setTitle("Messages");
