@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class DatabaseTester {
 	
 	public static void main(String [] args){
-		File file = new File ("C:/WorkloadWarning/CanvasDatabase.xlsx");
+		File file = new File ("C:/Users/Elisa/Documents/CanvasDatabase.xlsx");
 		Database data = new Database(file);
 		
 		System.out.println("Professor B courses");
@@ -56,6 +56,14 @@ public class DatabaseTester {
 			System.out.print(temp + " ");
 		}
 		System.out.println("");
+		
+		System.out.println("Student User Test");
+		int user = data.isUser("Patrick");
+		System.out.println("Patrick " + user);
+		user = data.isUser("Nick");
+		System.out.println("Nick " +user);
+		user = data.isUser("Professor B");
+		System.out.println("Professor B " +user);
 		
 	}
 	
