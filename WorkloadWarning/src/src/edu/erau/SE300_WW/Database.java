@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -100,23 +103,24 @@ public class Database {
 			loop = true;
 			CellReference a1, t2, d3, c4;
 			Cell assignmentLoc, typeLoc, dateLoc, courseLoc;
-			String name = "", type = "", date = "", course = "";
+			String name = "", type = "", course = "";
+			Date date = new GregorianCalendar (Calendar.NOVEMBER, 1, 2016).getGregorianChange();
 			while (loop == true){
-				a1 = new CellReference ("A"+i);
-				assignmentLoc = sheet.getRow(a1.getRow()).getCell(a1.getCol());
-				t2 = new CellReference ("B" +i);
-				typeLoc = sheet.getRow(t2.getRow()).getCell(t2.getCol());
-				d3 = new CellReference ("C" +i);
-				dateLoc = sheet.getRow(d3.getRow()).getCell(d3.getCol());
-				c4 = new CellReference ("D" +i);
-				courseLoc = sheet.getRow(c4.getRow()).getCell(c4.getCol());
 				try {
+					a1 = new CellReference ("A"+i);
+					assignmentLoc = sheet.getRow(a1.getRow()).getCell(a1.getCol());
+					t2 = new CellReference ("B" +i);
+					typeLoc = sheet.getRow(t2.getRow()).getCell(t2.getCol());
+					d3 = new CellReference ("C" +i);
+					dateLoc = sheet.getRow(d3.getRow()).getCell(d3.getCol());
+					c4 = new CellReference ("D" +i);
+					courseLoc = sheet.getRow(c4.getRow()).getCell(c4.getCol());
+//file with working database 
 					data = assignmentLoc.getStringCellValue();
 					name = data.trim();
 					data = typeLoc.getStringCellValue();
 					type = data.trim();
-					data = dateLoc.getStringCellValue();
-					date = data.trim();
+					date = dateLoc.getDateCellValue();
 					data = courseLoc.getStringCellValue();
 					course = data.trim();
 				} catch (NullPointerException exception){
@@ -126,6 +130,8 @@ public class Database {
 					loop = false;
 				} else {
 					assignmentAL.add(new Assignment(name, type, date, course));
+					System.out.println("New assignment " + name);
+					i++;
 				}
 			}
 			
@@ -139,27 +145,27 @@ public class Database {
 			Cell toLoc, fromLoc, statusLoc;
 			String to = "", from = "", status = "";
 			while (loop == true){
-				a1 = new CellReference ("A"+i);
-				assignmentLoc = sheet.getRow(a1.getRow()).getCell(a1.getCol());
-				t2 = new CellReference ("B" +i);
-				typeLoc = sheet.getRow(t2.getRow()).getCell(t2.getCol());
-				d3 = new CellReference ("C" +i);
-				dateLoc = sheet.getRow(d3.getRow()).getCell(d3.getCol());
-				c4 = new CellReference ("D" +i);
-				courseLoc = sheet.getRow(c4.getRow()).getCell(c4.getCol());
-				t5 = new CellReference("E" +i);
-				toLoc = sheet.getRow(t5.getRow()).getCell(t5.getCol());
-				f6 = new CellReference("F" +i);
-				fromLoc = sheet.getRow(f6.getRow()).getCell(f6.getCol());
-				s7 = new CellReference("G" +i);
-				statusLoc = sheet.getRow(s7.getRow()).getCell(s7.getCol());
 				try {
+					a1 = new CellReference ("A"+i);
+					assignmentLoc = sheet.getRow(a1.getRow()).getCell(a1.getCol());
+					t2 = new CellReference ("B" +i);
+					typeLoc = sheet.getRow(t2.getRow()).getCell(t2.getCol());
+					d3 = new CellReference ("C" +i);
+					dateLoc = sheet.getRow(d3.getRow()).getCell(d3.getCol());
+					c4 = new CellReference ("D" +i);
+					courseLoc = sheet.getRow(c4.getRow()).getCell(c4.getCol());
+					t5 = new CellReference("E" +i);
+					toLoc = sheet.getRow(t5.getRow()).getCell(t5.getCol());
+					f6 = new CellReference("F" +i);
+					fromLoc = sheet.getRow(f6.getRow()).getCell(f6.getCol());
+					s7 = new CellReference("G" +i);
+					statusLoc = sheet.getRow(s7.getRow()).getCell(s7.getCol());
+
 					data = assignmentLoc.getStringCellValue();
 					name = data.trim();
 					data = typeLoc.getStringCellValue();
 					type = data.trim();
-					data = dateLoc.getStringCellValue();
-					date = data.trim();
+					date = dateLoc.getDateCellValue();
 					data = courseLoc.getStringCellValue();
 					course = data.trim();
 					data = toLoc.getStringCellValue();
@@ -175,6 +181,8 @@ public class Database {
 					loop = false;
 				} else {
 					messageAL.add(new Messages(name, type, date, course, to, from, status));
+					System.out.println("New Message");
+					i++;
 				}
 			}
 				
@@ -232,8 +240,12 @@ public class Database {
 		ArrayList<String> courseList = new ArrayList<String>(0);
 		int i = 0;
 		for (i = 0; i<studentArray.length; i++){
-			if (studentArray[i][1].equals(Teacher)){
-				courseList.add(studentArray[i][2]);
+			try {
+				if (studentArray[i][0].equals(Teacher)){
+					courseList.add(studentArray[i][1]);
+				}
+			} catch (NullPointerException exception) {
+				
 			}
 		}
 		return courseList;
@@ -250,10 +262,14 @@ public class Database {
 		int j = 0;
 		int k = 0;
 		for (j = 0; j < studentArray.length; j++){
-			for (k = 0; k < studentArray[j].length; k++){
-				if (studentArray[j][k].equals(student)){
-					courses.add(studentArray[j][2]);
+			try {
+				for (k = 0; k < studentArray[j].length; k++){
+					if (studentArray[j][k].equals(student)){
+						courses.add(studentArray[j][1]);
+					}
 				}
+			} catch (NullPointerException exception) {
+				
 			}
 		}
 		return courses;

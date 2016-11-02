@@ -36,7 +36,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class LoginGUI extends Application {
-	public static String userType; //Currently logged in user (teacher or student)
+	public static String userType; //Currently logged in type of user ('Teacher' or 'Student')
 	public static String currentUserName; //User name of the currently logged in user
 	public static String dataseFilePath; //Path to the database file
 	
@@ -151,7 +151,7 @@ public class LoginGUI extends Application {
             @Override
             public void handle(ActionEvent event) {
             	userType="Student";
-            	currentUserName="Elisa";
+            	currentUserName="Elisa"; //Replace with the name of the student who is logged in
             	StudentCalendar wlc = new StudentCalendar();
             	wlc.setVisible(true);
             	loginStage.close();
@@ -163,7 +163,7 @@ public class LoginGUI extends Application {
             @Override
             public void handle(ActionEvent event) {
             	userType="Teacher";
-            	currentUserName="Professor A";
+            	currentUserName="Professor A"; //Replace with the name of the teacher who is logged in
             	InstructorCalendar ic = new InstructorCalendar();
             	ic.showInstructorCalendar();
             	loginStage.close();

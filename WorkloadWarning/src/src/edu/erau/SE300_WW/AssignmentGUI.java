@@ -49,7 +49,7 @@ import javafx.stage.Stage;
  *
  */
 public class AssignmentGUI{
-	//hello hell0
+	
 	Database d;
 	JFrame frame;
 	JTextField inputText;
@@ -93,9 +93,10 @@ public class AssignmentGUI{
 		
 		
 		ArrayList<String> tempCourseList = d.searchSCourses(LoginGUI.currentUserName); //List of courses to be displayed
-		String courseList[]= new String[tempCourseList.size()];
+		String courseList[]= new String[tempCourseList.size()+1];
+		courseList[0]="Select a Course"; //Set the default display for the selection
 		for(int x=0; x<tempCourseList.size();x++){
-			courseList[x]=tempCourseList.get(x);
+			courseList[x+1]=tempCourseList.get(x);
 		}
 		
 		frame = new JFrame("Assignment Creator"); //Frame for everything 
