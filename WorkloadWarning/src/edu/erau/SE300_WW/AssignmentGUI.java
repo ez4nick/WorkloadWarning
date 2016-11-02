@@ -73,7 +73,6 @@ public class AssignmentGUI{
 	 */
 	public AssignmentGUI(Database dd){
 		d=dd; //Database object
-		System.out.println("I hate Git");
 	}
 	
 	/**
