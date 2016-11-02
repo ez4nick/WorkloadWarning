@@ -134,11 +134,11 @@ public class LoginGUI extends Application {
 		userNameField.setLayoutY(80);
 		
 		//create the buttons
-		Button studentBtn, teacherBtn;
-		studentBtn = new Button("Student");
+		Button loginBtn, teacherBtn;
+		loginBtn = new Button("Login");
 		teacherBtn = new Button("Teacher");
-		studentBtn.setLayoutX(100);
-		studentBtn.setLayoutY(120);
+		loginBtn.setLayoutX(100);
+		loginBtn.setLayoutY(120);
 		teacherBtn.setLayoutX(200);
 		teacherBtn.setLayoutY(120);
 		
@@ -149,7 +149,7 @@ public class LoginGUI extends Application {
 		
 		
 		//add buttons, labels and textField to the pane
-		pane.getChildren().add(studentBtn);
+		pane.getChildren().add(loginBtn);
 		pane.getChildren().add(teacherBtn);
 		pane.getChildren().add(label);
 		pane.getChildren().add(menuBar);
@@ -159,15 +159,25 @@ public class LoginGUI extends Application {
 		
 		
 		//button actions
-		studentBtn.setOnAction(new EventHandler<ActionEvent>() {
+		loginBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
             	userType="Student";
             	currentUserName=userNameField.getText(); //Replace with the name of the student who is logged in
-            	databaseShared.isStudent(currentUserName);
-            	StudentCalendar wlc = new StudentCalendar();
-            	wlc.setVisible(true);
-            	loginStage.close();
+            	if(databaseShared.isUser(currentUserName)==0){
+            		userNameField.setText("login failed!");
+            	}
+            	else if(databaseShared.isUser(currentUserName)==1){
+            		StudentCalendar wlc = new StudentCalendar();
+                	wlc.setVisible(true);
+                	loginStage.close();
+            	}
+            	else if(databaseShared.isUser(currentUserName)==2){
+            		InstructorCalendar ic = new InstructorCalendar();
+                	ic.showInstructorCalendar();
+                	loginStage.close();
+            	}
+            	
             }
             
         });
@@ -177,6 +187,7 @@ public class LoginGUI extends Application {
             public void handle(ActionEvent event) {
             	userType="Teacher";
             	currentUserName=userNameField.getText(); //Replace with the name of the teacher who is logged in
+            	//databaseShared.isStudent(currentUserName);
             	InstructorCalendar ic = new InstructorCalendar();
             	ic.showInstructorCalendar();
             	loginStage.close();
