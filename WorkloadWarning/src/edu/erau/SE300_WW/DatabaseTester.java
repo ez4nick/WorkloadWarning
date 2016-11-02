@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class DatabaseTester {
 	
 	public static void main(String [] args){
-		File file = new File ("C:/Users/Elisa/Documents/CanvasDatabase.xlsx");
+		File file = new File ("C:/WorkloadWarning/CanvasDatabase.xlsx");
 		Database data = new Database(file);
 		
 		System.out.println("Professor A courses");
