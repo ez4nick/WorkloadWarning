@@ -164,6 +164,7 @@ public class LoginGUI extends Application {
             public void handle(ActionEvent event) {
             	userType="Student";
             	currentUserName=userNameField.getText(); //Replace with the name of the student who is logged in
+            	databaseShared.isStudent(currentUserName);
             	StudentCalendar wlc = new StudentCalendar();
             	wlc.setVisible(true);
             	loginStage.close();
