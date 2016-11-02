@@ -302,18 +302,25 @@ public class Database {
 	}
 	
 	/**
-	 * isStudent (string) tests to see if the user name provided is a student enrolled in any course
+	 * isUser (string) tests to see if the user name provided is a user, and returns no, student, or teacher in int value
 	 * @param user: string containing user name
-	 * @return boolean value of true if user is an enrolled student, false if user is not enrolled
+	 * @return int value: 0 if not a user, 1 if student, 2 if teacher
 	 * @author Elisa
 	 */
-	public boolean isStudent (String user){
-		boolean student = true;
-		ArrayList <String> courses = searchSCourses(user);
+	public int isUser (String name){
+		int user = 0;
+		ArrayList <String> courses = searchSCourses(name);
 		if (courses.isEmpty()){
-			student = false;
+			courses = searchTCourses(name);
+			if (courses.isEmpty()){
+				
+			} else {
+				user = 2;
+			}
+		} else {
+			user = 1;
 		}
-		return student;
+		return user;
 	}
 	
 	/**
