@@ -77,6 +77,7 @@ public class LoginGUI extends Application {
 		
 		//First check if the database file exists
 		File f = new File("C:/WorkloadWarning/CanvasDatabase.xlsx");
+		//File f = new File("CanvasDatabase.xlsx");
 		if(!f.exists()){
 			
 			ButtonType locateButton = new ButtonType("Locate");
@@ -125,14 +126,20 @@ public class LoginGUI extends Application {
 		loginStage.setScene(scene);
 		loginStage.setTitle("Workload Warning - Login");
 		
+		//Create user name text field
+		TextField userNameField;
+		userNameField = new TextField("username");
+		userNameField.setLayoutX(100);
+		userNameField.setLayoutY(80);
+		
 		//create the buttons
 		Button studentBtn, teacherBtn;
 		studentBtn = new Button("Student");
 		teacherBtn = new Button("Teacher");
 		studentBtn.setLayoutX(100);
-		studentBtn.setLayoutY(100);
+		studentBtn.setLayoutY(120);
 		teacherBtn.setLayoutX(200);
-		teacherBtn.setLayoutY(100);
+		teacherBtn.setLayoutY(120);
 		
 		//create a label for time reaction
 		Label label = new Label("Welcome! Login Below");
@@ -140,11 +147,12 @@ public class LoginGUI extends Application {
 		label.setLayoutY(50);
 		
 		
-		//add buttons and labels to the pane
+		//add buttons, labels and textField to the pane
 		pane.getChildren().add(studentBtn);
 		pane.getChildren().add(teacherBtn);
 		pane.getChildren().add(label);
 		pane.getChildren().add(menuBar);
+		pane.getChildren().add(userNameField);
 		
 		
 		
@@ -154,7 +162,7 @@ public class LoginGUI extends Application {
             @Override
             public void handle(ActionEvent event) {
             	userType="Student";
-            	currentUserName="Elisa"; //Replace with the name of the student who is logged in
+            	currentUserName=userNameField.getText(); //Replace with the name of the student who is logged in
             	StudentCalendar wlc = new StudentCalendar();
             	wlc.setVisible(true);
             	loginStage.close();
@@ -166,7 +174,7 @@ public class LoginGUI extends Application {
             @Override
             public void handle(ActionEvent event) {
             	userType="Teacher";
-            	currentUserName="Professor A"; //Replace with the name of the teacher who is logged in
+            	currentUserName=userNameField.getText(); //Replace with the name of the teacher who is logged in
             	InstructorCalendar ic = new InstructorCalendar();
             	ic.showInstructorCalendar();
             	loginStage.close();
