@@ -2,6 +2,7 @@ package edu.erau.SE300_WW;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,7 +30,7 @@ public class Database {
 	private String [][] studentArray;
 	private ArrayList <Messages> messageAL;
 	private File theExcel;
-	
+//	private String [] col;
 	
 	/**
 	 * The constructor saves all data from the properly formatted excel file
@@ -187,6 +188,7 @@ public class Database {
 			}
 				
 			workbook.close();
+			file.close();
 		} catch (IOException exception){
 			System.out.println("Database Population Error");
 			System.out.println(exception);
@@ -300,6 +302,21 @@ public class Database {
 	}
 	
 	/**
+	 * isStudent (string) tests to see if the user name provided is a student enrolled in any course
+	 * @param user: string containing user name
+	 * @return boolean value of true if user is an enrolled student, false if user is not enrolled
+	 * @author Elisa
+	 */
+	public boolean isStudent (String user){
+		boolean student = true;
+		ArrayList <String> courses = searchSCourses(user);
+		if (courses.isEmpty()){
+			student = false;
+		}
+		return student;
+	}
+	
+	/**
 	 * searchSAssignment(String) allows for an assignments list to be generated for a given student
 	 * @param student: string of student's first name
 	 * @return an ArrayList of Assignment containing the assignments for the courses the student is enrolled in
@@ -341,23 +358,56 @@ public class Database {
 	//TODO: java doc
 	public void addAssignment (Assignment work) {
 		//add assignment to assignment array and excel database
+		try{
+			FileInputStream file = new FileInputStream (theExcel);
+			Workbook workbook = new XSSFWorkbook(file);
+			file.close();
+			
+			//manipulation
+			Sheet sheet = workbook.getSheetAt(1);
+			CellReference ref = new CellReference ("A1");
+			Cell loc = sheet.getRow(ref.getRow()).getCell(ref.getCol());
+			boolean loop = true;
+			while (loop == true){
+				
+			}
+			
+			FileOutputStream out = new FileOutputStream (theExcel);
+			workbook.write(out);
+			workbook.close();
+			out.close();
+		} catch (IOException exception){
+			System.out.println("Database addAssignment Error");
+		}
 	}
 	
 	//TODO: deleteAssignment
 	//TODO: java doc
-	public void deleteAssignment (int index) {
+	public void deleteAssignment (Assignment work) {
 		//delete assignment from assignment array and excel database
 	}
 	
 	//TODO: addMessage
 	//TODO: java doc
-	public void addMessage (Assignment work) {
+	public void addMessage (Messages message) {
 		//add message to messageArray and excel database
 	}
 	
 	//TODO: deleteMessage
 	//TODO: java doc
-	public void deleteMessage (int index) {
+	public void deleteMessage (Messages message) {
 		//delete Assignment in both messageArray and excel database
+	}
+	
+	/**
+	 * changeMessageStatus(Messages, boolean) updates the Messages records to reflect
+	 * a Teacher's decision on Student submitted assignments
+	 * @param oldMessage: Message object that is being updated
+	 * @param status: boolean value of true for approved, false for denied
+	 * @author Elisa
+	 */
+	public void changeMessageStatus (Messages oldMessage, boolean status){
+		//delete current message in both array and excel
+		//add new message with swapped recipient and sender, and new status in both array and excel
 	}
 }
