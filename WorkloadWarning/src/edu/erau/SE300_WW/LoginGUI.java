@@ -1,7 +1,5 @@
 package edu.erau.SE300_WW;
 
-//Verification Comment
-//
 
 import java.awt.event.WindowEvent;
 
