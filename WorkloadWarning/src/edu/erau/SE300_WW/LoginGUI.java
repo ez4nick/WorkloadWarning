@@ -1,7 +1,5 @@
 package edu.erau.SE300_WW;
 
-//Verification Comment
-//
 
 import java.awt.event.WindowEvent;
 
@@ -42,6 +40,7 @@ public class LoginGUI extends Application {
 	public static String userType; //Currently logged in type of user ('Teacher' or 'Student')
 	public static String currentUserName; //User name of the currently logged in user
 	public static String dataseFilePath; //Path to the database file
+	public static Database databaseShared;
 	
 	@Override
 	public void start(Stage loginStage) throws Exception {
@@ -102,6 +101,7 @@ public class LoginGUI extends Application {
 				File selectedFile =fileChooser.showOpenDialog(loginStage);
 				if(selectedFile.exists()){
 					dataseFilePath=selectedFile.getAbsolutePath();
+					databaseShared=new Database(new File(selectedFile.getAbsolutePath()));
 				}
 				
 			
@@ -118,6 +118,7 @@ public class LoginGUI extends Application {
 		else{
 			//File was found in default location
 			dataseFilePath="C:/WorkloadWarning/CanvasDatabase.xlsx";
+			databaseShared=new Database(new File("C:/WorkloadWarning/CanvasDatabase.xlsx"));
 		}
 		
 		//create the window

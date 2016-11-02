@@ -1,6 +1,5 @@
 package edu.erau.SE300_WW;
 
-//git problems test
 
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;

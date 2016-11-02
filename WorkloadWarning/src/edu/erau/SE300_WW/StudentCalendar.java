@@ -17,8 +17,6 @@ import javax.swing.table.*;
 @SuppressWarnings("serial")
 public class StudentCalendar extends JFrame{
  
-//git w jon again
-//hi jon	
   DefaultTableModel model;
   Calendar cal = new GregorianCalendar();
   JLabel label;
@@ -62,8 +60,7 @@ public class StudentCalendar extends JFrame{
     fileItem1.addActionListener(new ActionListener(){
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			Database d = new Database(new File(LoginGUI.dataseFilePath));
-    		AssignmentGUI g = new AssignmentGUI(d);
+    		AssignmentGUI g = new AssignmentGUI(LoginGUI.databaseShared);
     		g.openAssignmentGUI();
 		}
     });
@@ -114,8 +111,7 @@ public class StudentCalendar extends JFrame{
         public void actionPerformed(ActionEvent ae) {
           //launch Assignment GUI
           
-        	Database d = new Database(new File(LoginGUI.dataseFilePath));
-    		AssignmentGUI g = new AssignmentGUI(d);
+    		AssignmentGUI g = new AssignmentGUI(LoginGUI.databaseShared);
     		g.openAssignmentGUI();
         }
       });

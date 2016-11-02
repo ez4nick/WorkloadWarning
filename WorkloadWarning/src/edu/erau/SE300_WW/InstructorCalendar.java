@@ -64,8 +64,9 @@ public class InstructorCalendar extends JFrame{
     fileItem1.addActionListener(new ActionListener(){
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			Database d = new Database(new File(LoginGUI.dataseFilePath));
-    		AssignmentGUI g = new AssignmentGUI(d,InstructorCalendar.this);
+			//Database d = new Database(new File(LoginGUI.dataseFilePath));
+			
+    		AssignmentGUI g = new AssignmentGUI(LoginGUI.databaseShared,InstructorCalendar.this);
     		g.openAssignmentGUI();
 		}
     });
@@ -107,8 +108,8 @@ public class InstructorCalendar extends JFrame{
     b3.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent ae) {
           //launch Assignment GUI
-        	Database d = new Database(new File(LoginGUI.dataseFilePath));
-    		AssignmentGUI g = new AssignmentGUI(d,InstructorCalendar.this);
+        	
+    		AssignmentGUI g = new AssignmentGUI(LoginGUI.databaseShared,InstructorCalendar.this);
     		g.openAssignmentGUI();
     		
         }
