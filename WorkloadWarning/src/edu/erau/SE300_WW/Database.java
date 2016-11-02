@@ -130,7 +130,7 @@ public class Database {
 					loop = false;
 				} else {
 					assignmentAL.add(new Assignment(name, type, date, course));
-					System.out.println("New assignment " + name);
+					//System.out.println("New assignment " + name);
 					i++;
 				}
 			}
@@ -181,7 +181,7 @@ public class Database {
 					loop = false;
 				} else {
 					messageAL.add(new Messages(name, type, date, course, to, from, status));
-					System.out.println("New Message");
+					//System.out.println("New Message");
 					i++;
 				}
 			}
@@ -228,7 +228,31 @@ public class Database {
 		}
 		return checkMail;
 	}
-	
+
+	/**
+	 * courseStudents(String course) geterates an Arraylist of Strings containing the Students of a Course
+	 * @param course: String containing the course name
+	 * @return ArrayList of Strings containing the names of the Students in the course
+	 * @author Elisa
+	 */
+	public ArrayList <String> courseStudents (String course) {
+		ArrayList <String> students = new ArrayList <String> (0);
+		int j = 0, k = 2;
+		for (j = 0; j<studentArray.length; j++){
+			try {
+				if (studentArray[j][1].equals(course)){
+					for(k = 2; k<studentArray[j].length; k++){
+						if (studentArray[j][k] != null ){
+							students.add(studentArray[j][k]);
+						}
+					}
+				}
+			} catch (NullPointerException exception) {
+				j = studentArray.length;
+			}
+		}
+		return students;
+	}
 	
 	/**
 	 * searchTCourses (String Teacher) allows for a course list to be generated for a given teacher
