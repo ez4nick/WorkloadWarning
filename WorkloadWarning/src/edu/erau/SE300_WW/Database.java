@@ -5,20 +5,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellReference;
-import org.apache.poi.xssf.model.StylesTable;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
-import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 //workload warning project, SE300 Elisa Hawley
@@ -38,8 +31,8 @@ public class Database {
 	private File theExcel;
 	
 	/**
-	 * The constructor saves all data from the properly formatted excel file
-	 * @param excelFile: File handler for the excel file to be read
+	 * Database ({@link File} excelFile) saves all data from the properly formatted excel file
+	 * @param excelFile: {@link File} for the excel file to be read
 	 * @author Elisa
 	 */
 	public Database (File excelFile) {
@@ -202,7 +195,7 @@ public class Database {
 	
 	/**
 	 * getAllAssignments() allows for reading the assignments stored in the database
-	 * @return an ArrayList of Assignment objects
+	 * @return an {@link ArrayList} of {@link Assignment} objects
 	 * @author Elisa
 	 */
 	public ArrayList <Assignment> getAllAssignments () {
@@ -211,8 +204,8 @@ public class Database {
 	
 	
 	/**
-	 * getAllStudents() allows for reading the students stored in the database
-	 * @return a 2D array of Strings, formatted [i][0] is the course and [i][n>0] is a student enrolled in that course
+	 * getAllStudents() allows for reading the enrollment of all courses stored in the database
+	 * @return 2D array of {@link String} formatted [i][0] is the Teacher, [i][1] is the course, and [i][n>1] is a student enrolled in that course
 	 * @author Elisa 
 	 */
 	public String [][] getAllStudents () {
@@ -221,9 +214,10 @@ public class Database {
 	
 	
 	/**
-	 * getMessages(String recipient) allows for reading the assignments left in messages
+	 * getMessages({@link String} recipient) allows for reading messages to the given receiver
 	 * ignores letter case
-	 * @return an ArrayList of Messages
+	 * @param recipient: {@link String} containing the name of the receiver
+	 * @return an {@link ArrayList} of {@link Messages} going to the given recipient
 	 * @author Elisa
 	 */
 	public ArrayList<Messages> getMessages (String recipient) {
@@ -237,10 +231,10 @@ public class Database {
 	}
 
 	/**
-	 * courseStudents(String course) geterates an Arraylist of Strings containing the Students of a Course
+	 * courseStudents({@link String} course) generates an {@link Arraylist} of {@link String} containing the Students of a Course
 	 * ignores letter case
-	 * @param course: String containing the course name
-	 * @return ArrayList of Strings containing the names of the Students in the course
+	 * @param course: {@link String} containing the course name
+	 * @return {@link ArrayList} of {@link String} containing the names of the Students in the course
 	 * @author Elisa
 	 */
 	public ArrayList <String> courseStudents (String course) {
@@ -263,18 +257,18 @@ public class Database {
 	}
 	
 	/**
-	 * searchTCourses (String Teacher) allows for a course list to be generated for a given teacher
+	 * searchTCourses ({@link String} teacher) allows for a course list to be generated for a given teacher
 	 * ignores letter case
-	 * @param teacher: string of teacher's name
-	 * @return an ArrayList of Strings containing the courses the teacher teaches 
+	 * @param teacher: {@link string} of teacher's name
+	 * @return an {@link ArrayList} of {@link String} containing the courses the teacher teaches 
 	 * @author Elisa
 	 */
-	public ArrayList<String> searchTCourses (String Teacher){
+	public ArrayList<String> searchTCourses (String teacher){
 		ArrayList<String> courseList = new ArrayList<String>(0);
 		int i = 0;
 		for (i = 0; i<studentArray.length; i++){
 			try {
-				if (studentArray[i][0].equalsIgnoreCase(Teacher)){
+				if (studentArray[i][0].equalsIgnoreCase(teacher)){
 					courseList.add(studentArray[i][1]);
 				}
 			} catch (NullPointerException exception) {
@@ -285,10 +279,10 @@ public class Database {
 	}
 	
 	/**
-	 * searchSCourses(string) allows for a course list to be generated for a given student
+	 * searchSCourses({@link String} student) allows for a course list to be generated for a given student
 	 * ignores letter case
-	 * @param student: string of student's first name
-	 * @return an ArrayList of Strings containing the courses the student is enrolled in
+	 * @param student: {@link string} of student's first name
+	 * @return an {@link ArrayList} of {@link String} containing the courses the student is enrolled in
 	 * @author Elisa
 	 */
 	public ArrayList <String> searchSCourses (String student) {
@@ -310,9 +304,9 @@ public class Database {
 	}
 	
 	/**
-	 * isUser (string) tests to see if the user name provided is a user, and returns no, student, or teacher in int value
-	 * @param user: string containing user name
-	 * @return int value: 0 if not a user, 1 if student, 2 if teacher
+	 * isUser ({@link String} name) tests to see if the user name provided is a user, and returns no, student, or teacher in int value
+	 * @param user: {@link string} containing user name
+	 * @return {@link int} value: 0 if not a user, 1 if student, 2 if teacher
 	 * @author Elisa
 	 */
 	public int isUser (String name){
@@ -332,10 +326,10 @@ public class Database {
 	}
 	
 	/**
-	 * searchSAssignment(String) allows for an assignments list to be generated for a given student
+	 * searchSAssignment({@link String} student) allows for an assignments list to be generated for a given student
 	 * ignores letter case
-	 * @param student: string of student's first name
-	 * @return an ArrayList of Assignment containing the assignments for the courses the student is enrolled in
+	 * @param student: {@link string} of student's first name
+	 * @return an {@link ArrayList} of {@link Assignment} containing the assignments for the courses the student is enrolled in
 	 * @author Elisa
 	 */
 	public ArrayList<Assignment> searchSAssignment (String student){
@@ -352,10 +346,10 @@ public class Database {
 	}
 	
 	/**
-	 * searchTAssignment(String) allows for an assignments list to be generated for a given Teacher
+	 * searchTAssignment({@link String} teacher) allows for an assignments list to be generated for a given Teacher
 	 * ignores letter case
-	 * @param Teacher: string of Teacher's name
-	 * @return an ArrayList of Assignment containing the assignments for the courses the Teacher teaches
+	 * @param Teacher: {@link string} of Teacher's name
+	 * @return an {@link ArrayList} of {@link Assignment} containing the assignments for the courses the Teacher teaches
 	 * @author Elisa
 	 */
 	public ArrayList<Assignment> searchTAssignment (String teacher){
@@ -372,7 +366,7 @@ public class Database {
 	}
 	
 	/**
-	 * addAssignmet(assignment) will add the given assignment 
+	 * addAssignmet({@link Assignment} work) will add the given assignment 
 	 * to both the assignment array for further use and to the excel file for record
 	 * @param work: {@link Assignment} to be stored
 	 * @author Elisa, Help from Eric Nicolas at http://stackoverflow.com/questions/9431089/how-to-correctly-format-a-date-cell-and-populate-content-using-apache-poi-3-7
@@ -456,10 +450,10 @@ public class Database {
 	}
 	
 	/**
-	 * changeMessageStatus(Messages, boolean) updates the Messages records to reflect
+	 * changeMessageStatus({@link Messages} oldMessage, {@link boolean} status) updates the Messages records to reflect
 	 * a Teacher's decision on Student submitted assignments
-	 * @param oldMessage: Message object that is being updated
-	 * @param status: boolean value of true for approved, false for denied
+	 * @param oldMessage: {@link Message} that is being updated
+	 * @param status: {@link boolean} of true for approved, false for denied
 	 * @author Elisa
 	 */
 	public void changeMessageStatus (Messages oldMessage, boolean status){
