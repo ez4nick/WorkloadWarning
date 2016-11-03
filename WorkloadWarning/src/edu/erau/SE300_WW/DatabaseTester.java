@@ -70,8 +70,8 @@ public class DatabaseTester {
 		
 		
 		System.out.println("addAssignment");
-		Date cal = new GregorianCalendar(2016, Calendar.NOVEMBER, 1).getGregorianChange();
-		data.addAssignment(new Assignment("test","Exam", cal, "SE300"));
+		Date date = new Date(); 
+		data.addAssignment(new Assignment("test","Exam", date, "SE300"));
 	}
 	
 	
