@@ -10,9 +10,14 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.model.StylesTable;
+import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
+import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 //workload warning project, SE300 Elisa Hawley
@@ -30,7 +35,6 @@ public class Database {
 	private String [][] studentArray;
 	private ArrayList <Messages> messageAL;
 	private File theExcel;
-//	private String [] col;
 	
 	/**
 	 * The constructor saves all data from the properly formatted excel file
@@ -43,7 +47,7 @@ public class Database {
 		try{
 			theExcel = excelFile;
 			FileInputStream file = new FileInputStream(theExcel);
-			Workbook workbook = new XSSFWorkbook(file);
+			XSSFWorkbook workbook = new XSSFWorkbook(file);
 			String [] col = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P",
 							"Q","R","S","T","U","V","W","X","Y","Z","AA","AB","AC","AD","AE",
 							"AF","AG","AH","AI","AJ","AK","AL","AM","AN","AO"}; 
@@ -83,7 +87,6 @@ public class Database {
 					}
 				} else {
 					//System.out.println(data + " " + j + " " + k );
-					data.toUpperCase();
 					studentArray[j][k] = data;
 					k++;
 					if (k>= colnum){
@@ -105,7 +108,7 @@ public class Database {
 			CellReference a1, t2, d3, c4;
 			Cell assignmentLoc, typeLoc, dateLoc, courseLoc;
 			String name = "", type = "", course = "";
-			Date date = new GregorianCalendar (Calendar.NOVEMBER, 1, 2016).getGregorianChange();
+			Date date = new Date();
 			while (loop == true){
 				try {
 					a1 = new CellReference ("A"+i);
@@ -116,7 +119,7 @@ public class Database {
 					dateLoc = sheet.getRow(d3.getRow()).getCell(d3.getCol());
 					c4 = new CellReference ("D" +i);
 					courseLoc = sheet.getRow(c4.getRow()).getCell(c4.getCol());
-//file with working database 
+
 					data = assignmentLoc.getStringCellValue();
 					name = data.trim();
 					data = typeLoc.getStringCellValue();
@@ -217,14 +220,15 @@ public class Database {
 	
 	
 	/**
-	 * getMessages(String recipient) allows for reading the assignments left in messages to the teacher
-	 * @return an ArrayList of Assignment
+	 * getMessages(String recipient) allows for reading the assignments left in messages
+	 * ignores letter case
+	 * @return an ArrayList of Messages
 	 * @author Elisa
 	 */
 	public ArrayList<Messages> getMessages (String recipient) {
 		ArrayList <Messages> checkMail = new ArrayList <Messages> (0);
 		for (Messages temp: messageAL){
-			if (temp.recipient.equals(recipient)){
+			if (temp.recipient.equalsIgnoreCase(recipient)){
 				checkMail.add(temp);
 			}
 		}
@@ -233,6 +237,7 @@ public class Database {
 
 	/**
 	 * courseStudents(String course) geterates an Arraylist of Strings containing the Students of a Course
+	 * ignores letter case
 	 * @param course: String containing the course name
 	 * @return ArrayList of Strings containing the names of the Students in the course
 	 * @author Elisa
@@ -242,7 +247,7 @@ public class Database {
 		int j = 0, k = 2;
 		for (j = 0; j<studentArray.length; j++){
 			try {
-				if (studentArray[j][1].equals(course)){
+				if (studentArray[j][1].equalsIgnoreCase(course)){
 					for(k = 2; k<studentArray[j].length; k++){
 						if (studentArray[j][k] != null ){
 							students.add(studentArray[j][k]);
@@ -258,6 +263,7 @@ public class Database {
 	
 	/**
 	 * searchTCourses (String Teacher) allows for a course list to be generated for a given teacher
+	 * ignores letter case
 	 * @param teacher: string of teacher's name
 	 * @return an ArrayList of Strings containing the courses the teacher teaches 
 	 * @author Elisa
@@ -267,7 +273,7 @@ public class Database {
 		int i = 0;
 		for (i = 0; i<studentArray.length; i++){
 			try {
-				if (studentArray[i][0].equals(Teacher)){
+				if (studentArray[i][0].equalsIgnoreCase(Teacher)){
 					courseList.add(studentArray[i][1]);
 				}
 			} catch (NullPointerException exception) {
@@ -279,6 +285,7 @@ public class Database {
 	
 	/**
 	 * searchSCourses(string) allows for a course list to be generated for a given student
+	 * ignores letter case
 	 * @param student: string of student's first name
 	 * @return an ArrayList of Strings containing the courses the student is enrolled in
 	 * @author Elisa
@@ -290,7 +297,7 @@ public class Database {
 		for (j = 0; j < studentArray.length; j++){
 			try {
 				for (k = 0; k < studentArray[j].length; k++){
-					if (studentArray[j][k].equals(student)){
+					if (studentArray[j][k].equalsIgnoreCase(student)){
 						courses.add(studentArray[j][1]);
 					}
 				}
@@ -325,6 +332,7 @@ public class Database {
 	
 	/**
 	 * searchSAssignment(String) allows for an assignments list to be generated for a given student
+	 * ignores letter case
 	 * @param student: string of student's first name
 	 * @return an ArrayList of Assignment containing the assignments for the courses the student is enrolled in
 	 * @author Elisa
@@ -334,7 +342,7 @@ public class Database {
 		ArrayList<String> courses = searchSCourses(student);
 		for (Assignment temp: assignmentAL){
 			for (String courseTemp: courses){
-				if (temp.courseName.equals(courseTemp)){
+				if (temp.courseName.equalsIgnoreCase(courseTemp)){
 					work.add(temp);
 				}
 			}
@@ -344,6 +352,7 @@ public class Database {
 	
 	/**
 	 * searchTAssignment(String) allows for an assignments list to be generated for a given Teacher
+	 * ignores letter case
 	 * @param Teacher: string of Teacher's name
 	 * @return an ArrayList of Assignment containing the assignments for the courses the Teacher teaches
 	 * @author Elisa
@@ -353,7 +362,7 @@ public class Database {
 		ArrayList<String> courses = searchTCourses(teacher);
 		for (Assignment temp: assignmentAL){
 			for (String courseTemp: courses){
-				if (temp.courseName.equals(courseTemp)){
+				if (temp.courseName.equalsIgnoreCase(courseTemp)){
 					work.add(temp);
 				}
 			}
@@ -365,19 +374,49 @@ public class Database {
 	//TODO: java doc
 	public void addAssignment (Assignment work) {
 		//add assignment to assignment array and excel database
+		assignmentAL.add(work);
 		try{
 			FileInputStream file = new FileInputStream (theExcel);
-			Workbook workbook = new XSSFWorkbook(file);
+			XSSFWorkbook workbook = new XSSFWorkbook(file);
 			file.close();
-			
+
 			//manipulation
 			Sheet sheet = workbook.getSheetAt(1);
 			CellReference ref = new CellReference ("A1");
 			Cell loc = sheet.getRow(ref.getRow()).getCell(ref.getCol());
+			Row row = sheet.getRow(ref.getRow());
 			boolean loop = true;
+			int i = 2;
 			while (loop == true){
-				
+				row = sheet.getRow(i);
+				loc = sheet.getRow(i).getCell(0);
+				if (row == null || loc == null || loc.getStringCellValue().isEmpty()){
+					//System.out.println("NULL found");
+					loop = false;
+				} else {
+					i++;
+				}
 			}
+			row = sheet.createRow(i);
+			loc = row.createCell(0);
+			loc.setCellValue(work.assignmentName);
+			loc = row.createCell(1);
+			loc.setCellValue(work.assignmentType);
+			loc = row.createCell(2);
+			
+			//provided by Mr Port St Joe 
+			//at http://stackoverflow.com/questions/5794659/poi-how-do-i-set-cell-value-to-date-and-apply-default-excel-date-format
+			XSSFCreationHelper createHelper = workbook.getCreationHelper();
+			CellStyle style = workbook.createCellStyle();
+			style.setDataFormat(createHelper.createDataFormat().getFormat("MM/DD/YY"));
+			
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(work.assignmentDate);
+			loc.setCellValue(calendar);
+			loc = row.createCell(3);
+			loc.setCellValue(work.courseName);
+			
+			loc.setCellStyle(style);
 			
 			FileOutputStream out = new FileOutputStream (theExcel);
 			workbook.write(out);
