@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.model.StylesTable;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
 import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -370,8 +371,12 @@ public class Database {
 		return work;
 	}
 	
-	//TODO: addAssignment
-	//TODO: java doc
+	/**
+	 * addAssignmet(assignment) will add the given assignment 
+	 * to both the assignment array for further use and to the excel file for record
+	 * @param work: {@link Assignment} to be stored
+	 * @author Elisa, Help from Eric Nicolas at http://stackoverflow.com/questions/9431089/how-to-correctly-format-a-date-cell-and-populate-content-using-apache-poi-3-7
+	 */
 	public void addAssignment (Assignment work) {
 		//add assignment to assignment array and excel database
 		assignmentAL.add(work);
@@ -389,34 +394,39 @@ public class Database {
 			int i = 2;
 			while (loop == true){
 				row = sheet.getRow(i);
-				loc = sheet.getRow(i).getCell(0);
-				if (row == null || loc == null || loc.getStringCellValue().isEmpty()){
+				if (row == null){
 					//System.out.println("NULL found");
+					row = sheet.createRow(i);
 					loop = false;
 				} else {
-					i++;
+					loc = sheet.getRow(i).getCell(0);
+					if (loc == null || loc.getStringCellValue().isEmpty()){
+						loop = false;
+					} else {
+						i++;
+					}
 				}
 			}
-			row = sheet.createRow(i);
+
 			loc = row.createCell(0);
 			loc.setCellValue(work.assignmentName);
 			loc = row.createCell(1);
 			loc.setCellValue(work.assignmentType);
 			loc = row.createCell(2);
 			
-			//provided by Mr Port St Joe 
-			//at http://stackoverflow.com/questions/5794659/poi-how-do-i-set-cell-value-to-date-and-apply-default-excel-date-format
-			XSSFCreationHelper createHelper = workbook.getCreationHelper();
-			CellStyle style = workbook.createCellStyle();
-			style.setDataFormat(createHelper.createDataFormat().getFormat("MM/DD/YY"));
+			//provided by Eric Nicolas
+			//at http://stackoverflow.com/questions/9431089/how-to-correctly-format-a-date-cell-and-populate-content-using-apache-poi-3-7
+			//note: his reference sheet is wrong but can be used as a guide to find the correct number
+			XSSFCellStyle style = workbook.createCellStyle();
+			style.setDataFormat((short)14);
 			
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(work.assignmentDate);
-			loc.setCellValue(calendar);
+			loc.setCellValue(work.assignmentDate);
+			loc.setCellStyle(style);
+			
+			//System.out.println(work.assignmentDate + " " + calendar.getTime());
+			
 			loc = row.createCell(3);
 			loc.setCellValue(work.courseName);
-			
-			loc.setCellStyle(style);
 			
 			FileOutputStream out = new FileOutputStream (theExcel);
 			workbook.write(out);
