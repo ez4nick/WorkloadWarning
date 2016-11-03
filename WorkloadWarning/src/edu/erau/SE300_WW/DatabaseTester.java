@@ -2,6 +2,9 @@ package edu.erau.SE300_WW;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class DatabaseTester {
 	
@@ -21,7 +24,7 @@ public class DatabaseTester {
 		ArrayList <Assignment> teacher = new ArrayList <Assignment> (0);
 		teacher = data.searchTAssignment("Professor B");
 		for (Assignment temp: teacher){
-			System.out.print(temp.assignmentName+"-"+temp.courseName+" ");
+			System.out.print(temp.assignmentName+"-"+temp.courseName+"-"+temp.assignmentDate+" ");
 		}
 		System.out.println("");
 		
@@ -65,6 +68,10 @@ public class DatabaseTester {
 		user = data.isUser("Professor B");
 		System.out.println("Professor B " +user);
 		
+		
+		System.out.println("addAssignment");
+		Date cal = new GregorianCalendar(2016, Calendar.NOVEMBER, 1).getGregorianChange();
+		data.addAssignment(new Assignment("test","Exam", cal, "SE300"));
 	}
 	
 	
