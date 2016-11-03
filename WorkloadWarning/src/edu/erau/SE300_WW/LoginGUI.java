@@ -162,23 +162,26 @@ public class LoginGUI extends Application {
 		loginBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	userType="Student";
-            	currentUserName=userNameField.getText(); //Replace with the name of the student who is logged in
-            	if(databaseShared.isUser(currentUserName)==0){
-            		userNameField.setText("login failed!");
-            	}
-            	else if(databaseShared.isUser(currentUserName)==1){
-            		StudentCalendar wlc = new StudentCalendar();
-                	wlc.setVisible(true);
-                	loginStage.close();
-            	}
-            	else if(databaseShared.isUser(currentUserName)==2){
-            		InstructorCalendar ic = new InstructorCalendar();
-                	ic.showInstructorCalendar();
-                	loginStage.close();
-            	}
             	
-            }
+            	userType="Student";
+              	currentUserName=userNameField.getText(); //Replace with the name of the student who is logged in
+             	
+             	if(databaseShared.isUser(currentUserName)==0){
+             		userNameField.setText("login failed!");
+             	}
+             	else if(databaseShared.isUser(currentUserName)==1){
+             		
+             		StudentCalendar wlc = new StudentCalendar();
+                 	wlc.setVisible(true);
+                 	loginStage.close();
+             	}
+             	else if(databaseShared.isUser(currentUserName)==2){
+             		InstructorCalendar ic = new InstructorCalendar();
+                 	ic.showInstructorCalendar();
+                 	loginStage.close();
+             	}
+             	
+              }
             
         });
 		

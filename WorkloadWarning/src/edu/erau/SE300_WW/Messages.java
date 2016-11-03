@@ -88,13 +88,16 @@ public class Messages {
 			}	
 		}
 		else{
-			temp[0]="No messages.";
+			temp=new String[1];
+			temp[0]="No messages to display.";
 		}
 		return temp;
 	}
-	//TODO: javadoc
-	/**
-	 * @author Nick
+	
+	
+	
+	/**This method is responsible for opening the main messages GUI allowing the user to view any messages they may have.
+	 * @author Nicholas Krawczyk
 	 */
 	public void openMessagesDisplay(){
         JFrame f = new JFrame();
@@ -138,13 +141,22 @@ public class Messages {
 					}
 					else{
 						//Show message for a teacher. Will require them to approve or deny an assignment
-						Object[] opts = {"Approve","Deny"};
-						JOptionPane.showOptionDialog(f ,
+						Object[] opts = {"Approve","Deny","Edit"};
+						int result = JOptionPane.showOptionDialog(f ,
 								m[list.getSelectedIndex()].sender +" is requesting the assignment "+m[list.getSelectedIndex()].assignment+
 								" on "+ new SimpleDateFormat("MM/dd/yyyy").format(m[list.getSelectedIndex()].date) +" for the course "+m[list.getSelectedIndex()].course+".", 
 								"Assignment Verification: "+list.getSelectedValue() ,
 								JOptionPane.INFORMATION_MESSAGE,
 								JOptionPane.QUESTION_MESSAGE, null,opts,opts[0]);
+						
+						if(result ==2){
+							//Edit button was pressed, launch the modify assignment GUI so the teacher can modify it 
+							SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+							String formattedDate = sdf.format(m[list.getSelectedIndex()].date);
+							
+							AssignmentGUI ag = new AssignmentGUI(LoginGUI.databaseShared);
+							ag.openAssignmentGUI(true, m[list.getSelectedIndex()].assignment, formattedDate, m[list.getSelectedIndex()].type, m[list.getSelectedIndex()].course);
+						}
 								
 					}
 						
