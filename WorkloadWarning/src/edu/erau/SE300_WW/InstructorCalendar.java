@@ -67,7 +67,7 @@ public class InstructorCalendar extends JFrame{
 			//Database d = new Database(new File(LoginGUI.dataseFilePath));
 			
     		AssignmentGUI g = new AssignmentGUI(LoginGUI.databaseShared,InstructorCalendar.this);
-    		g.openAssignmentGUI();
+    		g.openAssignmentGUI(false,null,null,null,null);
 		}
     });
     
@@ -110,7 +110,7 @@ public class InstructorCalendar extends JFrame{
           //launch Assignment GUI
         	
     		AssignmentGUI g = new AssignmentGUI(LoginGUI.databaseShared,InstructorCalendar.this);
-    		g.openAssignmentGUI();
+    		g.openAssignmentGUI(false,null,null,null,null);
     		
         }
       });

@@ -1,12 +1,10 @@
 package edu.erau.SE300_WW;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
@@ -21,21 +19,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-import javafx.application.Application;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 
@@ -85,11 +73,18 @@ public class AssignmentGUI{
 	}
 	
 	/**
-	 * This method is responsible for everything related to creating and showing the GUI for creating an assignment.
+	 * This method is responsible for everything related to creating and showing the GUI for creating an assignment. 
+	 * In addition, it also is flexible to be capable of being prefilled with information about an assignment
+	 * if a teacher wishes to edit an assignment submitted by a student.
 	 */
-	public void openAssignmentGUI(){
-		
-		
+	/**
+	 * @param prefillDefaults Should the assignment creation GUI start with prefilled items? Only should be the case if the request was made from a teacher pressing edit on a student's assignment request from a message.
+	 * @param assignmentTitle Only applicable if prefillDefaults is True, title of the assignment.  
+	 * @param assignmentDate Only applicable if prefillDefaults is True, date of the assignment.
+	 * @param assignmentType Only applicable if prefillDefaults is True, type of the assignment (Exam, Homework, or Quiz).
+	 * @param assignmentCourse Only applicable if prefillDefaults is True, course for the assignment.
+	 */
+	public void openAssignmentGUI(Boolean prefillDefaults, String assignmentTitle, String assignmentDate, String assignmentType, String assignmentCourse){
 		
 		ArrayList<String> tempCourseList = d.searchSCourses(LoginGUI.currentUserName); //List of courses to be displayed
 		String courseList[]= new String[tempCourseList.size()+1];
@@ -169,11 +164,37 @@ public class AssignmentGUI{
 		frame.add(panel3);
 		frame.setLayout(new FlowLayout(FlowLayout.CENTER));
 		
-		
 		frame.pack();
 		frame.setSize(400,235);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		
+		if(prefillDefaults){
+			/*
+			 * If the Teacher is coming from a message and wishes to edit an assignment
+			 * that a student submitted, then we will prefill the assignment creator 
+			 * with what the student had already entered to give them a head start. Also
+			 * changes the title of the window and text of the go button.
+			 */
+			
+			inputText.setText(assignmentTitle);
+			
+			for(int x=0; x<typeList.length;x++){
+				if(typeList[x].equals(assignmentType)){
+					typeSelection.setSelectedIndex(x);
+				}
+			}
+			
+			for(int y=0; y<courseList.length;y++){
+				if(courseList[y].equals(assignmentCourse)){
+					courseSelection.setSelectedIndex(y);
+				}
+			}
+			button.setText("Modify");
+	        model.setDate(Integer.parseInt(assignmentDate.substring(6, 10)), Integer.parseInt(assignmentDate.substring(0, 2))-1, Integer.parseInt(assignmentDate.substring(3, 5)));
+			frame.setTitle("Modify Assignment");
+			model.setSelected(true);
+		}
 		
 		button2.addActionListener(new ActionListener(){
 			@Override

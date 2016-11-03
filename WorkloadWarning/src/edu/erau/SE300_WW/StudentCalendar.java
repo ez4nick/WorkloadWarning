@@ -61,7 +61,7 @@ public class StudentCalendar extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
     		AssignmentGUI g = new AssignmentGUI(LoginGUI.databaseShared);
-    		g.openAssignmentGUI();
+    		g.openAssignmentGUI(false,null,null,null,null);
 		}
     });
     
@@ -112,7 +112,7 @@ public class StudentCalendar extends JFrame{
           //launch Assignment GUI
           
     		AssignmentGUI g = new AssignmentGUI(LoginGUI.databaseShared);
-    		g.openAssignmentGUI();
+    		g.openAssignmentGUI(false,null,null,null,null);
         }
       });
     
