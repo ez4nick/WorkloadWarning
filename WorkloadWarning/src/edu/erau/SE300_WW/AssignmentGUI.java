@@ -55,6 +55,7 @@ public class AssignmentGUI{
 	InstructorCalendar ic;
 	
 	Stage newStage;
+	Boolean modifyingAnAssignment=false; //Is the assignment creator window modifying an assignment?
 	
 	/** Simple constructor used to initialize the assignment GUI
 	 * @param dd A database object is required to access the courses as well as add the new assignments to the database.
@@ -176,7 +177,7 @@ public class AssignmentGUI{
 			 * with what the student had already entered to give them a head start. Also
 			 * changes the title of the window and text of the go button.
 			 */
-			
+			modifyingAnAssignment=true;
 			inputText.setText(assignmentTitle);
 			
 			for(int x=0; x<typeList.length;x++){
@@ -200,14 +201,14 @@ public class AssignmentGUI{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//Clear all of the inputs
-				inputText.setText("");
-				typeSelection.setSelectedIndex(0);
-				courseSelection.setSelectedIndex(0);
-				model.setSelected(false);
+				resetAllFields();
 			}
 		});
 		
 		button.addActionListener(new ActionListener(){
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				selectedDate = (Date) datePicker.getModel().getValue();
@@ -260,7 +261,6 @@ public class AssignmentGUI{
 						JOptionPane.showMessageDialog(frame, "One or more required items were missing. Please try again.","Error",JOptionPane.ERROR_MESSAGE);
 					}
 					
-					
 				}
 				else{
 					//All values are OK!
@@ -269,17 +269,14 @@ public class AssignmentGUI{
 						
 					}
 					else{
+						//Student sent request to the teacher
 						JOptionPane.showMessageDialog(frame, "Your request has been sent to your teacher. Once your teacher approves the assignment it will be considered.","Request Semt",JOptionPane.INFORMATION_MESSAGE);
-						inputText.setText("");
-						courseSelection.setSelectedIndex(0);
-						typeSelection.setSelectedIndex(0);
-						model.setSelected(false);
+						resetAllFields();
 					}
 					
 					
 					
 				}
-				
 				
 			}
 			
@@ -292,14 +289,40 @@ public class AssignmentGUI{
 	 */
 	public void showSuccessDialog(){
 		if(LoginGUI.userType.equals("Teacher")){
-			System.out.println(selectedDate.toString().substring(4,7));
-			ic.addAssignment(Integer.parseInt(selectedDate.toString().substring(8,10)), inputText.getText(), courseSelection.getSelectedItem().toString(),selectedDate.toString().substring(4,7));
-			JOptionPane.showMessageDialog(frame, "Assignment Sucessfully Created\nTitle: "+inputText.getText()+"\nDate: "+selectedDate.toString().substring(0,10)+
+			
+			//Set the time to 0 for purposes of comparing to see if the assignment already exists
+			selectedDate.setHours(0);
+			selectedDate.setMinutes(0);
+			selectedDate.setSeconds(0);
+			//Try to Add the assignment to the database first and then show the appropriate dialog after
+			boolean inDatabase=LoginGUI.databaseShared.isAssignmentAlreadyInDatabase(new Assignment(inputText.getText(), typeSelection.getSelectedItem().toString(), selectedDate, courseSelection.getSelectedItem().toString()));
+			
+			if(!inDatabase){
+				ic.addAssignment(Integer.parseInt(selectedDate.toString().substring(8,10)), inputText.getText(), courseSelection.getSelectedItem().toString(),selectedDate.toString().substring(4,7));
+				JOptionPane.showMessageDialog(frame, "Assignment Sucessfully Created\nTitle: "+inputText.getText()+"\nDate: "+selectedDate.toString().substring(0,10)+
 					"\nCourse: "+courseSelection.getSelectedItem().toString()+"\nType: "+typeSelection.getSelectedItem().toString(),"Assignment Created",JOptionPane.INFORMATION_MESSAGE);
 			
+			
+				System.out.println(LoginGUI.databaseShared.isAssignmentAlreadyInDatabase(new Assignment(inputText.getText(), typeSelection.getSelectedItem().toString(), selectedDate, courseSelection.getSelectedItem().toString())));
+			
+				if(modifyingAnAssignment){
+					//If the user is modifying an assignment, close the window for them when they are finished and return to the messages view
+					frame.dispose();
+				}
+			}
+			else{
+				JOptionPane.showMessageDialog(frame, "That assignment already exists in the database. Please try again.");
+			}
 		}
 		
-		
+		//Clear the boxes once the dialog is closed
+		resetAllFields();
+	}
+	
+	/**
+	 * This method resets all of the fields of the assignment creation window.
+	 */
+	public void resetAllFields(){
 		inputText.setText("");
 		courseSelection.setSelectedIndex(0);
 		typeSelection.setSelectedIndex(0);

@@ -32,6 +32,7 @@ public class Messages {
 	public String sender;
 	public String status;
 	int howManyMessages; //The number of available messages for the currently logged in user
+	InstructorCalendar insCal;
 	
 	/**
 	 * Messages constructor populates the fields of a message from a given series of strings
@@ -57,6 +58,10 @@ public class Messages {
 	
 	public Messages(){
 		//Please do not delete this- Nick
+	}
+	
+	public Messages(InstructorCalendar ic){
+		insCal=ic;
 	}
 	/**This method creates an array of Messages objects corresponding to messages for a 
 	 * particular user.
@@ -149,12 +154,30 @@ public class Messages {
 								JOptionPane.INFORMATION_MESSAGE,
 								JOptionPane.QUESTION_MESSAGE, null,opts,opts[0]);
 						
-						if(result ==2){
+						if(result==0){
+							//Professor accepted the assignment, add it to the database....
+							m[list.getSelectedIndex()].date.setHours(0);
+							m[list.getSelectedIndex()].date.setMinutes(0);
+							m[list.getSelectedIndex()].date.setSeconds(0);
+							boolean doesItAlreadyExist=LoginGUI.databaseShared.isAssignmentAlreadyInDatabase(new Assignment(m[list.getSelectedIndex()].assignment, m[list.getSelectedIndex()].type, m[list.getSelectedIndex()].date, m[list.getSelectedIndex()].course));
+							
+							
+							if(doesItAlreadyExist){
+								//Show warning that the assignment already exists and it wont be added.....
+								JOptionPane.showMessageDialog(null, "That assignment already exists in the database. Please try again.");
+							}
+							else{
+								//Add the assignment to the databsae!!!
+								LoginGUI.databaseShared.addAssignment(new Assignment(m[list.getSelectedIndex()].assignment, m[list.getSelectedIndex()].type, m[list.getSelectedIndex()].date, m[list.getSelectedIndex()].course));
+							}
+						}
+						
+						else if(result ==2){
 							//Edit button was pressed, launch the modify assignment GUI so the teacher can modify it 
 							SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 							String formattedDate = sdf.format(m[list.getSelectedIndex()].date);
 							
-							AssignmentGUI ag = new AssignmentGUI(LoginGUI.databaseShared);
+							AssignmentGUI ag = new AssignmentGUI(LoginGUI.databaseShared,insCal);
 							ag.openAssignmentGUI(true, m[list.getSelectedIndex()].assignment, formattedDate, m[list.getSelectedIndex()].type, m[list.getSelectedIndex()].course);
 						}
 								

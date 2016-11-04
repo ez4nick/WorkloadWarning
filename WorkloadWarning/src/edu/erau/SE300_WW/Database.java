@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -22,6 +24,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * storing the information into the object for reference,
  * and manipulating the excel file along with the saved data
  * @author Elisa
+ */
+/**
+ * @author ez4ni
+ *
  */
 public class Database {
 	
@@ -203,6 +209,33 @@ public class Database {
 	}
 	
 	
+	/**This method checks to see if the given assignment already exists in the database.
+	 * @param assignmentToVerify Assignment that you wish to check if it already exists
+	 * @return Returns true if the assignment is already in the database, false if it is not
+	 * @author Nicholas Krawczyk
+	 */
+	public boolean isAssignmentAlreadyInDatabase(Assignment assignmentToVerify){
+		boolean isInDatabase=false;
+		
+		ArrayList<Assignment> allAssignments = getAllAssignments();
+		
+		for(int x=0;x<allAssignments.size();x++){
+			if(assignmentToVerify.assignmentDate.getYear()==(allAssignments.get(x).assignmentDate.getYear()) &&
+			   assignmentToVerify.assignmentDate.getMonth()==(allAssignments.get(x).assignmentDate.getMonth()) &&
+			   assignmentToVerify.assignmentDate.getDay()==(allAssignments.get(x).assignmentDate.getDay()) &&
+			   assignmentToVerify.assignmentType.equals(allAssignments.get(x).assignmentType) &&
+			   assignmentToVerify.assignmentName.equals(allAssignments.get(x).assignmentName) &&
+			   assignmentToVerify.courseName.equals(allAssignments.get(x).courseName)){
+				//If all of this is true then it already is in the database!!!
+				isInDatabase=true;
+				break;
+			}
+		}
+		
+		return isInDatabase;
+	}
+	
+	
 	/**
 	 * getAllStudents() allows for reading the enrollment of all courses stored in the database
 	 * @return 2D array of {@link String} formatted [i][0] is the Teacher, [i][1] is the course, and [i][n>1] is a student enrolled in that course
@@ -367,11 +400,13 @@ public class Database {
 	
 	/**
 	 * addAssignmet({@link Assignment} work) will add the given assignment 
-	 * to both the assignment array for further use and to the excel file for record
+	 * to both the assignment array for further use and to the excel file for record. 
 	 * @param work: {@link Assignment} to be stored
 	 * @author Elisa, Help from Eric Nicolas at http://stackoverflow.com/questions/9431089/how-to-correctly-format-a-date-cell-and-populate-content-using-apache-poi-3-7
 	 */
 	public void addAssignment (Assignment work) {
+		
+		
 		//add assignment to assignment array and excel database
 		assignmentAL.add(work);
 		try{
@@ -428,7 +463,10 @@ public class Database {
 			out.close();
 		} catch (IOException exception){
 			System.out.println("Database addAssignment Error");
+			
+			
 		}
+		
 	}
 	
 	//TODO: deleteAssignment

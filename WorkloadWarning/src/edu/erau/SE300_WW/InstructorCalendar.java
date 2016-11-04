@@ -23,6 +23,7 @@ public class InstructorCalendar extends JFrame{
   JLabel label;
   String month;
   
+  
   public InstructorCalendar(){
 	  
   }
@@ -74,7 +75,7 @@ public class InstructorCalendar extends JFrame{
     fileItem2.addActionListener(new ActionListener(){
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			Messages m = new Messages();
+			Messages m = new Messages(InstructorCalendar.this);
 			m.openMessagesDisplay();
 		}
     });
