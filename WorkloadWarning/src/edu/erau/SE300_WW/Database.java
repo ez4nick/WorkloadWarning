@@ -25,10 +25,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * and manipulating the excel file along with the saved data
  * @author Elisa
  */
-/**
- * @author ez4ni
- *
- */
+
 public class Database {
 	
 	private ArrayList <Assignment> assignmentAL;
@@ -208,9 +205,30 @@ public class Database {
 		return assignmentAL;
 	}
 	
+	/**getAllExamsForACourse({@link String} course) creates a list of all of the exams in the course specified by the user.
+	 * @param course {@link String} of the course you wish to get a list of all of the assignments for
+	 * @return An {@link ArrayList} of {@link Assignment} objects containing all of the exams for the course you entered
+	 * @author Nicholas Krawczyk 
+	 */
+	public ArrayList <Assignment> getAllExamsForACourse(String course){
+		ArrayList <Assignment> allExamsInYourCourse = new ArrayList<Assignment>(); //Create an array list to hold all of the exams
+		
+		for(int x=0; x<getAllAssignments().size();x++){
+			if(getAllAssignments().get(x).courseName.equals(course) && getAllAssignments().get(x).assignmentType.equals("Exam")){
+				//If course name matches what was entered and the assignment type is Exam then it is a match, add it to the list
+				allExamsInYourCourse.add(getAllAssignments().get(x));
+				System.out.println("------>"+getAllAssignments().get(x).assignmentName);
+			}
+		}
+		
+		
+		return allExamsInYourCourse;
+		
+	}
 	
-	/**This method checks to see if the given assignment already exists in the database.
-	 * @param assignmentToVerify Assignment that you wish to check if it already exists
+	
+	/**isAssignmentAlreadyInDatabase({@link Assignment} assignmentToVerify) checks to see if the given assignment already exists in the database.
+	 * @param assignmentToVerify {@link Assignment} that you wish to check if it already exists
 	 * @return Returns true if the assignment is already in the database, false if it is not
 	 * @author Nicholas Krawczyk
 	 */

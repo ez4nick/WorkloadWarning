@@ -58,15 +58,15 @@ public class AssignmentGUI{
 	Boolean modifyingAnAssignment=false; //Is the assignment creator window modifying an assignment?
 	
 	/** Simple constructor used to initialize the assignment GUI
-	 * @param dd A database object is required to access the courses as well as add the new assignments to the database.
+	 * @param dd A {@link Database} object is required to access the courses as well as add the new assignments to the database.
 	 */
 	public AssignmentGUI(Database dd){
 		d=dd; //Database object
 	}
 	
 	/**
-	 * @param dd A database object is required to access the courses as well as add the new assignments to the database.
-	 * @param ii An InstructorCalendar object is required for access to adding an assignment directly to the instructor calendar. 
+	 * @param dd A {@link Database} object is required to access the courses as well as add the new assignments to the database.
+	 * @param ii An {@link InstructorCalendar} object is required for access to adding an assignment directly to the instructor calendar. 
 	 */
 	public AssignmentGUI(Database dd, InstructorCalendar ii){
 		d=dd;//Database object
@@ -77,8 +77,6 @@ public class AssignmentGUI{
 	 * This method is responsible for everything related to creating and showing the GUI for creating an assignment. 
 	 * In addition, it also is flexible to be capable of being prefilled with information about an assignment
 	 * if a teacher wishes to edit an assignment submitted by a student.
-	 */
-	/**
 	 * @param prefillDefaults Should the assignment creation GUI start with prefilled items? Only should be the case if the request was made from a teacher pressing edit on a student's assignment request from a message.
 	 * @param assignmentTitle Only applicable if prefillDefaults is True, title of the assignment.  
 	 * @param assignmentDate Only applicable if prefillDefaults is True, date of the assignment.
@@ -114,7 +112,7 @@ public class AssignmentGUI{
 	    	
 	    });
 		
-		//3 Panels
+		//4 Panels
 		JPanel panel1 = new JPanel();
 		JPanel panel2 = new JPanel();
 		JPanel panel3 = new JPanel();
@@ -129,7 +127,7 @@ public class AssignmentGUI{
 		inputText.setPreferredSize(new Dimension(200,20));
 		
 		JButton button = new JButton("GO!");
-		JButton button2 = new JButton("Clear");
+		JButton clearButton = new JButton("Clear");
 		
 		
 		String[] typeList = {"Select an Assignment Type","Exam","Homework","Quiz"};
@@ -154,7 +152,7 @@ public class AssignmentGUI{
 		panel3.add(label3,BorderLayout.WEST);
 		panel3.add(courseSelection,BorderLayout.EAST);
 		panel3.add(button,BorderLayout.SOUTH);
-		panel3.add(button2,BorderLayout.SOUTH);
+		panel3.add(clearButton,BorderLayout.SOUTH);
 		
 		panel4.add(label4,BorderLayout.WEST);
 		panel4.add(typeSelection,BorderLayout.WEST);
@@ -197,7 +195,7 @@ public class AssignmentGUI{
 			model.setSelected(true);
 		}
 		
-		button2.addActionListener(new ActionListener(){
+		clearButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//Clear all of the inputs
@@ -212,15 +210,15 @@ public class AssignmentGUI{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				selectedDate = (Date) datePicker.getModel().getValue();
-				//Check for valid inputs
 				
+				//Check for valid inputs
 				noDate=selectedDate==(null);
 				noType=typeSelection.getSelectedItem().toString().equals("Select an Assignment Type");
 				noTitle=inputText.getText().equals("");
 				noCourse=courseSelection.getSelectedItem().toString().equals("Select a Course");
 				
 				if(noDate || noType || noTitle || noCourse ){
-					//One OR more of the requested inputs were not given
+					//One OR more of the requested inputs were not given. Determine which to help the user understand their mistake!
 					
 					if(noDate && noType && noTitle && noCourse ){
 						JOptionPane.showMessageDialog(frame, "Everything was empty! :( Please try again.","Error",JOptionPane.ERROR_MESSAGE);
@@ -263,18 +261,30 @@ public class AssignmentGUI{
 					
 				}
 				else{
-					//All values are OK!
+					//All of the fields were full, so proceed to based on if the user is a teacher or a student
 					if(LoginGUI.userType.equals("Teacher")){
+						//If the user is a teacher, determine whether or not to send them the workload warning
 						ProfessorWarning p = new ProfessorWarning(AssignmentGUI.this);
-						
 					}
+					
 					else{
-						//Student sent request to the teacher
+						//User is a student, so send a request to the teacher of their course with the assignment
+						
+						/* *******************************************
+						 * *******************************************
+						 * *******************************************
+						 * *******************************************
+						 * *******************************************
+						 * INSERT CODE TO SEND MESSAGE TO TEACHER HERE
+						 * *******************************************
+						 * *******************************************
+						 * *******************************************
+						 * *******************************************
+						 * *******************************************
+						 */
 						JOptionPane.showMessageDialog(frame, "Your request has been sent to your teacher. Once your teacher approves the assignment it will be considered.","Request Semt",JOptionPane.INFORMATION_MESSAGE);
 						resetAllFields();
 					}
-					
-					
 					
 				}
 				
@@ -285,7 +295,9 @@ public class AssignmentGUI{
 	
 	/**
 	 * This method is referenced from the ProfessorWarning class and shows the dialog indicating that
-	 * the assignment was successfully created.
+	 * the assignment was successfully created. This is only shown for a teacher user type since as long
+	 * as the assignment they are trying to enter does not already exist in the database then we will add
+	 * it instantly.
 	 */
 	public void showSuccessDialog(){
 		if(LoginGUI.userType.equals("Teacher")){
@@ -294,16 +306,15 @@ public class AssignmentGUI{
 			selectedDate.setHours(0);
 			selectedDate.setMinutes(0);
 			selectedDate.setSeconds(0);
+			
 			//Try to Add the assignment to the database first and then show the appropriate dialog after
 			boolean inDatabase=LoginGUI.databaseShared.isAssignmentAlreadyInDatabase(new Assignment(inputText.getText(), typeSelection.getSelectedItem().toString(), selectedDate, courseSelection.getSelectedItem().toString()));
 			
 			if(!inDatabase){
+				//If the assignment was not already in the database then add it and show a success dialog to the teacher
 				ic.addAssignment(Integer.parseInt(selectedDate.toString().substring(8,10)), inputText.getText(), courseSelection.getSelectedItem().toString(),selectedDate.toString().substring(4,7));
 				JOptionPane.showMessageDialog(frame, "Assignment Sucessfully Created\nTitle: "+inputText.getText()+"\nDate: "+selectedDate.toString().substring(0,10)+
 					"\nCourse: "+courseSelection.getSelectedItem().toString()+"\nType: "+typeSelection.getSelectedItem().toString(),"Assignment Created",JOptionPane.INFORMATION_MESSAGE);
-			
-			
-				System.out.println(LoginGUI.databaseShared.isAssignmentAlreadyInDatabase(new Assignment(inputText.getText(), typeSelection.getSelectedItem().toString(), selectedDate, courseSelection.getSelectedItem().toString())));
 			
 				if(modifyingAnAssignment){
 					//If the user is modifying an assignment, close the window for them when they are finished and return to the messages view
@@ -311,7 +322,8 @@ public class AssignmentGUI{
 				}
 			}
 			else{
-				JOptionPane.showMessageDialog(frame, "That assignment already exists in the database. Please try again.");
+				//The assignment already exists in the database. Show warning and do not add it to the database.
+				JOptionPane.showMessageDialog(frame, "That assignment already exists in the database. Unable to add.");
 			}
 		}
 		

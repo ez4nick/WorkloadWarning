@@ -11,35 +11,36 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-/**The help class creates either a swing or javaFX help dialog appropriate to 
- * where the user clicked on the help menu from. 
+/**The help class creates either a swing or javaFX help dialog containing relevant
+ * help information based off of where the user clicked the help menu from.
  * @author Nicholas Krawczyk
  *
  */
 public class Help{
-	String title;
-	String labelText;
+	String title; //Title of the dialog
+	String labelText; //Help content
 	int stageDimx;
 	int stageDimy;
 	
 	/**This constructor generates the appropriate text and dimensions for the help dialog to be shown based off of where
 	 * the request came from.
-	 * @param location Location where the request came from (login, calendar or assignment creator)
-	 * @param item Which item within the help menu was clicked
+	 * @param location {@link String} where the request came from (login, calendar or assignment creator)
+	 * @param item {@link String} which item within the help menu was clicked
 	 */
 	public Help(String location, String item){
-		System.out.println("Git problems test");
-		
 		if(location.equals("login") && item.equals("gettingStarted")){
+			//Help with logging in to the application
 			stageDimx=300;
 			stageDimy=300;
 			title="Getting Started";
 			labelText="The Workload Warning application is designed to make scheduling assignments"
 					+ " easier for both students and faculty members. \n\nThe first step to using the application is logging in."
-					+ " Your system administrator will provide you with a user ID and password which you must use to login.";
+					+ " Your system administrator will provide you with a user ID which you must use to login. Please contact your"
+					+ " system administrator if you have not been given this information.";
 			openFXBox();
 		}
 		else if(location.equals("login") && item.equals("about")){
+			//General info about the application
 			stageDimx=350;
 			stageDimy=250;
 			title="About";
@@ -49,21 +50,24 @@ public class Help{
 			openFXBox();
 		}
 		else if(location.equals("calendar") && item.equals("usingCal")){
+			//help with using the calendar
 			title="Using the Calendar";
 			labelText="<html> <p align='justify'>"+"The Calendar display shows all of the assignments belonging to the user who is currently signed in."
 					+ " Similar to normal calendars, you can switch between months to get to the desired month to view your assignments."
-					+ " For assignments that do not exist in the calendar, you must press the 'Add an assignment' button in order to add"
-					+ " a new assignment into the calendar. Clicking on the messages button will open a window showing any messages that may"
+					+ " For assignments that do not exist in the calendar, you must navigate to 'File' -> 'Add an assignment' button in order to add"
+					+ " a new assignment into the calendar. Navigating to 'File' -> 'Messages' will open a window showing any messages that may"
 					+ " be waiting for you. It is important to regularly check the messages as their content will be time sensitive relating"
 					+ " to the schedule of an assignment."+"</p> <html>";
 			openSwingBox();
 		}
 		else if(location.equals("assignmentCreator") && item.equals("addAssign")){
+			//Help with adding an assignment
 			title="Adding an Assignment";
 			labelText="<html> <p align='justify'>"+"The Assignment Creator allows you to add an assignment to the calendar that does not"
 					+ " already exist in the database. All fields are required, and attempting to submit an assignment with incomplete"
 					+ " information entered will create an error indicating so. It should be noted that whenever a teacher creates an assignment"
-					+ " it is immediately added to the calendar and database. However, when a student creates an assignment it will first go to"
+					+ " it is immediately added to the calendar and database as long as this assignment does not already exist in the database."
+					+ " However, when a student creates an assignment it will first go to"
 					+ " the teacher of the course for approval before it is saved to the database and shown in the calendar."+"</p> <html>";
 			openSwingBox();
 		}
