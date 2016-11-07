@@ -21,13 +21,13 @@ public class LoginGUI extends Application {
 	@Override
 	public void start(Stage loginStage) throws Exception {
 		
-		//First check if the databse file exists
+		//First check if the database file exists
 		File f = new File("C:/WorkloadWarning/CanvasDatabase.xlsx");
 		if(!f.exists()){
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Warning!");
-			alert.setHeaderText("Databse Not Found");
-			alert.setContentText("Databse file was not found. The databse file must be named 'CanvasDatabase.xlsx' and be located in 'C:/WorkloadWarning'.");
+			alert.setHeaderText("Database Not Found");
+			alert.setContentText("Database file was not found. The database file must be named 'CanvasDatabase.xlsx' and be located in 'C:/WorkloadWarning'.");
 			alert.showAndWait();
 		}
 		
