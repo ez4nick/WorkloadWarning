@@ -324,6 +324,8 @@ public class AssignmentGUI{
 			else{
 				//The assignment already exists in the database. Show warning and do not add it to the database.
 				JOptionPane.showMessageDialog(frame, "That assignment already exists in the database. Unable to add.");
+				frame.dispose();
+				
 			}
 		}
 		
