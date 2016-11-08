@@ -1,6 +1,7 @@
 package src.edu.erau.SE300_WW;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -20,6 +21,15 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 
 import javax.swing.JLabel;
+
+/**
+ * The Professor Warning class displays an alert to
+ * the professor about an exam date that may
+ * overwhelm students due to other exams already being
+ * scheduled for the same day.
+ * @author diprea
+ *
+ */
 
 public class ProfessorWarning extends JFrame {
 
