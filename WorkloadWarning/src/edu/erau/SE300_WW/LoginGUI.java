@@ -1,4 +1,4 @@
-package src.edu.erau.SE300_WW;
+package edu.erau.SE300_WW;
 
 
 import java.awt.event.WindowEvent;
@@ -45,8 +45,7 @@ public class LoginGUI extends Application {
 	@Override
 	public void start(Stage loginStage) throws Exception {
 		
-<<<<<<< HEAD
-=======
+
 		MenuBar menuBar = new MenuBar();
 		Menu menuFile = new Menu("File");
 		Menu menuHelp = new Menu("Help");
@@ -76,7 +75,7 @@ public class LoginGUI extends Application {
 		});
 		
 		
->>>>>>> branch 'master' of https://github.com/ez4nick/WorkloadWarning.git
+
 		//First check if the database file exists
 		File f = new File("C:/WorkloadWarning/CanvasDatabase.xlsx");
 		//File f = new File("CanvasDatabase.xlsx");
@@ -87,13 +86,13 @@ public class LoginGUI extends Application {
 			//Show warning alert
 			Alert alert = new Alert(AlertType.WARNING,"",locateButton,quitButton);
 			alert.setTitle("Warning!");
-<<<<<<< HEAD
+
 			alert.setHeaderText("Database Not Found");
 			alert.setContentText("Database file was not found. The database file must be named 'CanvasDatabase.xlsx' and be located in 'C:/WorkloadWarning'.");
-=======
+
 			alert.setHeaderText("Databse Not Found");
 			alert.setContentText("Databse file was not found. The databse file must now be located.");
->>>>>>> branch 'master' of https://github.com/ez4nick/WorkloadWarning.git
+
 			alert.showAndWait();
 			
 			if(alert.getResult().getText().equals("Locate")){

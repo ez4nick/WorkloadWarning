@@ -1,4 +1,4 @@
-package src.edu.erau.SE300_WW;
+package edu.erau.SE300_WW;
 
 import java.io.File;
 import java.util.ArrayList;
