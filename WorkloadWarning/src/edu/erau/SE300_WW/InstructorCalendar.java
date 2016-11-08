@@ -23,12 +23,14 @@ public class InstructorCalendar extends JFrame{
   JLabel label;
   String month;
   
+  
   public InstructorCalendar(){
 	  
   }
   
   public void showInstructorCalendar() {
  
+	  
 	  
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setTitle("(InstructorView)WorkLoad Warning Calandar");
@@ -39,6 +41,46 @@ public class InstructorCalendar extends JFrame{
     this.setLocationRelativeTo(null);
    
  
+    JMenuBar menuBar = new JMenuBar();
+    JMenu item1 = new JMenu("File");
+    JMenuItem fileItem1 = new JMenuItem("Create New Assignment");
+    JMenuItem fileItem2 = new JMenuItem("View Messages");
+    item1.add(fileItem1);
+    item1.add(fileItem2);
+    
+    JMenu item2 = new JMenu("Help");
+    JMenuItem helpItem1 = new JMenuItem("Using the Calendar");
+    item2.add(helpItem1);
+    
+    menuBar.add(item1);
+    menuBar.add(item2);
+    setJMenuBar(menuBar);
+    
+    helpItem1.addActionListener(new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			Help h = new Help("calendar","usingCal");
+		}
+    });
+    
+    fileItem1.addActionListener(new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			//Database d = new Database(new File(LoginGUI.dataseFilePath));
+			
+    		AssignmentGUI g = new AssignmentGUI(LoginGUI.databaseShared,InstructorCalendar.this);
+    		g.openAssignmentGUI(false,null,null,null,null);
+		}
+    });
+    
+    fileItem2.addActionListener(new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			Messages m = new Messages(InstructorCalendar.this);
+			m.openMessagesDisplay();
+		}
+    });
+    
     label = new JLabel();
     label.setHorizontalAlignment(SwingConstants.CENTER);
  
@@ -61,8 +103,6 @@ public class InstructorCalendar extends JFrame{
     JButton b3 = new JButton("Create New Assignment");
     b2.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent ae) {
-        //launch Assignment GUI
-        
         updateMonth();
       }
     });
@@ -70,20 +110,23 @@ public class InstructorCalendar extends JFrame{
     b3.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent ae) {
           //launch Assignment GUI
-          
-        	Database d = new Database(new File("C:/WorkloadWarning/CanvasDatabase.xlsx"));
-    		AssignmentGUI g = new AssignmentGUI(d,InstructorCalendar.this);
-    		g.openAssignmentGUI();
+        	
+    		AssignmentGUI g = new AssignmentGUI(LoginGUI.databaseShared,InstructorCalendar.this);
+    		g.openAssignmentGUI(false,null,null,null,null);
+    		
         }
       });
     
+    
     JPanel panel = new JPanel();
+    
+    
     panel.setLayout(new BorderLayout());
     panel.add(b1,BorderLayout.WEST);
     panel.add(label,BorderLayout.CENTER);
     panel.add(b2,BorderLayout.EAST);
-    panel.add(b3,BorderLayout.SOUTH);
- 
+    //panel.add(b3,BorderLayout.SOUTH);
+    
     String [] columns = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
     model = new DefaultTableModel(null,columns);
     
@@ -93,6 +136,7 @@ public class InstructorCalendar extends JFrame{
  
     this.add(panel,BorderLayout.NORTH);
     this.add(pane,BorderLayout.CENTER);
+ 
  
     this.updateMonth();
     
