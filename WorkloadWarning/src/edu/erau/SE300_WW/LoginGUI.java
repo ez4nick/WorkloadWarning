@@ -171,7 +171,6 @@ public class LoginGUI extends Application {
             	}
             	else if(UserNameTest==2){
             		userType="Teacher";
-            		System.out.println(currentUserName);
             		InstructorCalendar ic = new InstructorCalendar();
                 	ic.showInstructorCalendar();
                 	loginStage.close();
