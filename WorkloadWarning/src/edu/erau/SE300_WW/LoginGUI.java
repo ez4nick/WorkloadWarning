@@ -174,6 +174,7 @@ public class LoginGUI extends Application {
             		InstructorCalendar ic = new InstructorCalendar();
                 	ic.showInstructorCalendar();
                 	loginStage.close();
+                	
             	}
             	
             }
