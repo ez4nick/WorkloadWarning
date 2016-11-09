@@ -1,28 +1,39 @@
 package edu.erau.SE300_WW;
 
 
-
+import java.awt.event.WindowEvent;
 
 //push test
 
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class LoginGUI extends Application {
@@ -34,7 +45,6 @@ public class LoginGUI extends Application {
 	@Override
 	public void start(Stage loginStage) throws Exception {
 		
-
 		MenuBar menuBar = new MenuBar();
 		Menu menuFile = new Menu("File");
 		Menu menuHelp = new Menu("Help");
@@ -64,7 +74,6 @@ public class LoginGUI extends Application {
 		});
 		
 		
-
 		//First check if the database file exists
 		File f = new File("C:/WorkloadWarning/CanvasDatabase.xlsx");
 		//File f = new File("CanvasDatabase.xlsx");
@@ -75,13 +84,8 @@ public class LoginGUI extends Application {
 			//Show warning alert
 			Alert alert = new Alert(AlertType.WARNING,"",locateButton,quitButton);
 			alert.setTitle("Warning!");
-
-			alert.setHeaderText("Database Not Found");
-			alert.setContentText("Database file was not found. The database file must be named 'CanvasDatabase.xlsx' and be located in 'C:/WorkloadWarning'.");
-
 			alert.setHeaderText("Databse Not Found");
 			alert.setContentText("Databse file was not found. The databse file must now be located.");
-
 			alert.showAndWait();
 			
 			if(alert.getResult().getText().equals("Locate")){
@@ -130,14 +134,10 @@ public class LoginGUI extends Application {
 		userNameField.setLayoutY(80);
 		
 		//create the buttons
-		Button loginBtn, teacherBtn;
+		Button loginBtn;
 		loginBtn = new Button("Login");
-		teacherBtn = new Button("Teacher");
 		loginBtn.setLayoutX(100);
 		loginBtn.setLayoutY(120);
-		teacherBtn.setLayoutX(200);
-		teacherBtn.setLayoutY(120);
-		
 		//create a label for time reaction
 		Label label = new Label("Welcome! Login Below");
 		label.setLayoutX(115);
@@ -146,7 +146,6 @@ public class LoginGUI extends Application {
 		
 		//add buttons, labels and textField to the pane
 		pane.getChildren().add(loginBtn);
-		pane.getChildren().add(teacherBtn);
 		pane.getChildren().add(label);
 		pane.getChildren().add(menuBar);
 		pane.getChildren().add(userNameField);
@@ -158,41 +157,24 @@ public class LoginGUI extends Application {
 		loginBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	currentUserName=userNameField.getText(); //Replace with the name of the student who is logged in
+            	if(databaseShared.isUser(currentUserName)==0){
+            		userNameField.setText("login failed!");
+            	}
+            	else if(databaseShared.isUser(currentUserName)==1){
+            		StudentCalendar wlc = new StudentCalendar();
+                	wlc.setVisible(true);
+                	loginStage.close();
+            	}
+            	else if(databaseShared.isUser(currentUserName)==2){
+            		InstructorCalendar ic = new InstructorCalendar();
+                	ic.showInstructorCalendar();
+                	loginStage.close();
+            	}
             	
-            	userType="Student";
-              	currentUserName=userNameField.getText(); //Replace with the name of the student who is logged in
-             	
-             	if(databaseShared.isUser(currentUserName)==0){
-             		userNameField.setText("login failed!");
-             	}
-             	else if(databaseShared.isUser(currentUserName)==1){
-             		
-             		StudentCalendar wlc = new StudentCalendar();
-                 	wlc.setVisible(true);
-                 	loginStage.close();
-             	}
-             	else if(databaseShared.isUser(currentUserName)==2){
-             		InstructorCalendar ic = new InstructorCalendar();
-                 	ic.showInstructorCalendar();
-                 	loginStage.close();
-             	}
-             	
-              }
+            }
             
         });
-		
-		teacherBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-            	userType="Teacher";
-            	currentUserName=userNameField.getText(); //Replace with the name of the teacher who is logged in
-            	//databaseShared.isStudent(currentUserName);
-            	InstructorCalendar ic = new InstructorCalendar();
-            	ic.showInstructorCalendar();
-            	loginStage.close();
-            }
-        });
-		
 		
 		
 		// Display the GUI
