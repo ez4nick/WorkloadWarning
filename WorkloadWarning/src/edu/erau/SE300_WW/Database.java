@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.swing.JOptionPane;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -241,9 +239,7 @@ public class Database {
 		ArrayList<Assignment> allAssignments = getAllAssignments();
 		
 		for(int x=0;x<allAssignments.size();x++){
-			if(assignmentToVerify.assignmentDate.getYear()==(allAssignments.get(x).assignmentDate.getYear()) &&
-			   assignmentToVerify.assignmentDate.getMonth()==(allAssignments.get(x).assignmentDate.getMonth()) &&
-			   assignmentToVerify.assignmentDate.getDay()==(allAssignments.get(x).assignmentDate.getDay()) &&
+			if(assignmentToVerify.assignmentDate.getTime().equals(allAssignments.get(x).assignmentDate.getTime()) &&
 			   assignmentToVerify.assignmentType.equals(allAssignments.get(x).assignmentType) &&
 			   assignmentToVerify.assignmentName.equals(allAssignments.get(x).assignmentName) &&
 			   assignmentToVerify.courseName.equals(allAssignments.get(x).courseName)){
