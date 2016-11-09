@@ -157,8 +157,9 @@ public class LoginGUI extends Application {
 		loginBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	int UserNameTest = databaseShared.isUser(currentUserName);
+            	
             	currentUserName=userNameField.getText(); //Replace with the name of the student who is logged in
+            	int UserNameTest = databaseShared.isUser(currentUserName);
             	if(UserNameTest==0){
             		userNameField.setText("login failed!");
             	}
