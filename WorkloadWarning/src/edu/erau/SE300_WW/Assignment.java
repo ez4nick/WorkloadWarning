@@ -2,6 +2,7 @@
 
 package edu.erau.SE300_WW;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ public class Assignment {
 
 	public String courseName;
 	public String assignmentName;
-	public Date assignmentDate;
+	public Calendar assignmentDate;
 	public String assignmentType;
 	
 	/**
@@ -24,7 +25,12 @@ public class Assignment {
 	public Assignment(String assignment, String type, Date date, String course){
 		assignmentName = assignment;
 		assignmentType = type;
-		assignmentDate = date;
+		assignmentDate = Calendar.getInstance();
+		assignmentDate.setTime(date);
+		assignmentDate.set(Calendar.HOUR, 0);
+		assignmentDate.set(Calendar.MINUTE, 0);
+		assignmentDate.set(Calendar.SECOND, 0);
+		assignmentDate.set(Calendar.MILLISECOND, 0);
 		courseName = course;
 	}
 }
