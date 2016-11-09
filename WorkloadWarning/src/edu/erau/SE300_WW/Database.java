@@ -341,7 +341,7 @@ public class Database {
 		int k = 0;
 		for (j = 0; j < studentArray.length; j++){
 			try {
-				for (k = 0; k < studentArray[j].length; k++){
+				for (k = 2; k < studentArray[j].length; k++){
 					if (studentArray[j][k].equalsIgnoreCase(student)){
 						courses.add(studentArray[j][1]);
 					}
