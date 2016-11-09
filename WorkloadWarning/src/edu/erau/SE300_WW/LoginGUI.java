@@ -171,7 +171,7 @@ public class LoginGUI extends Application {
                 	ic.showInstructorCalendar();
                 	loginStage.close();
             	}
-            	
+            
             }
             
         });
