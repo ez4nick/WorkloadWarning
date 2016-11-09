@@ -70,7 +70,7 @@ public class DatabaseTester {
 		System.out.println("");
 		*/
 		
-		/*
+		
 		System.out.println("Student User Test");
 		int user = data.isUser("Patrick");
 		System.out.println("Patrick " + user);
@@ -78,13 +78,25 @@ public class DatabaseTester {
 		System.out.println("Nick " +user);
 		user = data.isUser("Professor B");
 		System.out.println("Professor B " +user);
-		*/
 		
 		
+		/*
 		System.out.println("addAssignment");
 		Date date = new Date(); 
 		data.addAssignment(new Assignment("test5","Exam", date, "SE300"));
+		*/
 		
+		System.out.println("searchTcourses test");
+		ArrayList <String> something = data.searchTCourses("Professor B");
+		for (String temp: something){
+			System.out.println(temp);
+		}
+		
+		System.out.println("searchScourses teacher test");
+		ArrayList<String> another = data.searchSCourses("Professor B");
+		for (String temp: another){
+			System.out.println(temp);
+		}
 		
 	}
 	
