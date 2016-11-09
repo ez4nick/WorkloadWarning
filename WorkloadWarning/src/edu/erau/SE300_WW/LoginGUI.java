@@ -170,9 +170,9 @@ public class LoginGUI extends Application {
             	}
             	else if(databaseShared.isUser(currentUserName)==2){
             		userType="Teacher";
+            		System.out.println(currentUserName);
             		InstructorCalendar ic = new InstructorCalendar();
                 	ic.showInstructorCalendar();
-                	ic.setVisible(true);
                 	loginStage.close();
             	}
             	
