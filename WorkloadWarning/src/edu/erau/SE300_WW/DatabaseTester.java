@@ -80,11 +80,11 @@ public class DatabaseTester {
 		System.out.println("Professor B " +user);
 		*/
 		
-		/*
+		
 		System.out.println("addAssignment");
 		Date date = new Date(); 
-		data.addAssignment(new Assignment("test","Exam", date, "SE300"));
-		*/
+		data.addAssignment(new Assignment("test5","Exam", date, "SE300"));
+		
 		
 	}
 	
