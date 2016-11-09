@@ -157,18 +157,18 @@ public class LoginGUI extends Application {
 		loginBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	
+            	int UserNameTest = databaseShared.isUser(currentUserName);
             	currentUserName=userNameField.getText(); //Replace with the name of the student who is logged in
-            	if(databaseShared.isUser(currentUserName)==0){
+            	if(UserNameTest==0){
             		userNameField.setText("login failed!");
             	}
-            	else if(databaseShared.isUser(currentUserName)==1){
+            	else if(UserNameTest==1){
             		userType="Student";
             		StudentCalendar wlc = new StudentCalendar();
                 	wlc.setVisible(true);
                 	loginStage.close();
             	}
-            	else if(databaseShared.isUser(currentUserName)==2){
+            	else if(UserNameTest==2){
             		userType="Teacher";
             		System.out.println(currentUserName);
             		InstructorCalendar ic = new InstructorCalendar();
