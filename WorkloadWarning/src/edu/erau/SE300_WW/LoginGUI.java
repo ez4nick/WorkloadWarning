@@ -172,6 +172,7 @@ public class LoginGUI extends Application {
             		userType="Teacher";
             		InstructorCalendar ic = new InstructorCalendar();
                 	ic.showInstructorCalendar();
+                	ic.setVisible(true);
                 	loginStage.close();
             	}
             	
