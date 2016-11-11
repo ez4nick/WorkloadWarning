@@ -2,6 +2,9 @@ package edu.erau.SE300_WW;
 
 
 import java.io.File;
+
+import javax.swing.JOptionPane;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,10 +24,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class LoginGUI extends Application {
-	public static String userType; //Currently logged in type of user ('Teacher' or 'Student')
-	public static String currentUserName; //User name of the currently logged in user
-	public static String dataseFilePath; //Path to the database file
-	public static Database databaseShared;
+	public static String userType;         //Currently logged in type of user ('Teacher' or 'Student')
+	public static String currentUserName;  //User name of the currently logged in user
+	public static String dataseFilePath;   //Path to the database file
+	public static Database databaseShared; //Database object to be shared by all classes
 	
 	
 	
@@ -36,9 +39,11 @@ public class LoginGUI extends Application {
 		Menu menuHelp = new Menu("Help");
 		MenuItem help1 = new MenuItem("Getting Started");
 		MenuItem help2 = new MenuItem("About");
+		MenuItem item1 = new MenuItem("Quit");
 		
 		menuHelp.getItems().add(help1);
 		menuHelp.getItems().add(help2);
+		menuFile.getItems().add(item1);
 		
 		menuBar.getMenus().addAll(menuFile,menuHelp);
 		menuBar.prefWidthProperty().bind(loginStage.widthProperty());
@@ -55,6 +60,22 @@ public class LoginGUI extends Application {
 			@Override
 			public void handle(ActionEvent arg0) {
 				Help h = new Help("login","about");
+			}
+			
+		});
+		
+		item1.setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent arg0) {
+				int x = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit the Workload Warning Application?","Quit?",JOptionPane.YES_NO_OPTION);
+				
+				if(x==0){
+					//Quit
+					loginStage.close();
+				}
+				else if(x==1){
+					// Cancel the quit request, do nothing. Window is closed automatically...
+				}
 			}
 			
 		});

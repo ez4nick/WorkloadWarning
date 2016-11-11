@@ -95,8 +95,6 @@ public class InstructorCalendar extends JFrame{
 			if(x==0){
 				//Quit
 				dispose();
-				
-				
 			}
 			else if(x==1){
 				// Cancel the quit request, do nothing. Window is closed automatically...
