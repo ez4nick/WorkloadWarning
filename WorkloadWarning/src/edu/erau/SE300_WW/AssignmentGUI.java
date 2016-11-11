@@ -53,6 +53,7 @@ public class AssignmentGUI{
 	DatePicker datePicker;
 	
 	InstructorCalendar ic;
+	ArrayList<String> tempCourseList;
 	
 	Stage newStage;
 	Boolean modifyingAnAssignment=false; //Is the assignment creator window modifying an assignment?
@@ -85,7 +86,13 @@ public class AssignmentGUI{
 	 */
 	public void openAssignmentGUI(Boolean prefillDefaults, String assignmentTitle, String assignmentDate, String assignmentType, String assignmentCourse){
 		
-		ArrayList<String> tempCourseList = d.searchSCourses(LoginGUI.currentUserName); //List of courses to be displayed
+		if(LoginGUI.userType.equals("Student")){
+			tempCourseList = LoginGUI.databaseShared.searchSCourses(LoginGUI.currentUserName); //List of courses to be displayed
+		}
+		else{
+			tempCourseList = LoginGUI.databaseShared.searchTCourses(LoginGUI.currentUserName); //List of courses to be displayed
+		}
+		
 		String courseList[]= new String[tempCourseList.size()+1];
 		courseList[0]="Select a Course"; //Set the default display for the selection
 		for(int x=0; x<tempCourseList.size();x++){

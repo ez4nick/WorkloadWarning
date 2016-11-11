@@ -33,13 +33,19 @@ public class StudentCalendar extends JFrame{
     this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
     this.setSize(900, 250);
     this.setLocationRelativeTo(null);
+    
+    //Get the number of available messages
+    ArrayList<Messages> a=LoginGUI.databaseShared.getMessages(LoginGUI.currentUserName);
+    int howManyMessages=a.size();
    
     JMenuBar menuBar = new JMenuBar();
     JMenu item1 = new JMenu("File");
     JMenuItem fileItem1 = new JMenuItem("Create New Assignment");
-    JMenuItem fileItem2 = new JMenuItem("View Messages");
+    JMenuItem fileItem2 = new JMenuItem("View Messages " + "("+howManyMessages+")");
+    JMenuItem fileItem3 = new JMenuItem("Quit");
     item1.add(fileItem1);
     item1.add(fileItem2);
+    item1.add(fileItem3);
     
     JMenu item2 = new JMenu("Help");
     JMenuItem helpItem1 = new JMenuItem("Using the Calendar");
@@ -70,6 +76,24 @@ public class StudentCalendar extends JFrame{
 		public void actionPerformed(ActionEvent arg0) {
 			Messages m = new Messages();
 			m.openMessagesDisplay();
+		}
+    });
+    
+    fileItem3.addActionListener(new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			int x = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit the Workload Warning Application?","Quit?",JOptionPane.YES_NO_OPTION);
+			
+			if(x==0){
+				//Quit
+				dispose();
+				
+				
+			}
+			else if(x==1){
+				// Cancel the quit request, do nothing. Window is closed automatically...
+			}
+			
 		}
     });
     
