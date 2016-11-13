@@ -29,7 +29,7 @@ public class LoginGUI extends Application {
 	public static String dataseFilePath;   //Path to the database file
 	public static Database databaseShared; //Database object to be shared by all classes
 	
-	
+	File selectedFile;
 	
 	@Override
 	public void start(Stage loginStage) throws Exception {
@@ -81,14 +81,15 @@ public class LoginGUI extends Application {
 		});
 		
 		
-		//First check if the database file exists
+		//First check if the database file exists in the default location
 		File f = new File("C:/WorkloadWarning/CanvasDatabase.xlsx");
-		//File f = new File("CanvasDatabase.xlsx");
 		if(!f.exists()){
 			
 			ButtonType locateButton = new ButtonType("Locate");
+			ButtonType reTryButton = new ButtonType("Try Again");
 			ButtonType quitButton = new ButtonType("Quit");
-			//Show warning alert
+			
+			//Show warning alert that the database file was not found
 			Alert alert = new Alert(AlertType.WARNING,"",locateButton,quitButton);
 			alert.setTitle("Warning!");
 			alert.setHeaderText("Databse Not Found");
@@ -98,34 +99,65 @@ public class LoginGUI extends Application {
 			if(alert.getResult().getText().equals("Locate")){
 				//Locate button was pressed, Show file chooser to pick the correct file
 				
-				
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.getExtensionFilters().addAll(
 		                new FileChooser.ExtensionFilter("XLSX", "*.xlsx")
 		            );
 				fileChooser.setTitle("Open Database File");
 				
-				File selectedFile =fileChooser.showOpenDialog(loginStage);
-				if(selectedFile.exists()){
-					dataseFilePath=selectedFile.getAbsolutePath();
-					databaseShared=new Database(new File(selectedFile.getAbsolutePath()));
+				selectedFile =fileChooser.showOpenDialog(loginStage);
+				if(selectedFile.exists() && selectedFile.getName().equals("CanvasDatabase.xlsx")){
+					dataseFilePath=selectedFile.getAbsolutePath(); //save the path of the selected file
+					databaseShared=new Database(new File(selectedFile.getAbsolutePath())); //create the database object to be shared
+				}
+				else{
+					//File selected was invalid, show an alert and then enter a while loop to prompt them to choose again
+					while(selectedFile.exists() && !selectedFile.getName().equals("CanvasDatabase.xlsx")){
+						Alert alert2 = new Alert(AlertType.ERROR,"",reTryButton,quitButton);
+						alert2.setTitle("Error!");
+						alert2.setHeaderText("Invalid File Selected");
+						alert2.setContentText("The file you selected was invalid. The database file must be named exactly 'CanvasDatabase.xlsx'");
+						alert2.showAndWait();
+						
+						if(alert2.getResult().getText().equals("Try Again")){
+							FileChooser fileChooser2 = new FileChooser();
+							fileChooser2.getExtensionFilters().addAll(
+					                new FileChooser.ExtensionFilter("XLSX", "*.xlsx")
+					            );
+							fileChooser2.setTitle("Open Database File");
+							
+							selectedFile =fileChooser2.showOpenDialog(loginStage);
+							if(selectedFile.exists() && selectedFile.getName().equals("CanvasDatabase.xlsx")){
+								dataseFilePath=selectedFile.getAbsolutePath(); //save the path of the selected file
+								databaseShared=new Database(new File(selectedFile.getAbsolutePath())); //create the database object to be shared
+								//break;
+							}
+						}
+						else{
+							//Quit the app...
+							System.out.println("Quit level 1");
+							Platform.exit();
+						    System.exit(0);
+						}
+					
 				}
 				
-			
+				
+				
+				}
 			}
 			else{
 				//Quit was pressed, quit the application
+				System.out.println("Quit level 2");
 				Platform.exit();
 			    System.exit(0);
 			}
-			System.out.println();
-			
 			
 		}
 		else{
-			//File was found in default location
-			dataseFilePath="C:/WorkloadWarning/CanvasDatabase.xlsx";
-			databaseShared=new Database(new File("C:/WorkloadWarning/CanvasDatabase.xlsx"));
+			//File was found in default location, no warning
+			dataseFilePath="C:/WorkloadWarning/CanvasDatabase.xlsx"; //File path that it is stored in
+			databaseShared=new Database(new File("C:/WorkloadWarning/CanvasDatabase.xlsx")); //Create the database object to be shared
 		}
 		
 		//create the window

@@ -156,9 +156,6 @@ public class Messages {
 						
 						if(result==0){
 							//Professor accepted the assignment, add it to the database....
-							m[list.getSelectedIndex()].date.setHours(0);
-							m[list.getSelectedIndex()].date.setMinutes(0);
-							m[list.getSelectedIndex()].date.setSeconds(0);
 							boolean doesItAlreadyExist=LoginGUI.databaseShared.isAssignmentAlreadyInDatabase(new Assignment(m[list.getSelectedIndex()].assignment, m[list.getSelectedIndex()].type, m[list.getSelectedIndex()].date, m[list.getSelectedIndex()].course));
 							
 							
@@ -170,6 +167,10 @@ public class Messages {
 								//Add the assignment to the databsae!!!
 								LoginGUI.databaseShared.addAssignment(new Assignment(m[list.getSelectedIndex()].assignment, m[list.getSelectedIndex()].type, m[list.getSelectedIndex()].date, m[list.getSelectedIndex()].course));
 							}
+						}
+						
+						else if(result==1){
+							//Deny the assignment, delete the message as well
 						}
 						
 						else if(result ==2){

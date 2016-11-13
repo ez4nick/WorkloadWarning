@@ -303,16 +303,16 @@ public class AssignmentGUI{
 	/**
 	 * This method is referenced from the ProfessorWarning class and shows the dialog indicating that
 	 * the assignment was successfully created. This is only shown for a teacher user type since as long
-	 * as the assignment they are trying to enter does not already exist in the databse then we will add
+	 * as the assignment they are trying to enter does not already exist in the database then we will add
 	 * it instantly.
 	 */
 	public void showSuccessDialog(){
 		if(LoginGUI.userType.equals("Teacher")){
 			
 			//Set the time to 0 for purposes of comparing to see if the assignment already exists
-			selectedDate.setHours(0);
-			selectedDate.setMinutes(0);
-			selectedDate.setSeconds(0);
+			//selectedDate.setHours(0);
+			//selectedDate.setMinutes(0);
+			//selectedDate.setSeconds(0);
 			
 			//Try to Add the assignment to the database first and then show the appropriate dialog after
 			boolean inDatabase=LoginGUI.databaseShared.isAssignmentAlreadyInDatabase(new Assignment(inputText.getText(), typeSelection.getSelectedItem().toString(), selectedDate, courseSelection.getSelectedItem().toString()));
@@ -323,6 +323,7 @@ public class AssignmentGUI{
 				JOptionPane.showMessageDialog(frame, "Assignment Sucessfully Created\nTitle: "+inputText.getText()+"\nDate: "+selectedDate.toString().substring(0,10)+
 					"\nCourse: "+courseSelection.getSelectedItem().toString()+"\nType: "+typeSelection.getSelectedItem().toString(),"Assignment Created",JOptionPane.INFORMATION_MESSAGE);
 			
+				LoginGUI.databaseShared.addAssignment((new Assignment(inputText.getText(), typeSelection.getSelectedItem().toString(), selectedDate, courseSelection.getSelectedItem().toString())));
 				if(modifyingAnAssignment){
 					//If the user is modifying an assignment, close the window for them when they are finished and return to the messages view
 					frame.dispose();

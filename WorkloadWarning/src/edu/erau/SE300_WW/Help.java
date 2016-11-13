@@ -55,7 +55,7 @@ public class Help{
 			labelText="<html> <p align='justify'>"+"The Calendar display shows all of the assignments belonging to the user who is currently signed in."
 					+ " Similar to normal calendars, you can switch between months to get to the desired month to view your assignments."
 					+ " For assignments that do not exist in the calendar, you must navigate to 'File' -> 'Add an assignment' button in order to add"
-					+ " a new assignment into the calendar. Navigating to 'File' -> 'Messages' will open a window showing any messages that may"
+					+ " a new assignment into the calendar. Navigating to 'File' -> 'View Messages' will open a window showing any messages that may"
 					+ " be waiting for you. It is important to regularly check the messages as their content will be time sensitive relating"
 					+ " to the schedule of an assignment."+"</p> <html>";
 			openSwingBox();
