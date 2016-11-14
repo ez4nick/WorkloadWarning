@@ -6,6 +6,11 @@ import java.util.Calendar;
 
 import javax.swing.JFormattedTextField.AbstractFormatter;
 
+/**
+ * This class is used with the datePicker to format the date in a traditional MM/DD/YYYY format. 
+ * This code was obtained from: http://www.codejava.net/java-se/swing/how-to-use-jdatepicker-to-display-calendar-component.
+ *
+ */
 public class DateLabelFormatter extends AbstractFormatter {
 
 	private String datePattern = "MM/dd/yyyy";
