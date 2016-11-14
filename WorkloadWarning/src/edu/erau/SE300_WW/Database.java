@@ -500,6 +500,71 @@ public class Database {
 	//TODO: java doc
 	public void addMessage (Messages message) {
 		//add message to messageArray and excel database
+		messageAL.add(message);
+		try{
+			FileInputStream file = new FileInputStream (theExcel);
+			XSSFWorkbook workbook = new XSSFWorkbook(file);
+			file.close();
+
+			//manipulation
+			Sheet sheet = workbook.getSheetAt(2);
+			CellReference ref = new CellReference ("A1");
+			Cell loc = sheet.getRow(ref.getRow()).getCell(ref.getCol());
+			Row row = sheet.getRow(ref.getRow());
+			boolean loop = true;
+			int i = 2;
+			while (loop == true){
+				row = sheet.getRow(i);
+				if (row == null){
+					//System.out.println("NULL found");
+					row = sheet.createRow(i);
+					loop = false;
+				} else {
+					loc = sheet.getRow(i).getCell(0);
+					if (loc == null || loc.getStringCellValue().isEmpty()){
+						loop = false;
+					} else {
+						i++;
+					}
+				}
+			}
+
+			loc = row.createCell(0);
+			loc.setCellValue(message.assignment);
+			loc = row.createCell(1);
+			loc.setCellValue(message.type);
+			loc = row.createCell(2);
+			
+			//provided by Eric Nicolas
+			//at http://stackoverflow.com/questions/9431089/how-to-correctly-format-a-date-cell-and-populate-content-using-apache-poi-3-7
+			//note: his reference sheet is wrong but can be used as a guide to find the correct number
+			XSSFCellStyle style = workbook.createCellStyle();
+			style.setDataFormat((short)14);
+			
+			loc.setCellValue(message.date);
+			loc.setCellStyle(style);
+			
+			//System.out.println(work.assignmentDate + " " + calendar.getTime());
+			
+			loc = row.createCell(3);
+			loc.setCellValue(message.course);
+			loc = row.createCell(4);
+			loc.setCellValue(message.recipient);
+			loc = row.createCell(5);
+			loc.setCellValue(message.sender);
+			loc = row.createCell(6);
+			loc.setCellValue(message.status);
+			
+			FileOutputStream out = new FileOutputStream (theExcel);
+			workbook.write(out);
+			workbook.close();
+			out.close();
+		} catch (IOException exception){
+			System.out.println("Database addMessage Error");
+			
+			
+		}
+		
 	}
 	
 	//TODO: deleteMessage
