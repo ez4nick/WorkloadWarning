@@ -33,19 +33,13 @@ public class StudentCalendar extends JFrame{
     this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
     this.setSize(900, 250);
     this.setLocationRelativeTo(null);
-    
-    //Get the number of available messages
-    ArrayList<Messages> a=LoginGUI.databaseShared.getMessages(LoginGUI.currentUserName);
-    int howManyMessages=a.size();
    
     JMenuBar menuBar = new JMenuBar();
     JMenu item1 = new JMenu("File");
     JMenuItem fileItem1 = new JMenuItem("Create New Assignment");
-    JMenuItem fileItem2 = new JMenuItem("View Messages " + "("+howManyMessages+")");
-    JMenuItem fileItem3 = new JMenuItem("Quit");
+    JMenuItem fileItem2 = new JMenuItem("View Messages");
     item1.add(fileItem1);
     item1.add(fileItem2);
-    item1.add(fileItem3);
     
     JMenu item2 = new JMenu("Help");
     JMenuItem helpItem1 = new JMenuItem("Using the Calendar");
@@ -67,7 +61,7 @@ public class StudentCalendar extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
     		AssignmentGUI g = new AssignmentGUI(LoginGUI.databaseShared);
-    		g.openAssignmentGUI(false,null,null,null,null);
+    		g.openAssignmentGUI();
 		}
     });
     
@@ -76,24 +70,6 @@ public class StudentCalendar extends JFrame{
 		public void actionPerformed(ActionEvent arg0) {
 			Messages m = new Messages();
 			m.openMessagesDisplay();
-		}
-    });
-    
-    fileItem3.addActionListener(new ActionListener(){
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			int x = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit the Workload Warning Application?","Quit?",JOptionPane.YES_NO_OPTION);
-			
-			if(x==0){
-				//Quit
-				dispose();
-				
-				
-			}
-			else if(x==1){
-				// Cancel the quit request, do nothing. Window is closed automatically...
-			}
-			
 		}
     });
     
@@ -136,7 +112,7 @@ public class StudentCalendar extends JFrame{
           //launch Assignment GUI
           
     		AssignmentGUI g = new AssignmentGUI(LoginGUI.databaseShared);
-    		g.openAssignmentGUI(false,null,null,null,null);
+    		g.openAssignmentGUI();
         }
       });
     
@@ -186,7 +162,845 @@ public class StudentCalendar extends JFrame{
       model.setValueAt(day, i/7 , i%7 );
       i = i + 1;
       
-      //Populate calendar with Assignments retrieved from database 
+      
+ //Populate calendar with Assignments retrieved from database 
+      
+		ArrayList<Assignment> student = new ArrayList <Assignment> (0);
+		student = LoginGUI.databaseShared.searchSAssignment("Elisa");
+		for (Assignment temp: student){
+    	
+    	 // retrieve assignment date from database
+    	 Calendar n;
+			n = temp.assignmentDate;
+			//Set date obtained from database to string
+			String date = n.toString();
+			//Break string into substrings
+			
+			//obtains month from date string ("Oct")
+			String month1 = date.substring(4,7);
+			
+			//obtains day of week from date string ("Mon")
+			String day1 = date.substring(0,3);
+			
+			//obtains year from date string ("2016")
+			String year1 = date.substring(24,28);
+			
+			//obtains day from date string ("17")
+			String daynum = date.substring(8,10);
+			
+			//Initialize column variable which determines the (column 
+			//in the calendar/day of the week) where assignment information will
+			//be transfered.
+			int column = 0;
+			String fromcal = null;
+			
+			
+			//Populate for October
+			if (day1 == "Sun" && month1 == "Oct" && year1 == "2016" && month.equals("October")&& year==2016){
+				column = 0;
+				
+				int k = (int) model.getRowCount();
+				int i2=1;
+				int stop = 0;
+				while (stop == 0&& i2<k) {
+				
+					int checknum = (int) model.getValueAt(i2,column);
+					fromcal = Integer.toString(checknum); 
+					i2++;
+					if(fromcal.equals(daynum)){
+						stop = 1;
+					}
+					
+				}
+				
+				//input assignment
+				
+				model.setValueAt(temp.assignmentName,i2-1, column);
+				
+			}
+		else if (day1 == "Mon"&& month1 == "Oct" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 1;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Tue"&& month1 == "Oct" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 2;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Wed"&& month1 == "Oct" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 3;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Thu"&& month1 == "Oct" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 4;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Fri"&& month1 == "Oct" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 5;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Sat"&& month1 == "Oct" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 6;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+			
+			
+			
+			
+			
+			//Populate for November
+			if (day1 == "Sun" && month1 == "Nov" && year1 == "2016" && month.equals("October")&& year==2016){
+				column = 0;
+				
+				int k = (int) model.getRowCount();
+				int i2=1;
+				int stop = 0;
+				while (stop == 0&& i2<k) {
+				
+					int checknum = (int) model.getValueAt(i2,column);
+					fromcal = Integer.toString(checknum); 
+					i2++;
+					if(fromcal.equals(daynum)){
+						stop = 1;
+					}
+					
+				}
+				
+				//input assignment
+				
+				model.setValueAt(temp.assignmentName,i2-1, column);
+				
+			}
+		else if (day1 == "Mon"&& month1 == "Nov" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 1;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Tue"&& month1 == "Nov" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 2;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Wed"&& month1 == "Nov" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 3;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Thu"&& month1 == "Nov" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 4;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Fri"&& month1 == "Nov" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 5;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Sat"&& month1 == "Nov" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 6;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+			
+			
+			
+		
+			//Populate for December
+			if (day1 == "Sun" && month1 == "Dec" && year1 == "2016" && month.equals("October")&& year==2016){
+				column = 0;
+				
+				int k = (int) model.getRowCount();
+				int i2=1;
+				int stop = 0;
+				while (stop == 0&& i2<k) {
+				
+					int checknum = (int) model.getValueAt(i2,column);
+					fromcal = Integer.toString(checknum); 
+					i2++;
+					if(fromcal.equals(daynum)){
+						stop = 1;
+					}
+					
+				}
+				
+				//input assignment
+				
+				model.setValueAt(temp.assignmentName,i2-1, column);
+				
+			}
+		else if (day1 == "Mon"&& month1 == "Dec" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 1;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Tue"&& month1 == "Dec" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 2;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Wed"&& month1 == "Dec" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 3;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Thu"&& month1 == "Dec" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 4;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Fri"&& month1 == "Dec" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 5;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Sat"&& month1 == "Dec" && year1 == "2016" && month.equals("October")&& year==2016){
+			column = 6;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		
+			
+			
+			
+			
+			
+			//Populate for January
+			if (day1 == "Sun" && month1 == "Jan" && year1 == "2017" && month.equals("October")&& year==2016){
+				column = 0;
+				
+				int k = (int) model.getRowCount();
+				int i2=1;
+				int stop = 0;
+				while (stop == 0&& i2<k) {
+				
+					int checknum = (int) model.getValueAt(i2,column);
+					fromcal = Integer.toString(checknum); 
+					i2++;
+					if(fromcal.equals(daynum)){
+						stop = 1;
+					}
+					
+				}
+				
+				//input assignment
+				
+				model.setValueAt(temp.assignmentName,i2-1, column);
+				
+			}
+		else if (day1 == "Mon"&& month1 == "Jan" && year1 == "2017" && month.equals("October")&& year==2016){
+			column = 1;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Tue"&& month1 == "Jan" && year1 == "2017" && month.equals("October")&& year==2016){
+			column = 2;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Wed"&& month1 == "Jan" && year1 == "2017" && month.equals("October")&& year==2016){
+			column = 3;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Thu"&& month1 == "Jan" && year1 == "2017" && month.equals("October")&& year==2016){
+			column = 4;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Fri"&& month1 == "Jan" && year1 == "2017" && month.equals("October")&& year==2016){
+			column = 5;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Sat"&& month1 == "Jan" && year1 == "2017" && month.equals("October")&& year==2016){
+			column = 6;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		
+			
+			
+			
+			
+			
+			//Populate for February
+			if (day1 == "Sun" && month1 == "Feb" && year1 == "2017" && month.equals("October")&& year==2016){
+				column = 0;
+				
+				int k = (int) model.getRowCount();
+				int i2=1;
+				int stop = 0;
+				while (stop == 0&& i2<k) {
+				
+					int checknum = (int) model.getValueAt(i2,column);
+					fromcal = Integer.toString(checknum); 
+					i2++;
+					if(fromcal.equals(daynum)){
+						stop = 1;
+					}
+					
+				}
+				
+				//input assignment
+				
+				model.setValueAt(temp.assignmentName,i2-1, column);
+				
+			}
+		else if (day1 == "Mon"&& month1 == "Feb" && year1 == "2017" && month.equals("October")&& year==2016){
+			column = 1;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Tue"&& month1 == "Feb" && year1 == "2017" && month.equals("October")&& year==2016){
+			column = 2;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Wed"&& month1 == "Feb" && year1 == "2017" && month.equals("October")&& year==2016){
+			column = 3;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Thu"&& month1 == "Feb" && year1 == "2017" && month.equals("October")&& year==2016){
+			column = 4;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Fri"&& month1 == "Feb" && year1 == "2017" && month.equals("October")&& year==2016){
+			column = 5;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		else if (day1 == "Sat"&& month1 == "Feb" && year1 == "2017" && month.equals("October")&& year==2016){
+			column = 6;
+			
+			int k = (int) model.getRowCount();
+			int i2=1;
+			int stop = 0;
+			while (stop == 0&& i2<k) {
+			
+				int checknum = (int) model.getValueAt(i2,column);
+				fromcal = Integer.toString(checknum); 
+				i2++;
+				if(fromcal.equals(daynum)){
+					stop = 1;
+				}
+				
+			}
+			
+			//input assignment
+			
+			model.setValueAt(temp.assignmentName,i2-1, column);
+			
+		}
+		
+		
+			
+		
+				}
+      
+      
+      
+      
+      
       if (month.equals("October")& year==2016){
           String test1 = "19   AS322: Test 2";
           model.setValueAt(test1,3, 3);
