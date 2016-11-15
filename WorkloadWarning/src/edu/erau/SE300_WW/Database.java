@@ -22,13 +22,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * storing the information into the object for reference,
  * and manipulating the excel file along with the saved data
  * @author Elisa
- */
-/**
- * Database Class for a Canvas-like assignment calendar
- * the Database object will read a properly formatted excel file,
- * storing the information into the object for reference,
- * and manipulating the excel file along with the saved data
- * @author Elisa
  *
  */
 public class Database {

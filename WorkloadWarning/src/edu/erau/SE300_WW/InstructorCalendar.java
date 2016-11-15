@@ -39,10 +39,15 @@ public class InstructorCalendar extends JFrame{
     this.setLocationRelativeTo(null);
    
  
+    //Get the number of available messages
+    ArrayList<Messages> a=LoginGUI.databaseShared.getMessages(LoginGUI.currentUserName);
+    int howManyMessages=a.size();
+    
     JMenuBar menuBar = new JMenuBar();
     JMenu item1 = new JMenu("File");
     JMenuItem fileItem1 = new JMenuItem("Create New Assignment");
-    JMenuItem fileItem2 = new JMenuItem("View Messages");
+    JMenuItem fileItem2 = new JMenuItem("View Messages "+"("+howManyMessages+")");
+    JMenuItem fileItem3 = new JMenuItem("Quit");
     item1.add(fileItem1);
     item1.add(fileItem2);
     
@@ -67,15 +72,33 @@ public class InstructorCalendar extends JFrame{
 			//Database d = new Database(new File(LoginGUI.dataseFilePath));
 			
     		AssignmentGUI g = new AssignmentGUI(LoginGUI.databaseShared,InstructorCalendar.this);
-    		g.openAssignmentGUI();
+    		g.openAssignmentGUI(false,null,null,null,null);
 		}
     });
     
     fileItem2.addActionListener(new ActionListener(){
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			Messages m = new Messages();
+			Messages m = new Messages(InstructorCalendar.this);
 			m.openMessagesDisplay();
+		}
+    });
+    
+    fileItem3.addActionListener(new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			int x = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit the Workload Warning Application?","Quit?",JOptionPane.YES_NO_OPTION);
+			
+			if(x==0){
+				//Quit
+				dispose();
+				
+				
+			}
+			else if(x==1){
+				// Cancel the quit request, do nothing. Window is closed automatically...
+			}
+			
 		}
     });
     
@@ -110,7 +133,7 @@ public class InstructorCalendar extends JFrame{
           //launch Assignment GUI
         	
     		AssignmentGUI g = new AssignmentGUI(LoginGUI.databaseShared,InstructorCalendar.this);
-    		g.openAssignmentGUI();
+    		g.openAssignmentGUI(false,null,null,null,null);
     		
         }
       });
