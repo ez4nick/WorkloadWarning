@@ -319,11 +319,13 @@ public class AssignmentGUI{
 			
 			if(!inDatabase){
 				//If the assignment was not already in the database then add it and show a success dialog to the teacher
-				ic.addAssignment(Integer.parseInt(selectedDate.toString().substring(8,10)), inputText.getText(), courseSelection.getSelectedItem().toString(),selectedDate.toString().substring(4,7));
+				//ic.addAssignment(Integer.parseInt(selectedDate.toString().substring(8,10)), inputText.getText(), courseSelection.getSelectedItem().toString(),selectedDate.toString().substring(4,7));
+				
 				JOptionPane.showMessageDialog(frame, "Assignment Sucessfully Created\nTitle: "+inputText.getText()+"\nDate: "+selectedDate.toString().substring(0,10)+
 					"\nCourse: "+courseSelection.getSelectedItem().toString()+"\nType: "+typeSelection.getSelectedItem().toString(),"Assignment Created",JOptionPane.INFORMATION_MESSAGE);
 			
 				LoginGUI.databaseShared.addAssignment((new Assignment(inputText.getText(), typeSelection.getSelectedItem().toString(), selectedDate, courseSelection.getSelectedItem().toString())));
+				ic.updateMonth();
 				if(modifyingAnAssignment){
 					//If the user is modifying an assignment, close the window for them when they are finished and return to the messages view
 					frame.dispose();
