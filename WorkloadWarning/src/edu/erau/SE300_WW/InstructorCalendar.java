@@ -25,6 +25,8 @@ public class InstructorCalendar extends JFrame{
   
   public InstructorCalendar(){
 	  
+	  
+	  
   }
   
   public void showInstructorCalendar() {
@@ -149,7 +151,15 @@ public class InstructorCalendar extends JFrame{
     //panel.add(b3,BorderLayout.SOUTH);
     
     String [] columns = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
-    model = new DefaultTableModel(null,columns);
+    model = new DefaultTableModel(null,columns){
+    	//Credit to StackOverflow question: http://stackoverflow.com/questions/12840153/defaulttablemodel-make-cell-not-editable-jtable
+    	@Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    
+    
     
     JTable table = new JTable(model);
     
@@ -164,41 +174,6 @@ public class InstructorCalendar extends JFrame{
  
   }
   
-  public void addAssignment(int day,String title, String course, String AssignmentMonth){
-	  int offset=0;
-	  if(AssignmentMonth.equals("Oct")){
-		  offset=5;
-		  if(month.equals("November")){
-			  cal.add(Calendar.MONTH, -1);
-		  }
-		  if(month.equals("December")){
-			  cal.add(Calendar.MONTH, -2);
-		  }
-		  updateMonth();
-	  }
-	  else if(AssignmentMonth.equals("Nov")){
-		  offset=1;
-		  if(month.equals("October")){
-			  cal.add(Calendar.MONTH, +1);
-		  }
-		  else if(month.equals("December")){
-			  cal.add(Calendar.MONTH, -1);
-		  }
-		  updateMonth();
-	  }
-	  else if(AssignmentMonth.equals("Dec")){
-		  offset=3;
-		  if(month.equals("October")){
-			  cal.add(Calendar.MONTH, +2);
-		  }
-		  else if(month.equals("November")){
-			  cal.add(Calendar.MONTH, +1);
-		  }
-		  updateMonth();
-	  }
-	  int new_day=day+offset;
-	  model.setValueAt(day+" "+course+": "+title, new_day/7, new_day%7);
-  }
  
   // 
   void updateMonth() {
@@ -225,9 +200,9 @@ public class InstructorCalendar extends JFrame{
       model.setValueAt(day, i/7 , i%7 );
       
       //Populate calendar with Assignments retrieved from database 
-      
+      String instructor = LoginGUI.currentUserName;
       ArrayList <Assignment> a = new ArrayList <Assignment> (0);
-      a = LoginGUI.databaseShared.searchTAssignment("Professor B"); 
+      a = LoginGUI.databaseShared.searchTAssignment(instructor); 
       
       for (Assignment temp: a){
     	  if (temp.assignmentDate.get(Calendar.YEAR) == cal.get(Calendar.YEAR)){
@@ -251,4 +226,5 @@ public class InstructorCalendar extends JFrame{
  
   }
 
+ 
  

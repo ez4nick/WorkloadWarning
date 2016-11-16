@@ -127,7 +127,14 @@ public class StudentCalendar extends JFrame{
     //panel.add(b3,BorderLayout.SOUTH);
  
     String [] columns = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
-    model = new DefaultTableModel(null,columns);
+    model = new DefaultTableModel(null,columns){
+    	//Credit to StackOverflow question: http://stackoverflow.com/questions/12840153/defaulttablemodel-make-cell-not-editable-jtable
+    	@Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    
     
     JTable table = new JTable(model);
     
@@ -166,8 +173,9 @@ public class StudentCalendar extends JFrame{
       
       //Populate calendar with Assignments retrieved from database 
       
+      String studentName = LoginGUI.currentUserName;
       ArrayList<Assignment> student = new ArrayList <Assignment> (0);
-		student = LoginGUI.databaseShared.searchSAssignment("Elisa");
+		student = LoginGUI.databaseShared.searchSAssignment(studentName);
 		
       
       for (Assignment temp: student){
@@ -191,3 +199,4 @@ public class StudentCalendar extends JFrame{
     
  
   }
+
