@@ -9,8 +9,8 @@ import javax.swing.*;
 import javax.swing.table.*;
  
 /**
- * The InstructorCalendar Class displays the assignment schedules that
- * are unique to a specific instructor.
+ * The InstructorCalendar Class displays the assignment schedules of all 
+ * the students enrolled in a specific course to the instructor.
  * @author Chianti Ghalson
  *
  */
