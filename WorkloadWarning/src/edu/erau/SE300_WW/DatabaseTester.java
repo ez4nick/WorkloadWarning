@@ -81,7 +81,7 @@ public class DatabaseTester {
 		System.out.println("Professor B " +user);
 		*/
 		
-		
+		/*
 		System.out.println("addAssignment");
 		Date date = new Date(); 
 		data.addAssignment(new Assignment("test5","Exam", date, "SE300"));
@@ -107,6 +107,9 @@ public class DatabaseTester {
 		Messages temp = new Messages("Assignment 5", "hw", due, "AS322", "Professor B", "Nick", "requested");
 		data.addMessage(temp);
 		System.out.println("Message Added");
+		
+		data.deleteMessage(temp);
+		System.out.println("Message Deleted");
 		
 	}
 	
