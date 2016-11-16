@@ -166,8 +166,9 @@ public class StudentCalendar extends JFrame{
       
       //Populate calendar with Assignments retrieved from database 
       
+      String name = LoginGUI.currentUserName;
       ArrayList<Assignment> student = new ArrayList <Assignment> (0);
-		student = LoginGUI.databaseShared.searchSAssignment("Elisa");
+		student = LoginGUI.databaseShared.searchSAssignment(name);
 		
       
       for (Assignment temp: student){
@@ -191,3 +192,4 @@ public class StudentCalendar extends JFrame{
     
  
   }
+

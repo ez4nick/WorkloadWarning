@@ -25,6 +25,8 @@ public class InstructorCalendar extends JFrame{
   
   public InstructorCalendar(){
 	  
+	  
+	  
   }
   
   public void showInstructorCalendar() {
@@ -225,9 +227,9 @@ public class InstructorCalendar extends JFrame{
       model.setValueAt(day, i/7 , i%7 );
       
       //Populate calendar with Assignments retrieved from database 
-      
+      String teacher = LoginGUI.currentUserName;
       ArrayList <Assignment> a = new ArrayList <Assignment> (0);
-      a = LoginGUI.databaseShared.searchTAssignment("Professor B"); 
+      a = LoginGUI.databaseShared.searchTAssignment(teacher); 
       
       for (Assignment temp: a){
     	  if (temp.assignmentDate.get(Calendar.YEAR) == cal.get(Calendar.YEAR)){
@@ -251,4 +253,5 @@ public class InstructorCalendar extends JFrame{
  
   }
 
+ 
  
