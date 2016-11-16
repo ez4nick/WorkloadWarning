@@ -167,6 +167,9 @@ public class InstructorCalendar extends JFrame{
   }
   
   public void addAssignment(int day,String title, String course, String AssignmentMonth){
+	  
+	  
+	  /*
 	  int offset=0;
 	  if(AssignmentMonth.equals("Oct")){
 		  offset=5;
@@ -200,6 +203,7 @@ public class InstructorCalendar extends JFrame{
 	  }
 	  int new_day=day+offset;
 	  model.setValueAt(day+" "+course+": "+title, new_day/7, new_day%7);
+	  */
   }
  
   // 
