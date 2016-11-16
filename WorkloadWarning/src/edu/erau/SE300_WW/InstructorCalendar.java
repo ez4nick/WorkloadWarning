@@ -234,7 +234,7 @@ public class InstructorCalendar extends JFrame{
     		  if (temp.assignmentDate.get(Calendar.MONTH) == cal.get(Calendar.MONTH)){
     			  if (temp.assignmentDate.get(Calendar.DAY_OF_MONTH) == day){
     				
-    				  model.setValueAt(day +" "+ temp.assignmentName, i/7 , i%7 );  
+    				  model.setValueAt(day +" "+ temp.courseName+ "-"+temp.assignmentName, i/7 , i%7 );   
     				  
     			  }
     		  }
