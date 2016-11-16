@@ -166,45 +166,6 @@ public class InstructorCalendar extends JFrame{
  
   }
   
-  public void addAssignment(int day,String title, String course, String AssignmentMonth){
-	  
-	  
-	  /*
-	  int offset=0;
-	  if(AssignmentMonth.equals("Oct")){
-		  offset=5;
-		  if(month.equals("November")){
-			  cal.add(Calendar.MONTH, -1);
-		  }
-		  if(month.equals("December")){
-			  cal.add(Calendar.MONTH, -2);
-		  }
-		  updateMonth();
-	  }
-	  else if(AssignmentMonth.equals("Nov")){
-		  offset=1;
-		  if(month.equals("October")){
-			  cal.add(Calendar.MONTH, +1);
-		  }
-		  else if(month.equals("December")){
-			  cal.add(Calendar.MONTH, -1);
-		  }
-		  updateMonth();
-	  }
-	  else if(AssignmentMonth.equals("Dec")){
-		  offset=3;
-		  if(month.equals("October")){
-			  cal.add(Calendar.MONTH, +2);
-		  }
-		  else if(month.equals("November")){
-			  cal.add(Calendar.MONTH, +1);
-		  }
-		  updateMonth();
-	  }
-	  int new_day=day+offset;
-	  model.setValueAt(day+" "+course+": "+title, new_day/7, new_day%7);
-	  */
-  }
  
   // 
   void updateMonth() {
