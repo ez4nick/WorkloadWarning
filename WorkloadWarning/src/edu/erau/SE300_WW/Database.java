@@ -250,6 +250,25 @@ public class Database {
 	}
 	
 	
+	/** getTeacherOfCourse({@link String} course) returns the name of the teacher who is teaching a specified 
+	 * course. This method is intended to be used when sending a message to a professor by determining who
+	 * the recipient of a message would be. 
+	 * @param course {@link String} the course you want to know the professor for
+	 * @return Returns a {@link String} of the name of the teacher
+	 * @author Nicholas Krawczyk
+	 */
+	public String getTeacherOfCourse(String course){
+		String[][] allStudents = getAllStudents();
+		String professor="";
+		for(int x=0; x<allStudents.length; x++){
+			if(searchTCourses(allStudents[x][0]).contains(course)){
+				professor=allStudents[x][0];
+			}
+		}
+		return professor;
+	}
+	
+	
 	/**
 	 * getAllStudents() allows for reading the enrollment of all courses stored in the database
 	 * @return 2D array of {@link String} formatted [i][0] is the Teacher, [i][1] is the course, and [i][n>1] is a student enrolled in that course

@@ -277,18 +277,8 @@ public class AssignmentGUI{
 					else{
 						//User is a student, so send a request to the teacher of their course with the assignment
 						
-						/* *******************************************
-						 * *******************************************
-						 * *******************************************
-						 * *******************************************
-						 * *******************************************
-						 * INSERT CODE TO SEND MESSAGE TO TEACHER HERE
-						 * *******************************************
-						 * *******************************************
-						 * *******************************************
-						 * *******************************************
-						 * *******************************************
-						 */
+						LoginGUI.databaseShared.addMessage(new Messages(inputText.getText(), typeSelection.getSelectedItem().toString(), 
+								selectedDate, courseSelection.getSelectedItem().toString(), LoginGUI.databaseShared.getTeacherOfCourse(courseSelection.getSelectedItem().toString()), LoginGUI.currentUserName, "Requested"));
 						JOptionPane.showMessageDialog(frame, "Your request has been sent to your teacher. Once your teacher approves the assignment it will be considered.","Request Semt",JOptionPane.INFORMATION_MESSAGE);
 						resetAllFields();
 					}
