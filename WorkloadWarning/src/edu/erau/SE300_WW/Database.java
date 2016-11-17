@@ -215,7 +215,7 @@ public class Database {
 			if(getAllAssignments().get(x).courseName.equals(course) && getAllAssignments().get(x).assignmentType.equals("Exam")){
 				//If course name matches what was entered and the assignment type is Exam then it is a match, add it to the list
 				allExamsInYourCourse.add(getAllAssignments().get(x));
-				System.out.println("------>"+getAllAssignments().get(x).assignmentName);
+				
 			}
 		}
 		
@@ -507,6 +507,40 @@ public class Database {
 	public void deleteAssignment (Assignment work) {
 		//delete assignment from assignment array and excel database
 		
+	}
+	
+	/**
+	 * studentExamList creates a sorted list of a students exams by date
+	 * 
+	 * @param student: {@link string} of student's first name
+	 * @return an {@link ArrayList} of {@link Assignment} 
+	 * @author Thomas Ellis
+	 */
+	public ArrayList<Assignment> studentExamList(String userName){
+		ArrayList<String> studentClassList = searchSCourses(userName);
+		ArrayList<Assignment> assignList = getAllAssignments();
+		ArrayList<Assignment> studentAssignList = new ArrayList<Assignment>();
+		
+		for(int count=0; count<studentClassList.size();count++){
+			for(int countA = 0; countA<assignList.size();countA++){
+				if(assignList.get(countA).courseName.equals(studentClassList.get(count)) && assignList.get(countA).assignmentType.equalsIgnoreCase("exam")){
+					Assignment temp = assignList.get(countA);
+					studentAssignList.add(temp);
+				}
+			}
+		}
+		for(int count = 0; count<studentAssignList.size();count++){
+			if(count+1>studentAssignList.size()){
+				break;
+			}
+			else if(studentAssignList.get(count).assignmentDate.after(studentAssignList.get(count+1).assignmentDate)){
+				Assignment temp = studentAssignList.get(count+1);
+				studentAssignList.remove(count+1);
+				studentAssignList.add(count, temp);
+				
+			}
+		}
+		return studentAssignList;
 	}
 	
 	/**
