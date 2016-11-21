@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -430,7 +432,25 @@ public class Database {
 		}
 		return work;
 	}
-	
+	//new method: sum exams by date
+	public int getNumberOfExams(String teacher,String datein){
+		int m =0;
+		for(int x=0; x<searchTAssignment(teacher).size();x++){
+			if(searchTAssignment(teacher).get(x).assignmentType.equals("Exam")){
+				
+				Calendar date = searchTAssignment(teacher).get(x).assignmentDate;
+				date.add(Calendar.DATE, 1);
+				SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+				String formatted = format1.format(date.getTime());
+				
+				if (formatted == datein){
+					m++;
+					
+				}
+			}
+		}
+		return m;
+		}
 	/**
 	 * addAssignmet({@link Assignment} work) will add the given assignment 
 	 * to both the assignment array for further use and to the excel file for record. 
