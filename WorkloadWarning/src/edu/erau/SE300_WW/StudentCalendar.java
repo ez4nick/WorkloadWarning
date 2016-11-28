@@ -96,7 +96,7 @@ public class StudentCalendar extends JFrame{
       }
     });
     
-    //Button to launch Assignment GUI
+    //Button to  launch Assignment GUI
     JButton b3 = new JButton("Create New Assignment");
    
     
