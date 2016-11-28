@@ -535,7 +535,83 @@ public class Database {
 	//TODO: java doc
 	public void deleteAssignment (Assignment work) {
 		//delete assignment from assignment array and excel database
+		int it = -1, i = 0;
+		Assignment temp;
+		for (i = 0; i<assignmentAL.size(); i++){
+			temp = assignmentAL.get(i);
+			if (temp.assignmentName.equalsIgnoreCase(work.assignmentName)){
+				if (temp.assignmentType.equalsIgnoreCase(work.assignmentType)){
+					if (temp.assignmentDate.equals(work.assignmentDate)){
+						if (temp.courseName.equalsIgnoreCase(work.courseName)){
+							it = i;
+						}
+					}
+				}
+			}
+		}
 		
+		if (it == -1){
+			System.out.println("Assignment to delete not found");
+		} else {
+			assignmentAL.remove(it);
+			
+			try{
+				FileInputStream file = new FileInputStream (theExcel);
+				XSSFWorkbook workbook = new XSSFWorkbook(file);
+				file.close();
+	
+				//manipulation
+				Sheet sheet = workbook.getSheetAt(1);
+				CellReference ref = new CellReference ("A1");
+				Cell loc = sheet.getRow(ref.getRow()).getCell(ref.getCol());
+				Row row = sheet.getRow(ref.getRow());
+				CellReference b = new CellReference("B1");
+				CellReference c = new CellReference("C1");
+				CellReference d = new CellReference("D1");
+				Cell assignment, type, date, course;
+				boolean loop = true;
+				i = 2;
+				while (loop == true){
+					row = sheet.getRow(i);
+					if (row == null){
+						//System.out.println("NULL found");
+						loop = false;
+					} else {
+						loc = sheet.getRow(i).getCell(0);
+						if (loc == null || loc.getStringCellValue().isEmpty()){
+							loop = false;
+						} else {
+							assignment = sheet.getRow(i).getCell(ref.getCol());
+							type = sheet.getRow(i).getCell(b.getCol());
+							date = sheet.getRow(i).getCell(c.getCol());
+							course = sheet.getRow(i).getCell(d.getCol());
+			
+							if (work.courseName.equalsIgnoreCase(course.getStringCellValue())
+								&& work.assignmentDate.equals(date.getDateCellValue())
+								&& work.assignmentType.equalsIgnoreCase(type.getStringCellValue())
+								&& work.assignmentName.equalsIgnoreCase(assignment.getStringCellValue())){
+								
+								sheet.removeRow(row);
+								loop = false;
+						
+							}else {
+								i++;
+							}
+						}
+					}
+				}
+				
+				FileOutputStream out = new FileOutputStream (theExcel);
+				workbook.write(out);
+				workbook.close();
+				out.close();
+			} catch (IOException exception){
+				System.out.println("Database deleteMessage Error");
+				
+				
+			}
+		
+		}
 	}
 	
 	/**
@@ -654,7 +730,7 @@ public class Database {
 	 * @author Elisa
 	 */
 	public void deleteMessage (Messages message) {
-		//delete Assignment in both messageArray and excel database
+		//delete message in both messageArray and excel database
 		int it = -1, i = 0;
 		Messages temp;
 		for (i = 0; i<messageAL.size(); i++){

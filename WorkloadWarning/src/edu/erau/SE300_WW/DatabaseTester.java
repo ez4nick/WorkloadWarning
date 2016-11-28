@@ -103,12 +103,13 @@ public class DatabaseTester {
 		}
 		*/
 		
+		/*
 		ArrayList <Messages> mal = data.getAllMessages();
 		for (Messages m: mal){
 			System.out.println(m.assignment+"/"+m.course);
-		}
+		}*/
 		
-		
+		/*
 		Date due = new Date();
 		Messages temp = new Messages("Assignment 5", "hw", due, "AS322", "Professor B", "Nick", "requested");
 		
@@ -122,17 +123,38 @@ public class DatabaseTester {
 		}
 		
 		data.changeMessageStatus(temp, false);
-		
+		*/
 		/*
 		data.deleteMessage(temp);
 		System.out.println("Message Deleted");
 		*/
-		
+		/*
 		mal = data.getAllMessages();
 		for (Messages m: mal){
 			System.out.println(m.assignment+"/"+m.course+"/"+m.recipient+"/"+m.sender+"/"+m.status);
+		}*/
+		
+		ArrayList<Assignment> aal = data.getAllAssignments();
+		for (Assignment a: aal){
+			System.out.println(a.assignmentName+"/"+a.courseName);
 		}
 		
+		Date due = new Date();
+		Assignment na = new Assignment("Test 3", "Exam", due, "AS322");
+		
+		//data.addAssignment(na);
+		
+		aal = data.getAllAssignments();
+		for (Assignment a: aal){
+			System.out.println(a.assignmentName+"/"+a.courseName);
+		}
+		
+		data.deleteAssignment(na);
+		
+		aal = data.getAllAssignments();
+		for (Assignment a: aal){
+			System.out.println(a.assignmentName+"/"+a.courseName);
+		}
 	}
 	
 	
