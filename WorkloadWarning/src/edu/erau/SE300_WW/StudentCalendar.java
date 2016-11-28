@@ -7,8 +7,7 @@ import java.io.File;
 import javax.swing.*;
 import javax.swing.table.*;
 
-import SE300_WW.Assignment;
-import SE300_WW.LoginGUI;
+
  
 /**
  * StudentCalendar displays an individual student's calendar schedule
@@ -97,7 +96,7 @@ public class StudentCalendar extends JFrame{
       }
     });
     
-    //Button to launch Assignment GUI
+    //Button to  launch Assignment GUI
     JButton b3 = new JButton("Create New Assignment");
    
     
