@@ -655,8 +655,26 @@ public class Database {
 	 */
 	public void deleteMessage (Messages message) {
 		//delete Assignment in both messageArray and excel database
-		int it;
-		it = messageAL.indexOf(message);
+		int it = -1, i = 0;
+		Messages temp;
+		for (i = 0; i<messageAL.size(); i++){
+			temp = messageAL.get(i);
+			if (temp.assignment.equalsIgnoreCase(message.assignment)){
+				if (temp.type.equalsIgnoreCase(message.type)){
+					if (temp.date.equals(message.date)){
+						if (temp.course.equalsIgnoreCase(message.course)){
+							if (temp.recipient.equalsIgnoreCase(message.recipient)){
+								if(temp.sender.equalsIgnoreCase(message.sender)){
+									if (temp.status.equalsIgnoreCase(message.status)){
+										it = i;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 		
 		if (it == -1){
 			System.out.println("Message to delete not found");
@@ -681,7 +699,7 @@ public class Database {
 				CellReference g = new CellReference("G1");
 				Cell assignment, type, date, course, to, from, status;
 				boolean loop = true;
-				int i = 2;
+				i = 2;
 				while (loop == true){
 					row = sheet.getRow(i);
 					if (row == null){
