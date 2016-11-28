@@ -142,13 +142,15 @@ public class DatabaseTester {
 		Date due = new Date();
 		Assignment na = new Assignment("Test 3", "Exam", due, "AS322");
 		
+		//System.out.println("Adding Assignment");
 		//data.addAssignment(na);
 		
 		aal = data.getAllAssignments();
 		for (Assignment a: aal){
 			System.out.println(a.assignmentName+"/"+a.courseName);
 		}
-		
+	
+		System.out.println("Deleting Assignment");
 		data.deleteAssignment(na);
 		
 		aal = data.getAllAssignments();

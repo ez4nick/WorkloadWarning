@@ -590,7 +590,7 @@ public class Database {
 								&& work.assignmentDate.equals(date.getDateCellValue())
 								&& work.assignmentType.equalsIgnoreCase(type.getStringCellValue())
 								&& work.assignmentName.equalsIgnoreCase(assignment.getStringCellValue())){
-								
+								System.out.println("Assignment found");
 								sheet.removeRow(row);
 								loop = false;
 						
