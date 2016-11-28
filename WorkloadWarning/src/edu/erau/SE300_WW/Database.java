@@ -648,70 +648,76 @@ public class Database {
 		//delete Assignment in both messageArray and excel database
 		int it;
 		it = messageAL.indexOf(message);
-		messageAL.remove(it);
 		
-		try{
-			FileInputStream file = new FileInputStream (theExcel);
-			XSSFWorkbook workbook = new XSSFWorkbook(file);
-			file.close();
-
-			//manipulation
-			Sheet sheet = workbook.getSheetAt(2);
-			CellReference ref = new CellReference ("A1");
-			Cell loc = sheet.getRow(ref.getRow()).getCell(ref.getCol());
-			Row row = sheet.getRow(ref.getRow());
-			CellReference b = new CellReference("B1");
-			CellReference c = new CellReference("C1");
-			CellReference d = new CellReference("D1");
-			CellReference e = new CellReference("E1");
-			CellReference f = new CellReference("F1");
-			CellReference g = new CellReference("G1");
-			Cell assignment, type, date, course, to, from, status;
-			boolean loop = true;
-			int i = 2;
-			while (loop == true){
-				row = sheet.getRow(i);
-				if (row == null){
-					//System.out.println("NULL found");
-					loop = false;
-				} else {
-					loc = sheet.getRow(i).getCell(0);
-					if (loc == null || loc.getStringCellValue().isEmpty()){
+		if (it == -1){
+			System.out.println("Message to delete not found");
+		} else {
+			messageAL.remove(it);
+			
+			try{
+				FileInputStream file = new FileInputStream (theExcel);
+				XSSFWorkbook workbook = new XSSFWorkbook(file);
+				file.close();
+	
+				//manipulation
+				Sheet sheet = workbook.getSheetAt(2);
+				CellReference ref = new CellReference ("A1");
+				Cell loc = sheet.getRow(ref.getRow()).getCell(ref.getCol());
+				Row row = sheet.getRow(ref.getRow());
+				CellReference b = new CellReference("B1");
+				CellReference c = new CellReference("C1");
+				CellReference d = new CellReference("D1");
+				CellReference e = new CellReference("E1");
+				CellReference f = new CellReference("F1");
+				CellReference g = new CellReference("G1");
+				Cell assignment, type, date, course, to, from, status;
+				boolean loop = true;
+				int i = 2;
+				while (loop == true){
+					row = sheet.getRow(i);
+					if (row == null){
+						//System.out.println("NULL found");
 						loop = false;
 					} else {
-						assignment = sheet.getRow(i).getCell(ref.getCol());
-						type = sheet.getRow(i).getCell(b.getCol());
-						date = sheet.getRow(i).getCell(c.getCol());
-						course = sheet.getRow(i).getCell(d.getCol());
-						to = sheet.getRow(i).getCell(e.getCol());
-						from = sheet.getRow(i).getCell(f.getCol());
-						status = sheet.getRow(i).getCell(g.getCol());
-						if (message.recipient.equals(to.getStringCellValue()) 
-							&& message.sender.equals(from.getStringCellValue())
-							&& message.status.equals(status.getStringCellValue())
-							&& message.course.equals(course.getStringCellValue())
-							&& message.date.equals(date.getDateCellValue())
-							&& message.type.equals(type.getStringCellValue())
-							&& message.assignment.equals(assignment.getStringCellValue())){
-							
-							sheet.removeRow(row);
+						loc = sheet.getRow(i).getCell(0);
+						if (loc == null || loc.getStringCellValue().isEmpty()){
 							loop = false;
-					
-						}else {
-							i++;
+						} else {
+							assignment = sheet.getRow(i).getCell(ref.getCol());
+							type = sheet.getRow(i).getCell(b.getCol());
+							date = sheet.getRow(i).getCell(c.getCol());
+							course = sheet.getRow(i).getCell(d.getCol());
+							to = sheet.getRow(i).getCell(e.getCol());
+							from = sheet.getRow(i).getCell(f.getCol());
+							status = sheet.getRow(i).getCell(g.getCol());
+							if (message.recipient.equals(to.getStringCellValue()) 
+								&& message.sender.equals(from.getStringCellValue())
+								&& message.status.equals(status.getStringCellValue())
+								&& message.course.equals(course.getStringCellValue())
+								&& message.date.equals(date.getDateCellValue())
+								&& message.type.equals(type.getStringCellValue())
+								&& message.assignment.equals(assignment.getStringCellValue())){
+								
+								sheet.removeRow(row);
+								loop = false;
+						
+							}else {
+								i++;
+							}
 						}
 					}
 				}
+				
+				FileOutputStream out = new FileOutputStream (theExcel);
+				workbook.write(out);
+				workbook.close();
+				out.close();
+			} catch (IOException exception){
+				System.out.println("Database deleteMessage Error");
+				
+				
 			}
-			
-			FileOutputStream out = new FileOutputStream (theExcel);
-			workbook.write(out);
-			workbook.close();
-			out.close();
-		} catch (IOException exception){
-			System.out.println("Database deleteMessage Error");
-			
-			
+		
 		}
 	}
 	

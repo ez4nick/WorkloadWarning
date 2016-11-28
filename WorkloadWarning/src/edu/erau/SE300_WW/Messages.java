@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JButton;
@@ -38,7 +39,7 @@ public class Messages {
 	 * Messages constructor populates the fields of a message from a given series of strings
 	 * @param assignmentName: string containing the name of the assignment
 	 * @param assignmentType: string containing the type of the assignment - Hw, Quiz, Exam
-	 * @param dueDate: string containing the date the assignment is due
+	 * @param dueDate: date containing the date the assignment is due
 	 * @param assignmentCourse: string containing the course the assingment is due in
 	 * @param to: string containing the name of the recipient of the message
 	 * @param from: string containing the sender of the message
@@ -49,7 +50,13 @@ public class Messages {
 			Date dueDate, String assignmentCourse, String to, String from, String messageStatus){
 		assignment = assignmentName;
 		type = assignmentType;
-		date = dueDate;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(dueDate);
+		cal.set(Calendar.HOUR, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		date = cal.getTime();
 		course = assignmentCourse;
 		recipient = to;
 		sender = from;
