@@ -112,22 +112,25 @@ public class DatabaseTester {
 		Date due = new Date();
 		Messages temp = new Messages("Assignment 5", "hw", due, "AS322", "Professor B", "Nick", "requested");
 		
-		/*
+		
 		data.addMessage(temp);
 		System.out.println("Message Added");
 		
 		mal = data.getAllMessages();
 		for (Messages m: mal){
-			System.out.println(m.assignment+"/"+m.course);
+			System.out.println(m.assignment+"/"+m.course+"/"+m.recipient+"/"+m.sender+"/"+m.status);
 		}
-		*/
 		
+		data.changeMessageStatus(temp, false);
+		
+		/*
 		data.deleteMessage(temp);
 		System.out.println("Message Deleted");
+		*/
 		
 		mal = data.getAllMessages();
 		for (Messages m: mal){
-			System.out.println(m.assignment+"/"+m.course);
+			System.out.println(m.assignment+"/"+m.course+"/"+m.recipient+"/"+m.sender+"/"+m.status);
 		}
 		
 	}

@@ -756,7 +756,17 @@ public class Database {
 	 * @author Elisa
 	 */
 	public void changeMessageStatus (Messages oldMessage, boolean status){
+		String newStat = "Denied";
+		if (status == true){
+			newStat = "Approved";
+		}
+		Messages newMessage = new Messages (oldMessage.assignment, oldMessage.type, 
+				oldMessage.date, oldMessage.course, 
+				oldMessage.sender, oldMessage.recipient, newStat);
 		//delete current message in both array and excel
-		//add new message with swapped recipient and sender, and new status in both array and excel
+		deleteMessage(oldMessage);
+		//add new message with swapped recipient and sender, and new status 
+		//in both array and excel
+		addMessage(newMessage);
 	}
 }
