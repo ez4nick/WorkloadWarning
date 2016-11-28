@@ -205,6 +205,15 @@ public class Database {
 		return assignmentAL;
 	}
 	
+	/**
+	 * getAllMessages() allows for reading the messages stored in the database
+	 * @return an {@link ArrayList} of {@link Messages} objects
+	 * @author Elisa
+	 */
+	public ArrayList<Messages> getAllMessages(){
+		return messageAL;
+	}
+	
 	/**getAllExamsForACourse({@link String} course) creates a list of all of the exams in the course specified by the user.
 	 * @param course {@link String} of the course you wish to get a list of all of the assignments for
 	 * @return An {@link ArrayList} of {@link Assignment} objects containing all of the exams for the course you entered
