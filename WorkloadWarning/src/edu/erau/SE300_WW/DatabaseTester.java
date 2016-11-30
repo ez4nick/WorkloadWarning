@@ -135,6 +135,7 @@ public class DatabaseTester {
 		}*/
 		
 		ArrayList<Assignment> aal = data.getAllAssignments();
+		System.out.println("Previous Database");
 		for (Assignment a: aal){
 			System.out.println(a.assignmentName+"/"+a.courseName);
 		}
@@ -146,6 +147,7 @@ public class DatabaseTester {
 		//data.addAssignment(na);
 		
 		aal = data.getAllAssignments();
+		System.out.println("After Add, if added");
 		for (Assignment a: aal){
 			System.out.println(a.assignmentName+"/"+a.courseName);
 		}
@@ -154,6 +156,7 @@ public class DatabaseTester {
 		data.deleteAssignment(na);
 		
 		aal = data.getAllAssignments();
+		System.out.println("After Delete, if deleted");
 		for (Assignment a: aal){
 			System.out.println(a.assignmentName+"/"+a.courseName);
 		}

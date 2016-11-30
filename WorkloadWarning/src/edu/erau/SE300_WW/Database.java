@@ -571,6 +571,7 @@ public class Database {
 				Cell assignment, type, date, course;
 				boolean loop = true;
 				i = 2;
+				Date due = work.assignmentDate.getTime();
 				while (loop == true){
 					row = sheet.getRow(i);
 					if (row == null){
@@ -587,7 +588,7 @@ public class Database {
 							course = sheet.getRow(i).getCell(d.getCol());
 			
 							if (work.courseName.equalsIgnoreCase(course.getStringCellValue())
-								&& work.assignmentDate.equals(date.getDateCellValue())
+								&& due.equals(date.getDateCellValue())
 								&& work.assignmentType.equalsIgnoreCase(type.getStringCellValue())
 								&& work.assignmentName.equalsIgnoreCase(assignment.getStringCellValue())){
 								System.out.println("Assignment found");
