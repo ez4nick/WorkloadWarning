@@ -171,13 +171,30 @@ public class Messages {
 								JOptionPane.showMessageDialog(null, "That assignment already exists in the database. Please try again.");
 							}
 							else{
-								//Add the assignment to the databsae!!!
+								//Add the assignment to the database!!!
 								LoginGUI.databaseShared.addAssignment(new Assignment(m[list.getSelectedIndex()].assignment, m[list.getSelectedIndex()].type, m[list.getSelectedIndex()].date, m[list.getSelectedIndex()].course));
+								
+								data[list.getSelectedIndex()]="";
+								if(data[0].equals("")){
+									data[0]="No messages to display.";
+								}
+								
+								SwingUtilities.updateComponentTreeUI(f);
 							}
 						}
 						
 						else if(result==1){
 							//Deny the assignment, delete the message as well
+							LoginGUI.databaseShared.deleteAssignment(new Assignment(m[list.getSelectedIndex()].assignment, m[list.getSelectedIndex()].type, m[list.getSelectedIndex()].date, m[list.getSelectedIndex()].course));
+							LoginGUI.databaseShared.deleteMessage(m[list.getSelectedIndex()]);
+							
+							data[list.getSelectedIndex()]="";
+							if(data[0].equals("")){
+								data[0]="No messages to display.";
+							}
+							
+							SwingUtilities.updateComponentTreeUI(f);
+
 						}
 						
 						else if(result ==2){
