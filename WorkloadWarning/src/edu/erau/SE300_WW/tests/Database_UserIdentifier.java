@@ -1,4 +1,4 @@
-package test;
+package edu.erau.SE300_WW.tests;
 
 import static org.junit.Assert.*;
 
@@ -13,16 +13,19 @@ import org.junit.Test;
 import edu.erau.SE300_WW.Database;
 
 public class Database_UserIdentifier {
+	
+	private static Database data;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		System.out.println("Begining");
 		File file = new File ("C:/Users/Elisa/Documents/CanvasDatabase.xlsx");
-		Database data = new Database(file);
+		data = new Database(file);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		System.out.println("Finished");
 	}
 
 	@Before
@@ -35,18 +38,23 @@ public class Database_UserIdentifier {
 
 	@Test
 	public final void testNotUser() {
-		assert.assertEquals(0, data.isUser("Patrick"));
-		//TODO: find junit notes example
+		//testing name not registered, in format used.
+		assertEquals(0, data.isUser("Patrick"));
+		System.out.println("Not Student");
 	}
 	
 	@Test
 	public final void testStudent(){
-		
+		//testing student name, all capital
+		assertEquals(1, data.isUser("NICk"));
+		System.out.println("Student");
 	}
 	
 	@Test
 	public final void testTeacher(){
-		
+		//testing teacher name, all lowercase
+		assertEquals(2, data.isUser("professor c"));
+		System.out.println("Teacher");
 	}
 
 }
