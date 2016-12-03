@@ -566,13 +566,15 @@ public class Database {
 	
 				//manipulation
 				Sheet sheet = workbook.getSheetAt(1);
-				CellReference ref = new CellReference ("A1");
-				Cell loc = sheet.getRow(ref.getRow()).getCell(ref.getCol());
-				Row row = sheet.getRow(ref.getRow());
-				CellReference b = new CellReference("B1");
-				CellReference c = new CellReference("C1");
-				CellReference d = new CellReference("D1");
-				Cell assignment, type, date, course;
+
+				Cell loc = sheet.getRow(0).getCell(0);
+				Row row = sheet.getRow(0);
+
+				Cell assignment = sheet.getRow(0).getCell(0);
+				Cell type = sheet.getRow(0).getCell(0);
+				Cell date = sheet.getRow(0).getCell(0);
+				Cell course = sheet.getRow(0).getCell(0);
+				
 				boolean loop = true;
 				i = 2;
 				Date due = work.assignmentDate.getTime();
@@ -586,21 +588,71 @@ public class Database {
 						if (loc == null || loc.getStringCellValue().isEmpty()){
 							loop = false;
 						} else {
-							assignment = sheet.getRow(i).getCell(ref.getCol());
-							type = sheet.getRow(i).getCell(b.getCol());
-							date = sheet.getRow(i).getCell(c.getCol());
-							course = sheet.getRow(i).getCell(d.getCol());
+							assignment = sheet.getRow(i).getCell(0);
+							type = sheet.getRow(i).getCell(1);
+							date = sheet.getRow(i).getCell(2);
+							course = sheet.getRow(i).getCell(3);
 			
 							if (work.courseName.equalsIgnoreCase(course.getStringCellValue())
 								&& due.equals(date.getDateCellValue())
 								&& work.assignmentType.equalsIgnoreCase(type.getStringCellValue())
 								&& work.assignmentName.equalsIgnoreCase(assignment.getStringCellValue())){
 								System.out.println("Assignment found");
-								sheet.removeRow(row);
+								
+								//i= assignment to overwrite
 								loop = false;
 						
 							}else {
 								i++;
+							}
+						}
+					}
+				}
+				
+				//overwrite
+				loop = true;
+				Cell assignment2, type2, date2, course2;
+				while (loop == true){
+					row = sheet.getRow(i);
+					if (row == null){ // row i is empty
+						//System.out.println("NULL found");
+						loop = false;
+					} else { // row i is empty
+						loc = sheet.getRow(i).getCell(0);
+						if (loc == null || loc.getStringCellValue().isEmpty()){
+							loop = false;
+							
+						} else { // row to move to i is empty
+							row = sheet.getRow(i+1);
+							if (row == null){
+								sheet.removeRow(sheet.getRow(i));
+								loop = false;
+							} else { //row to move to i is empty
+								loc = sheet.getRow(i+1).getCell(0);
+								if (loc == null || loc.getStringCellValue().isEmpty()){
+									sheet.removeRow(sheet.getRow(i));
+									loop = false;
+									
+								} else { //move i+1 to i
+														
+									assignment2 = sheet.getRow(i+1).getCell(0);
+									type2 = sheet.getRow(i+1).getCell(1);
+									date2 = sheet.getRow(i+1).getCell(2);
+									course2 = sheet.getRow(i+1).getCell(3);
+									 
+									assignment.setCellValue(assignment2.getStringCellValue());
+									type.setCellValue(type2.getStringCellValue());
+									date.setCellValue(date2.getDateCellValue());
+									course.setCellValue(course2.getStringCellValue());
+									
+									i++;
+									
+									assignment = assignment2;
+									type = type2;
+									date = date2;
+									course = course2;
+					
+								}
 							}
 						}
 					}
@@ -808,7 +860,7 @@ public class Database {
 								&& message.type.equals(type.getStringCellValue())
 								&& message.assignment.equals(assignment.getStringCellValue())){
 								
-								//i = assignment
+								//i = message row to overwrite
 								loop = false;
 						
 							}else {
@@ -817,7 +869,7 @@ public class Database {
 						}
 					}
 				}
-				
+				//overwriting
 				loop = true;
 				Cell assignment2, type2, date2, course2, to2, from2, status2;
 				while (loop == true){

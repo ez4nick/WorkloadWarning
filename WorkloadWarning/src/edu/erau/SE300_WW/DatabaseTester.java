@@ -103,7 +103,7 @@ public class DatabaseTester {
 		}
 		*/
 		
-		
+		/*
 		ArrayList <Messages> mal = data.getAllMessages();
 		for (Messages m: mal){
 			System.out.println(m.assignment+"/"+m.course);
@@ -133,9 +133,9 @@ public class DatabaseTester {
 		mal = data.getAllMessages();
 		for (Messages m: mal){
 			System.out.println(m.assignment+"/"+m.course+"/"+m.recipient+"/"+m.sender+"/"+m.status);
-		}
+		} */
 		
-		/*
+		
 		ArrayList<Assignment> aal = data.getAllAssignments();
 		System.out.println("Previous Database");
 		for (Assignment a: aal){
@@ -143,10 +143,12 @@ public class DatabaseTester {
 		}
 		
 		Date due = new Date();
-		Assignment na = new Assignment("Test 3", "Exam", due, "AS322");
+		Assignment a1 = new Assignment("Test 3", "Exam", due, "AS322");
+		Assignment a2 = new Assignment("hw 3", "hw", due, "CS225");
 		
-		//System.out.println("Adding Assignment");
-		//data.addAssignment(na);
+		System.out.println("Adding Assignment");
+		data.addAssignment(a1);
+		data.addAssignment(a2);
 		
 		aal = data.getAllAssignments();
 		System.out.println("After Add, if added");
@@ -155,13 +157,13 @@ public class DatabaseTester {
 		}
 	
 		System.out.println("Deleting Assignment");
-		data.deleteAssignment(na);
+		data.deleteAssignment(a1);
 		
 		aal = data.getAllAssignments();
 		System.out.println("After Delete, if deleted");
 		for (Assignment a: aal){
 			System.out.println(a.assignmentName+"/"+a.courseName);
-		}*/
+		}
 	}
 	
 	
