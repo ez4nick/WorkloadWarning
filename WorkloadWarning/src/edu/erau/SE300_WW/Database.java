@@ -531,8 +531,12 @@ public class Database {
 		
 	}
 	
-	//TODO: deleteAssignment
-	//TODO: java doc
+	/**
+	 * deleteAssignment({@link Assignment} work) removes the given assignment
+	 * from the assignment array and from the excel file record
+	 * @param work: {@link Assignment} the assignment to be removed
+	 * @author Elisa
+	 */
 	public void deleteAssignment (Assignment work) {
 		//delete assignment from assignment array and excel database
 		int it = -1, i = 0;
@@ -765,16 +769,18 @@ public class Database {
 	
 				//manipulation
 				Sheet sheet = workbook.getSheetAt(2);
-				CellReference ref = new CellReference ("A1");
-				Cell loc = sheet.getRow(ref.getRow()).getCell(ref.getCol());
-				Row row = sheet.getRow(ref.getRow());
-				CellReference b = new CellReference("B1");
-				CellReference c = new CellReference("C1");
-				CellReference d = new CellReference("D1");
-				CellReference e = new CellReference("E1");
-				CellReference f = new CellReference("F1");
-				CellReference g = new CellReference("G1");
-				Cell assignment, type, date, course, to, from, status;
+
+				Cell loc = sheet.getRow(0).getCell(0);
+				Row row = sheet.getRow(0);
+
+				Cell assignment = sheet.getRow(0).getCell(0);
+				Cell type = sheet.getRow(0).getCell(0);
+				Cell date = sheet.getRow(0).getCell(0);
+				Cell course = sheet.getRow(0).getCell(0);
+				Cell to = sheet.getRow(0).getCell(0);
+				Cell from = sheet.getRow(0).getCell(0);
+				Cell status = sheet.getRow(0).getCell(0);
+				
 				boolean loop = true;
 				i = 2;
 				while (loop == true){
@@ -787,13 +793,13 @@ public class Database {
 						if (loc == null || loc.getStringCellValue().isEmpty()){
 							loop = false;
 						} else {
-							assignment = sheet.getRow(i).getCell(ref.getCol());
-							type = sheet.getRow(i).getCell(b.getCol());
-							date = sheet.getRow(i).getCell(c.getCol());
-							course = sheet.getRow(i).getCell(d.getCol());
-							to = sheet.getRow(i).getCell(e.getCol());
-							from = sheet.getRow(i).getCell(f.getCol());
-							status = sheet.getRow(i).getCell(g.getCol());
+							assignment = sheet.getRow(i).getCell(0);
+							type = sheet.getRow(i).getCell(1);
+							date = sheet.getRow(i).getCell(2);
+							course = sheet.getRow(i).getCell(3);
+							to = sheet.getRow(i).getCell(4);
+							from = sheet.getRow(i).getCell(5);
+							status = sheet.getRow(i).getCell(6);
 							if (message.recipient.equals(to.getStringCellValue()) 
 								&& message.sender.equals(from.getStringCellValue())
 								&& message.status.equals(status.getStringCellValue())
@@ -802,7 +808,7 @@ public class Database {
 								&& message.type.equals(type.getStringCellValue())
 								&& message.assignment.equals(assignment.getStringCellValue())){
 								
-								sheet.removeRow(row);
+								//i = assignment
 								loop = false;
 						
 							}else {
@@ -811,6 +817,64 @@ public class Database {
 						}
 					}
 				}
+				
+				loop = true;
+				Cell assignment2, type2, date2, course2, to2, from2, status2;
+				while (loop == true){
+					row = sheet.getRow(i);
+					if (row == null){ // row i is empty
+						//System.out.println("NULL found");
+						loop = false;
+					} else { // row i is empty
+						loc = sheet.getRow(i).getCell(0);
+						if (loc == null || loc.getStringCellValue().isEmpty()){
+							loop = false;
+							
+						} else { // row to move to i is empty
+							row = sheet.getRow(i+1);
+							if (row == null){
+								sheet.removeRow(sheet.getRow(i));
+								loop = false;
+							} else { //row to move to i is empty
+								loc = sheet.getRow(i+1).getCell(0);
+								if (loc == null || loc.getStringCellValue().isEmpty()){
+									sheet.removeRow(sheet.getRow(i));
+									loop = false;
+									
+								} else { //move i+1 to i
+														
+									assignment2 = sheet.getRow(i+1).getCell(0);
+									type2 = sheet.getRow(i+1).getCell(1);
+									date2 = sheet.getRow(i+1).getCell(2);
+									course2 = sheet.getRow(i+1).getCell(3);
+									to2 = sheet.getRow(i+1).getCell(4);
+									from2 = sheet.getRow(i+1).getCell(5);
+									status2 = sheet.getRow(i+1).getCell(6);
+									 
+									assignment.setCellValue(assignment2.getStringCellValue());
+									type.setCellValue(type2.getStringCellValue());
+									date.setCellValue(date2.getDateCellValue());
+									course.setCellValue(course2.getStringCellValue());
+									to.setCellValue(to2.getStringCellValue());
+									from.setCellValue(from2.getStringCellValue());
+									status.setCellValue(status2.getStringCellValue());
+								
+									
+									i++;
+									
+									assignment = assignment2;
+									type = type2;
+									date = date2;
+									course = course2;
+									to = to2;
+									from = from2;
+									status = status2;
+								}
+							}
+						}
+					}
+				}
+				
 				
 				FileOutputStream out = new FileOutputStream (theExcel);
 				workbook.write(out);
