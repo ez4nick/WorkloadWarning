@@ -231,6 +231,7 @@ public class Messages {
 						JOptionPane.INFORMATION_MESSAGE, 
 				        null, new String[]{"Delete", "Cancel"}, e);
 				if(box==JOptionPane.OK_OPTION){
+					LoginGUI.databaseShared.deleteMessage(m[list.getSelectedIndex()]);
 					data[positionToDelete]="";
 					if(data[0].equals("")){
 						data[0]="No messages to display.";

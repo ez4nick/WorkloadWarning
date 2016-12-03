@@ -48,7 +48,7 @@ public class InstructorCalendar extends JFrame{
     JMenuBar menuBar = new JMenuBar();
     JMenu item1 = new JMenu("File");
     JMenuItem fileItem1 = new JMenuItem("Create New Assignment");
-    JMenuItem fileItem2 = new JMenuItem("View Messages "+"("+howManyMessages+")");
+    JMenuItem fileItem2 = new JMenuItem("View Messages "+" ("+howManyMessages+")");
     JMenuItem fileItem3 = new JMenuItem("Quit");
     item1.add(fileItem1);
     item1.add(fileItem2);

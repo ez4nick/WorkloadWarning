@@ -34,11 +34,15 @@ public class StudentCalendar extends JFrame{
     this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
     this.setSize(900, 250);
     this.setLocationRelativeTo(null);
+    
+  //Get the number of available messages
+    ArrayList<Messages> a=LoginGUI.databaseShared.getMessages(LoginGUI.currentUserName);
+    int howManyMessages=a.size();
    
     JMenuBar menuBar = new JMenuBar();
     JMenu item1 = new JMenu("File");
     JMenuItem fileItem1 = new JMenuItem("Create New Assignment");
-    JMenuItem fileItem2 = new JMenuItem("View Messages");
+    JMenuItem fileItem2 = new JMenuItem("View Messages"+" ("+howManyMessages+")");
     item1.add(fileItem1);
     item1.add(fileItem2);
     
