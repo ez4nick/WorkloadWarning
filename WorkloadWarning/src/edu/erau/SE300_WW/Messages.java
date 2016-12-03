@@ -34,6 +34,7 @@ public class Messages {
 	public String status;
 	int howManyMessages; //The number of available messages for the currently logged in user
 	InstructorCalendar insCal;
+	public static Messages CURRENT_MESSAGE;
 	
 	/**
 	 * Messages constructor populates the fields of a message from a given series of strings
@@ -174,6 +175,7 @@ public class Messages {
 								//Add the assignment to the database!!!
 								LoginGUI.databaseShared.addAssignment(new Assignment(m[list.getSelectedIndex()].assignment, m[list.getSelectedIndex()].type, m[list.getSelectedIndex()].date, m[list.getSelectedIndex()].course));
 								
+								LoginGUI.databaseShared.changeMessageStatus(m[list.getSelectedIndex()], true);
 								data[list.getSelectedIndex()]="";
 								if(data[0].equals("")){
 									data[0]="No messages to display.";
@@ -185,8 +187,7 @@ public class Messages {
 						
 						else if(result==1){
 							//Deny the assignment, delete the message as well
-							LoginGUI.databaseShared.deleteAssignment(new Assignment(m[list.getSelectedIndex()].assignment, m[list.getSelectedIndex()].type, m[list.getSelectedIndex()].date, m[list.getSelectedIndex()].course));
-							LoginGUI.databaseShared.deleteMessage(m[list.getSelectedIndex()]);
+							LoginGUI.databaseShared.changeMessageStatus(m[list.getSelectedIndex()], false);
 							
 							data[list.getSelectedIndex()]="";
 							if(data[0].equals("")){
@@ -199,6 +200,7 @@ public class Messages {
 						
 						else if(result ==2){
 							//Edit button was pressed, launch the modify assignment GUI so the teacher can modify it 
+							CURRENT_MESSAGE=m[list.getSelectedIndex()];
 							SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 							String formattedDate = sdf.format(m[list.getSelectedIndex()].date);
 							

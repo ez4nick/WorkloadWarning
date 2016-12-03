@@ -319,6 +319,7 @@ public class AssignmentGUI{
 				if(modifyingAnAssignment){
 					//If the user is modifying an assignment, close the window for them when they are finished and return to the messages view
 					frame.dispose();
+					LoginGUI.databaseShared.changeMessageStatus(Messages.CURRENT_MESSAGE, true);
 				}
 			}
 			else{
