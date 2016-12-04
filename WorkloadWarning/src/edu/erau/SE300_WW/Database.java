@@ -674,7 +674,7 @@ public class Database {
 	/**
 	 * studentExamList creates a sorted list of a students exams by date
 	 * 
-	 * @param student: {@link string} of student's first name
+	 * @param  the UserName of student's first name
 	 * @return an {@link ArrayList} of {@link Assignment} 
 	 * @author Thomas Ellis
 	 */

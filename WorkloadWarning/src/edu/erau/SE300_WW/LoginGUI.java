@@ -2,6 +2,7 @@ package edu.erau.SE300_WW;
 
 
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -31,6 +32,18 @@ public class LoginGUI extends Application {
 	
 	File selectedFile;
 	
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
 	@Override
 	public void start(Stage loginStage) throws Exception {
 		
@@ -193,6 +206,7 @@ public class LoginGUI extends Application {
 		
 		
 		//button actions
+		//logs in both a student and a teacher as well as testing if they are enrolled
 		loginBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
