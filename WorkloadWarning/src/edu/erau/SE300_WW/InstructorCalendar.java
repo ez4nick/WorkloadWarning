@@ -29,6 +29,12 @@ public class InstructorCalendar extends JFrame{
 	  
   }
   
+  /**
+   * The showInstructorCalendar method is used to set the overall look of 
+   * the Calendar GUI.
+   * @author Chianti Ghalson
+   */ 
+  
   public void showInstructorCalendar() {
  
 	  
@@ -175,7 +181,11 @@ public class InstructorCalendar extends JFrame{
   }
   
  
-  // 
+  /**
+   * The updateMonth method is responsible for populating the calendar 
+   * with content for a given month.
+   * @author Chianti Ghalson
+   */ 
   void updateMonth() {
 	 
 	 

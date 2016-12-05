@@ -13,7 +13,6 @@ import javax.swing.table.*;
  * StudentCalendar displays an individual student's calendar schedule
  * @author Chianti Ghalson
  * @date 10/20/2016
- * @version 0.1
  */
 @SuppressWarnings("serial")
 public class StudentCalendar extends JFrame{
@@ -23,10 +22,14 @@ public class StudentCalendar extends JFrame{
   JLabel label;
  
   
-  
+  /**
+   * The StudentCalendar method is used to set the overall look of 
+   * the Calendar GUI.
+   * @author Chianti Ghalson
+   */ 
   StudentCalendar() {
  
-	  
+	 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setTitle("(StudentView)WorkLoad Warning Calandar");
     this.setLayout(new BorderLayout());
@@ -150,7 +153,11 @@ public class StudentCalendar extends JFrame{
  
   }
  
-  // 
+  /**
+   * The update month method is responsible for populating the calendar 
+   * with content for a given month.
+   * @author Chianti Ghalson
+   */
   void updateMonth() {
 	 
 	 
