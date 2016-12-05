@@ -12,9 +12,9 @@ import java.util.Date;
  */
 public class Assignment {
 
-	public String courseName;
+	public static String courseName;
 	public String assignmentName;
-	public Calendar assignmentDate;
+	public static Calendar assignmentDate;
 	public String assignmentType;
 	
 	/**
