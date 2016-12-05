@@ -1,9 +1,12 @@
-package edu.erau.SE300_WW;
+package edu.erau.SE300_WW.tests;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import edu.erau.SE300_WW.Assignment;
+import edu.erau.SE300_WW.Database;
 
 public class DatabaseTester {
 	
