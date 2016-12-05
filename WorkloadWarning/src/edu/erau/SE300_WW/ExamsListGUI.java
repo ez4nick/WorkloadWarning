@@ -1,4 +1,4 @@
-package src.edu.erau.SE300_WW;
+package edu.erau.SE300_WW;
 
 /**
  * @author diprea
@@ -38,13 +38,6 @@ public class ExamsListGUI extends JFrame {
         this.setVisible(true);
     }
      
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new ExamsListGUI();
-            }
-        });
-    }       
+          
 }
 

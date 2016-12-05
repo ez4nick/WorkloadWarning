@@ -66,7 +66,7 @@ public class WarningTrigger {
 
 					for(int i1 = 0; i1 < courseCode.length; i1++){
 						while (lastItem != courseName) {	//ignore course count for selected course
-							exams = Database.getAllExamsForACourse(courseCode[i1]);
+							exams = LoginGUI.databaseShared.getAllExamsForACourse(courseCode[i1]);
 							if(courseCode[i1].equals(lastItem)){
 								counter++;
 							}
