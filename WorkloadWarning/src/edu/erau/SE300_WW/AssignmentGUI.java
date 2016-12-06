@@ -277,7 +277,10 @@ public class AssignmentGUI{
 							ProfessorWarning p = new ProfessorWarning(AssignmentGUI.this);
 						}
 						*/
+						NewWarningTrigger nwt = new NewWarningTrigger(courseSelection.getSelectedItem().toString(),selectedDate);
+						if(nwt.doWeShowTheWarning()){
 						ProfessorWarning p = new ProfessorWarning(AssignmentGUI.this);
+						}
 					}
 					
 					else{

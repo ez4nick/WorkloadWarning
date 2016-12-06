@@ -695,8 +695,8 @@ public class Database {
 			if(count+1>studentAssignList.size()){
 				break;
 			}
-			else if(studentAssignList.get(count).assignmentDate.after(studentAssignList.get(count+1).assignmentDate)){
-				Assignment temp = studentAssignList.get(count+1);
+			else if(studentAssignList.get(count).assignmentDate.after(studentAssignList.get(count).assignmentDate)){
+				Assignment temp = studentAssignList.get(count);
 				studentAssignList.remove(count+1);
 				studentAssignList.add(count, temp);
 				
