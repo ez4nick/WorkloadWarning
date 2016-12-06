@@ -37,18 +37,7 @@ public class LoginGUI extends Application {
 	
 	File selectedFile;
 	
-	/* (non-Javadoc)
-	 * @see javafx.application.Application#start(javafx.stage.Stage)
-	 */
-	/* (non-Javadoc)
-	 * @see javafx.application.Application#start(javafx.stage.Stage)
-	 */
-	/* (non-Javadoc)
-	 * @see javafx.application.Application#start(javafx.stage.Stage)
-	 */
-	/* (non-Javadoc)
-	 * @see javafx.application.Application#start(javafx.stage.Stage)
-	 */
+	
 	@Override
 	public void start(Stage loginStage) throws Exception {
 		
