@@ -61,7 +61,7 @@ public class AssignmentGUITests {
 			e.printStackTrace();
 		}
 		
-		assertFalse(d.isAssignmentAlreadyInDatabase(new Assignment("Test 2", "Exam", da, "SE300")));
+		assertFalse(d.isAssignmentAlreadyInDatabase(new Assignment("Test 2", "Exam", da, "SE320"))==false);
 	}
 
 }

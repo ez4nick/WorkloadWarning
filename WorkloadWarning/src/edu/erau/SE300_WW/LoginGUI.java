@@ -24,6 +24,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * The login gui is the basis for launching the Workload Warning application
+ * and contains all applicable components for logging into the application.
+ *
+ */
 public class LoginGUI extends Application {
 	public static String userType;         //Currently logged in type of user ('Teacher' or 'Student')
 	public static String currentUserName;  //User name of the currently logged in user

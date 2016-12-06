@@ -76,6 +76,8 @@ public class ProfessorWarning extends JFrame {
 		btnReschedule.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ExamsListGUI elg = new ExamsListGUI();
+				elg.show();
 				setVisible(false);
 			}
 			

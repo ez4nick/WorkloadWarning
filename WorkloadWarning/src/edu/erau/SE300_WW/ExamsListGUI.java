@@ -12,6 +12,11 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.SwingUtilities;
  
+/**
+ * The exams list gui shows a list of dates when there are other assignments when 
+ * a teacher decides to reschedule an exam from when a warning was received. 
+ *
+ */
 @SuppressWarnings("serial")
 public class ExamsListGUI extends JFrame {
     private JList<String> dateList;
@@ -31,7 +36,6 @@ public class ExamsListGUI extends JFrame {
         dateList = new JList<>(listModel);
         add(dateList);
          
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Exams List");       
         this.setSize(250,200);
         this.setLocationRelativeTo(null);

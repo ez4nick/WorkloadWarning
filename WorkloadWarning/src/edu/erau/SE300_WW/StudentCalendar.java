@@ -12,7 +12,6 @@ import javax.swing.table.*;
 /**
  * StudentCalendar displays an individual student's calendar schedule
  * @author Chianti Ghalson
- * @date 10/20/2016
  */
 @SuppressWarnings("serial")
 public class StudentCalendar extends JFrame{

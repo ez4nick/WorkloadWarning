@@ -271,6 +271,12 @@ public class AssignmentGUI{
 					//All values are OK! Proceed to based on if the user is a teacher or a student
 					if(LoginGUI.userType.equals("Teacher")){
 						//If the user is a teacher, determine whether or not to send them the workload warning
+						/*
+						WarningTrigger wt = new WarningTrigger();
+						if(wt.doWeShowTheWarning()){
+							ProfessorWarning p = new ProfessorWarning(AssignmentGUI.this);
+						}
+						*/
 						ProfessorWarning p = new ProfessorWarning(AssignmentGUI.this);
 					}
 					

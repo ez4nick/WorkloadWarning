@@ -282,7 +282,7 @@ public class Database {
 	
 	/**
 	 * getAllStudents() allows for reading the enrollment of all courses stored in the database
-	 * @return 2D array of {@link String} formatted [i][0] is the Teacher, [i][1] is the course, and [i][n>1] is a student enrolled in that course
+	 * @return 2D array of {@link String} formatted [i][0] is the Teacher, [i][1] is the course, and [i][n greater than 1] is a student enrolled in that course
 	 * @author Elisa 
 	 */
 	public String [][] getAllStudents () {
@@ -308,7 +308,7 @@ public class Database {
 	}
 
 	/**
-	 * courseStudents({@link String} course) generates an {@link Arraylist} of {@link String} containing the Students of a Course
+	 * courseStudents({@link String} course) generates an {@link ArrayList} of {@link String} containing the Students of a Course
 	 * ignores letter case
 	 * @param course: {@link String} containing the course name
 	 * @return {@link ArrayList} of {@link String} containing the names of the Students in the course
@@ -336,7 +336,7 @@ public class Database {
 	/**
 	 * searchTCourses ({@link String} teacher) allows for a course list to be generated for a given teacher
 	 * ignores letter case
-	 * @param teacher: {@link string} of teacher's name
+	 * @param teacher: {@link String} of teacher's name
 	 * @return an {@link ArrayList} of {@link String} containing the courses the teacher teaches 
 	 * @author Elisa
 	 */
@@ -358,7 +358,7 @@ public class Database {
 	/**
 	 * searchSCourses({@link String} student) allows for a course list to be generated for a given student
 	 * ignores letter case
-	 * @param student: {@link string} of student's first name
+	 * @param student: {@link String} of student's first name
 	 * @return an {@link ArrayList} of {@link String} containing the courses the student is enrolled in
 	 * @author Elisa
 	 */
@@ -382,7 +382,7 @@ public class Database {
 	
 	/**
 	 * isUser ({@link String} name) tests to see if the user name provided is a user, and returns no, student, or teacher in int value
-	 * @param user: {@link string} containing user name
+	 * @param name: {@link String} containing user name
 	 * @return {@link int} value: 0 if not a user, 1 if student, 2 if teacher
 	 * @author Elisa
 	 */
@@ -405,7 +405,7 @@ public class Database {
 	/**
 	 * searchSAssignment({@link String} student) allows for an assignments list to be generated for a given student
 	 * ignores letter case
-	 * @param student: {@link string} of student's first name
+	 * @param student: {@link String} of student's first name
 	 * @return an {@link ArrayList} of {@link Assignment} containing the assignments for the courses the student is enrolled in
 	 * @author Elisa
 	 */
@@ -425,7 +425,7 @@ public class Database {
 	/**
 	 * searchTAssignment({@link String} teacher) allows for an assignments list to be generated for a given Teacher
 	 * ignores letter case
-	 * @param Teacher: {@link string} of Teacher's name
+	 * @param teacher: {@link String} of Teacher's name
 	 * @return an {@link ArrayList} of {@link Assignment} containing the assignments for the courses the Teacher teaches
 	 * @author Elisa
 	 */
@@ -674,7 +674,7 @@ public class Database {
 	/**
 	 * studentExamList creates a sorted list of a students exams by date
 	 * 
-	 * @param  the UserName of student's first name
+	 * @param  userName the UserName of student's first name
 	 * @return an {@link ArrayList} of {@link Assignment} 
 	 * @author Thomas Ellis
 	 */
@@ -944,7 +944,7 @@ public class Database {
 	/**
 	 * changeMessageStatus({@link Messages} oldMessage, {@link boolean} status) updates the Messages records to reflect
 	 * a Teacher's decision on Student submitted assignments
-	 * @param oldMessage: {@link Message} that is being updated
+	 * @param oldMessage: {@link Messages} that is being updated
 	 * @param status: {@link boolean} of true for approved, false for denied
 	 * @author Elisa
 	 */
