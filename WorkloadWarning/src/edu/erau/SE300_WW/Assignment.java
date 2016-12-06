@@ -16,7 +16,7 @@ public class Assignment {
 	public String assignmentName;
 	public static Calendar assignmentDate;
 	public String assignmentType;
-	
+	public Date dateObjectOfAssignment;
 	/**
 	 * the constructor will save all data of the assignment
 	 * @param data: String formatted as name.type.date(mm/dd/yy).course
@@ -32,5 +32,14 @@ public class Assignment {
 		assignmentDate.set(Calendar.SECOND, 0);
 		assignmentDate.set(Calendar.MILLISECOND, 0);
 		courseName = course;
+		dateObjectOfAssignment=date;
+		dateObjectOfAssignment.setHours(0);
+		dateObjectOfAssignment.setMinutes(0);
+		dateObjectOfAssignment.setSeconds(0);
+		
+	}
+	
+	public Date getTheAssignmentDateObject(){
+		return dateObjectOfAssignment;
 	}
 }

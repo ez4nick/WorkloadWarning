@@ -23,14 +23,11 @@ public class ExamsListGUI extends JFrame {
     public ExamsListGUI() {
         //create the model and add elements
         DefaultListModel<String> listModel = new DefaultListModel<>();
-        listModel.addElement("Dates of already scheduled exams:");
-        listModel.addElement("10/16/2016");
-        listModel.addElement("10/17/2016");
-        listModel.addElement("10/19/2016");
-        listModel.addElement("10/20/2016");
-        listModel.addElement("10/26/2016");
-        listModel.addElement("11/24/2016");
-        listModel.addElement("11/30/2016");
+        listModel.addElement("Dates Students have other Exams:");
+        
+        for(int x=0;x< NewWarningTrigger.datesOfTheConflicts.size();x++){
+        	listModel.addElement(NewWarningTrigger.datesOfTheConflicts.get(x));
+        }
  
         //create the list
         dateList = new JList<>(listModel);
